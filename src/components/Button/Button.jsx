@@ -2,7 +2,7 @@ import React from 'react';
 import './Button.scss';
 
 const Button = () => {
-  return <div></div>;
+  return <div>button</div>;
 };
 
 export default Button;

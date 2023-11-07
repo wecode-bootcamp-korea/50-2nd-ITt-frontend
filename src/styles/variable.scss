@@ -7,10 +7,6 @@
   overflow: hidden;
 }
 
-.blind {
-  @include blind();
-}
-
 // color
 $black: #000;
 $grey60: #999;
