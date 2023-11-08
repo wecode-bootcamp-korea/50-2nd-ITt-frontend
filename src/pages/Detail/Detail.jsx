@@ -16,7 +16,7 @@ const Detail = () => {
         </div>
         <div className="infoArea">
           <div className="infoImg">
-            <img src="/images/visual_01.jpeg" alt="삼총사" />
+            <img src="/images/visual_01.png" alt="삼총사" />
           </div>
           <div className="infoGroup">
             <dl className="infoList">
