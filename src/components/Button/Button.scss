@@ -1,0 +1,28 @@
+@import '../../styles/variable.scss';
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  color: $white;
+  border-radius: 8px;
+  background-color: $purple;
+
+  &:disabled {
+    background-color: $gray-normal;
+    cursor: none;
+  }
+
+  &.btnLine {
+    color: $navy;
+    border: 1px solid $purple;
+    background-color: $white;
+
+    &:disabled {
+      color: $gray-normal;
+      border: 1px solid $gray-normal;
+    }
+  }
+}
