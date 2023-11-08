@@ -1,6 +1,6 @@
 /* http://meyerweb.com/eric/tools/css/reset/ 
-    v2.0 | 20110126
-    License: none (public domain)
+  v2.0 | 20110126
+  License: none (public domain)
 */
 
 html,
@@ -90,7 +90,6 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -103,8 +102,7 @@ header,
 hgroup,
 menu,
 nav,
-section,
-main {
+section {
   display: block;
 }
 body {
@@ -128,23 +126,4 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-a,
-a:active,
-a:focus,
-button {
-  all: unset;
-  text-decoration: none;
-  cursor: pointer;
-}
-button {
-  all: unset;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-textarea {
-  display: block;
-  font-family: inherit;
 }
