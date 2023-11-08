@@ -1,0 +1,36 @@
+@import '../../styles/variable.scss';
+
+.payment {
+  max-width:1440px;
+  
+  .paymentArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 50px;
+
+    .paymentTitle {
+      display: block;
+      width: 100%;
+      margin: 20px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .tossArea {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 500px;
+      margin: 40px 0;
+      border: 1px solid $gray-normal;
+      border-radius: 8px;
+    }
+
+    .btn {
+      width: 200px;
+    }
+  }
+}
