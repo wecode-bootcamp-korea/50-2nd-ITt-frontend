@@ -2,12 +2,13 @@ import React from 'react';
 import './Button.scss';
 
 const Button = props => {
-  const { btnLine, btnText, disabled, onClick } = props;
-  const _btnLine = btnLine ? 'btnLine' : '';
+  const { outline, btnText, disabled, onClick } = props;
+  const _outline = outline ? 'btnLine' : '';
+
   return (
     <button
       type="button"
-      className={`btn ${_btnLine}`}
+      className={`btn ${_outline}`}
       disabled={disabled}
       onClick={onClick}
     >

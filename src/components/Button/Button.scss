@@ -22,7 +22,7 @@
 
     &:disabled {
       color: $gray-normal;
-      border: 1px solid $gray-normal;
+      border-color: $gray-normal;
     }
   }
 }
