@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header/Header';
 import Layout from './components/Layout/Layout';
 import Admin from './pages/Admin/Admin';
 import Category from './pages/Category/Category';
@@ -15,7 +14,6 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Layout>
-        <Header />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/admin" element={<Admin />} />
