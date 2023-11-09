@@ -1,4 +1,5 @@
 import React from 'react';
+import Datepicker from './components/Datepicker/Datepicker';
 import './Detail.scss';
 
 const Detail = () => {
@@ -71,6 +72,9 @@ const Detail = () => {
             </dl>
           </div>
         </div>
+      </div>
+      <div className="reserveArea">
+        <Datepicker />
       </div>
     </div>
   );
