@@ -34,7 +34,7 @@ const OrdersInfo = ({
               ))}
             </ul>
             <div className="totalPriceArea">
-              <p className="priceTitle">총 결제금액</p>
+              <p className="priceContent">총 결제금액</p>
               <span className="priceContent">
                 <span className="totalPrice">{totalPrice}</span>원
               </span>

@@ -1,0 +1,40 @@
+@import '../../../styles/variable.scss';
+
+.profileEdit {
+  width: 100%;
+  
+  .profileEditTitle {
+    margin-bottom: 30px;
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  .profileEditArea {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 30px;
+    border: 1px solid $gray-normal;
+    border-radius: 8px;
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .nameArea {
+      margin-bottom: 20px;
+
+      .nameInput {
+        width: 200px;
+      }
+    }
+  }
+
+  .editBtn {
+    display: flex;
+    justify-content: right;
+    margin-top: 30px;
+  }
+}
