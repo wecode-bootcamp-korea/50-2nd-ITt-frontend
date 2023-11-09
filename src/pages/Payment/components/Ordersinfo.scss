@@ -42,24 +42,25 @@
           font-weight: bold;
         }
 
-        .label {
-          display: inline-block;
-          width: 100px;
-          font-weight: bold;
-          color: $gray-strong;
-        }
-
         li {
           margin: 10px 0;
+
+          .label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+            color: $gray-strong;
+          }
 
           &.ticketInfo {
             display: flex;
 
-            &.conetent {
+            &.content {
               color: $gray-strong;
             }
           }
         }
+        
         .totalPriceArea {
           position: absolute;
           right: 40px;
@@ -69,8 +70,8 @@
           border-radius: 8px;
           background-color: $purple;
 
-          .label,
-          .content {
+          .priceTitle,
+          .priceContent {
             font-weight: normal;
             color: $white;
           }
