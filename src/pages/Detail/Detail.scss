@@ -130,4 +130,19 @@
       }
     }
   }
+
+  .reserveArea {
+    margin-top: 40px;
+    padding: 20px;
+
+    .dateArea {
+      .dateTitle {
+        font-weight: 700;
+      }
+    }
+
+    .btnArea {
+      padding-top: 20px;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Datepicker from './components/Datepicker/Datepicker';
+import Button from '../../components/Button/Button';
 import './Detail.scss';
 
 const Detail = () => {
@@ -74,7 +75,13 @@ const Detail = () => {
         </div>
       </div>
       <div className="reserveArea">
-        <Datepicker />
+        <div className="dateArea">
+          <h3 className="dateTitle">날짜/시간 선택</h3>
+          <Datepicker />
+        </div>
+        <div className="btnArea">
+          <Button width="230px">예매하기</Button>
+        </div>
       </div>
     </div>
   );

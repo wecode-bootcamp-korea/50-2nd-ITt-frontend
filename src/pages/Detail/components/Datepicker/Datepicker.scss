@@ -1,0 +1,46 @@
+@import '../../../../styles/variable.scss';
+
+.datePicker {
+  margin-top: 10px;
+
+  .react-datepicker {
+    display: flex;
+    width: 100%;
+
+    .react-datepicker__navigation--next--with-time:not(
+        .react-datepicker__navigation--next--with-today-button
+      ) {
+      right: 50%;
+    }
+
+    .react-datepicker__month-container {
+      flex: 1;
+      .react-datepicker__header {
+        background-color: $white;
+      }
+
+      .react-datepicker__day--selected {
+        background-color: $purple;
+      }
+    }
+
+    .react-datepicker__time-container {
+      flex: 1;
+
+      .react-datepicker__header {
+        height: 57px;
+        background-color: $white;
+      }
+
+      .react-datepicker__time {
+        .react-datepicker__time-box {
+          .react-datepicker__time-list {
+            .react-datepicker__time-list-item--selected {
+              background-color: $purple;
+            }
+          }
+        }
+      }
+    }
+  }
+}
