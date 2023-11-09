@@ -3,30 +3,29 @@
 .login {
   .top {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 
     .topback {
       color: black;
       font-size: 20px;
-      background-color: yellow;
+
+      width: 10%;
     }
 
     .backimg {
-      width: 4%;
+      width: 14%;
       margin-right: 5px;
     }
 
     .toptext {
       font-size: 30px;
       font-weight: bold;
-      background-color: yellow;
     }
 
     .topadmin {
       border: none;
       color: $purple;
       font-size: 20px;
-      background-color: yellow;
 
       &:hover {
         cursor: pointer;
@@ -46,11 +45,11 @@
     }
 
     img {
-      width: 26.4%;
+      width: 45%;
     }
 
     .logo {
-      width: 10%;
+      width: 20%;
     }
   }
 
@@ -62,10 +61,6 @@
 
     opacity: 0;
     visibility: hidden;
-
-    input {
-      background-color: yellow;
-    }
 
     .inputWrap {
       width: 500px;

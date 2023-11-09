@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Login.scss';
+import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
+import './Login.scss';
 
 const Login = () => {
   const [userID, setUserID] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
-
-  const goToMain = () => {
-    navigate('/main');
-  };
 
   return (
     <div className="login">
       <div className="top">
         <div className="topback">
-          <img alt="backimg" className="backimg" src="/images/backimg.png" />
-          뒤로가기
+          <Link to="/main">
+            <img alt="backimg" className="backimg" src="/images/backimg.png" />
+            뒤로가기
+          </Link>
         </div>
 
         <span className="toptext"> 로그인 </span>
