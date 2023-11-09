@@ -6,6 +6,7 @@ import './Datepicker.scss';
 
 const Datepicker = () => {
   const [startDate, setStartDate] = useState(new Date());
+
   return (
     <div className="datePicker">
       <DatePicker
