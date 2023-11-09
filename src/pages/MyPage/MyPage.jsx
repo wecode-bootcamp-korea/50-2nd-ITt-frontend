@@ -1,10 +1,10 @@
 import React from 'react';
-import './MyPage.scss';
-import ProfileEdit from './components/ProfileEdit';
 import ProfileImage from './components/ProfileImage';
+import ProfileEdit from './components/ProfileEdit';
 import OrdersInfo from '../Payment/components/OrdersInfo';
 import UserQr from './components/UserQr';
 import Button from '../../components/Button/Button';
+import './MyPage.scss';
 
 const MyPage = () => {
   const userInfo = {
@@ -34,9 +34,11 @@ const MyPage = () => {
         </div>
       </div>
       <div className="userPage">
+        <h2 className="title">프로필변경</h2>
         <div className="myPageArea">
           <ProfileEdit {...userInfo} />
         </div>
+        <h2 className="title">결제내역</h2>
         <div className="userOrders">
           <OrdersInfo {...orderInfo} />
           <div className="qrArea">
@@ -44,7 +46,7 @@ const MyPage = () => {
             <UserQr />
           </div>
           <div className="cancelBtn">
-            <Button>결제취소</Button>
+            <Button width="200px">결제취소</Button>
           </div>
         </div>
       </div>

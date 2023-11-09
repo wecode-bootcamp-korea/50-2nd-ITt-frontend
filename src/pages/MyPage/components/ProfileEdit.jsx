@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import './ProfileEdit.scss';
-import Button from '../../../components/Button/Button';
 import ProfileImage from './ProfileImage';
+import Button from '../../../components/Button/Button';
+import './ProfileEdit.scss';
 
 const ProfileEdit = ({ name, src, alt }) => {
   const [userName, setUserName] = useState(name);
 
   return (
     <div className="profileEdit">
-      <h2 className="profileEditTitle">프로필변경</h2>
       <div className="profileEditArea">
         <div className="nameArea">
           <label htmlFor="nameInput">이름</label>
@@ -27,7 +26,7 @@ const ProfileEdit = ({ name, src, alt }) => {
         </div>
       </div>
       <div className="editBtn">
-        <Button>변경하기</Button>
+        <Button width="200px">변경하기</Button>
       </div>
     </div>
   );
