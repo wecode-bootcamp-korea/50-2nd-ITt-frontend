@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Datepicker from './components/Datepicker/Datepicker';
+import Button from '../../components/Button/Button';
 import './Detail.scss';
 
 const Detail = () => {
+  const [startDate, setStartDate] = useState(new Date());
+
   return (
     <div className="detail">
       <div className="detailArea">
@@ -70,6 +74,15 @@ const Detail = () => {
               </dd>
             </dl>
           </div>
+        </div>
+      </div>
+      <div className="reserveArea">
+        <div className="dateArea">
+          <h3 className="dateTitle">날짜/시간 선택</h3>
+          <Datepicker startDate={startDate} setStartDate={setStartDate} />
+        </div>
+        <div className="btnArea">
+          <Button width="230px">예매하기</Button>
         </div>
       </div>
     </div>
