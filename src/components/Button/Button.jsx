@@ -2,11 +2,7 @@ import React from 'react';
 import './Button.scss';
 
 const Button = props => {
-<<<<<<< HEAD
-  const { width, height, outline, btnText, disabled, onClick } = props;
-=======
-  const { width, height, outline, btnText, disabled, onClick } = props;
->>>>>>> main
+  const { width, height, outline, disabled, onClick, children } = props;
   const _outline = outline ? 'btnLine' : '';
 
   return (
