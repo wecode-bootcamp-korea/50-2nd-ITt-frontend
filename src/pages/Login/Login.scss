@@ -1,8 +1,9 @@
+@import '../../styles/variable.scss';
+
 .top {
   display: flex;
   justify-content: space-between;
-  margin-left: 300px;
-  margin-right: 300px;
+
   .topback {
     border: none;
     color: black;
@@ -16,7 +17,7 @@
 
   .topadmin {
     border: none;
-    color: blue;
+    color: $purple;
     font-size: 20px;
   }
 }
@@ -52,7 +53,7 @@
     padding: 20px 50px 20px 10px;
     margin-bottom: 10px;
     border-radius: 8px;
-    border: 1px solid #8282c8;
+    border: 1px solid $purple;
   }
   .btn {
     width: 500px;
