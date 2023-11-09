@@ -1,7 +1,7 @@
 import React from 'react';
-import './Ordersinfo.scss';
+import './OrdersInfo.scss';
 
-const Ordersinfo = ({
+const OrdersInfo = ({
   title,
   imgUrl,
   time,
@@ -47,4 +47,4 @@ const Ordersinfo = ({
   );
 };
 
-export default Ordersinfo;
+export default OrdersInfo;
