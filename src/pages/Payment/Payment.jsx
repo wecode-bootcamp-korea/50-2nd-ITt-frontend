@@ -1,6 +1,6 @@
 import React from 'react';
+import OrdersInfo from './components/OrdersInfo';
 import Button from '../../components/Button/Button';
-import Ordersinfo from './components/Ordersinfo';
 import './Payment.scss';
 
 const Payment = () => {
@@ -17,9 +17,9 @@ const Payment = () => {
     <div className="payment">
       <div className="paymentArea">
         <h2 className="paymentTitle">예매정보</h2>
-        <Ordersinfo {...orderInfo} />
+        <OrdersInfo {...orderInfo} />
         <div className="tossArea">toss API</div>
-        <Button>결제완료</Button>
+        <Button width="200px">결제완료</Button>
       </div>
     </div>
   );

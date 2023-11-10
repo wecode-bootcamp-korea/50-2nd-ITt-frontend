@@ -1,0 +1,15 @@
+@import '../../../styles/variable.scss';
+
+.profileImage {
+  width: 50px;
+  height: 50px;
+  margin: 10px 0;
+  border: 1px solid $gray-normal;
+  border-radius: 50%;
+  background-color: $white;
+  
+  .userImage {
+    width: 50px;
+    height: 50px;
+  }
+}

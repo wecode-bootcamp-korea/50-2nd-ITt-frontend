@@ -1,0 +1,60 @@
+@import '../../styles/variable.scss';
+
+.myPage {
+  display: flex;
+  border: 1px solid $gray-normal;
+  border-radius: 8px;
+
+  .title {
+    margin-bottom: 30px;
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  .menuArea {
+    width: 200px;
+    border-radius: 8px 0 0 8px;
+    background-color: $navy;
+
+    .userArea {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+
+      p {
+        color: $white;
+      }
+    }
+  }
+
+  .userPage {
+    width: 100%;
+    padding: 26px;
+
+    .myPageArea {
+      width: 100%;
+    }
+
+    .userOrders {
+      margin: 30px 0;
+      padding: 30px 10px;
+      border: 1px solid $gray-normal;
+      border-radius: 8px;
+
+      .qrArea {
+        display: flex;
+        margin: 16px 0;
+
+        * {
+          margin-right: 10px;
+        }
+      }
+      .cancelBtn {
+        display: flex;
+        justify-content: right;
+      }
+    }
+  }
+}
