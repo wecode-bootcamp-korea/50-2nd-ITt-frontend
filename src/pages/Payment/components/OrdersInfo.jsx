@@ -2,29 +2,35 @@ import React from 'react';
 import './OrdersInfo.scss';
 
 const OrdersInfo = ({
-  title,
-  imgUrl,
-  time,
-  date,
+  performanceTitle,
+  ticketImage,
+  eventTime,
+  eventDate,
   location,
   seatNumber,
-  totalPrice,
+  seatClass,
+  totalAmount,
 }) => {
   const ORDERLABEL = [
-    { id: 1, type: '관람일자', content: date },
-    { id: 2, type: '관람시간', content: time },
+    { id: 1, type: '관람일자', content: eventDate },
+    { id: 2, type: '관람시간', content: eventTime },
     { id: 3, type: '위치', content: location },
-    { id: 4, type: '좌석', content: seatNumber },
+    { id: 4, type: '좌석', content: `${seatClass} ${seatNumber}번` },
   ];
+
   return (
     <div className="ordersInfo">
       <div className="ordersInfoArea">
         <div className="orderImgArea">
-          <img src={imgUrl} alt="orderImage" className="orderImage" />
+          <img
+            src={ticketImage}
+            alt={performanceTitle}
+            className="orderImage"
+          />
         </div>
         <div className="orderInfo">
           <div className="orderList">
-            <h1 className="title">{title}</h1>
+            <h1 className="title">{performanceTitle}</h1>
             <ul>
               {ORDERLABEL.map(order => (
                 <li className="ticketInfo" key={order.type}>
@@ -36,7 +42,7 @@ const OrdersInfo = ({
             <div className="totalPriceArea">
               <p className="priceContent">총 결제금액</p>
               <span className="priceContent">
-                <span className="totalPrice">{totalPrice}</span>원
+                <span className="totalPrice">{totalAmount}</span>원
               </span>
             </div>
           </div>

@@ -1,46 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileImage from './components/ProfileImage';
 import ProfileEdit from './components/ProfileEdit';
 import OrdersInfo from '../Payment/components/OrdersInfo';
 import UserQr from './components/UserQr';
 import Button from '../../components/Button/Button';
 import './MyPage.scss';
+import { GET_USER_API } from '../../config';
+import axios from 'axios';
 
 const MyPage = () => {
-  const userInfo = {
-    userId: 1,
-    name: '김코드',
-    src: '/images/visual_01.png',
-    alt: '유저프로필이미지',
-  };
+  const [userData, setUserData] = useState({});
 
-  const orderInfo = {
-    orderId: 1,
-    title: '뮤지컬 고양이',
-    imgUrl: '/images/visual_01.png',
-    time: '150분',
-    date: '2023년 5월 5일 오후 2시',
-    location: '수원아트센터',
-    seatNumber: 'R열 35번',
-    totalPrice: '70,000',
-  };
+  useEffect(() => {
+    axios
+      .get(GET_USER_API, {
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      })
+      .then(res => {
+        setUserData(res.data.message);
+      });
+  }, []);
+
+  const { profileImage, userName } = userData;
+
+  // const mockData = {
+  //   userName: '테스트이름',
+  //   profileImage:
+  //     'https://itcatbucket.s3.ap-northeast-2.amazonaws.com/images/1699592531697_2.jpg',
+  //   performanceTitle: '어벤져스',
+  //   ticketImage: 'image_url_here',
+  //   eventDate: '2023-12-24T15:00:00.000Z',
+  //   eventTime: '18:00:00',
+  //   location: '서울 월드컵 경기장',
+  //   seatNumber: 1,
+  //   seatClass: '일반석',
+  //   seatPrice: '10000.00',
+  //   totalAmount: '250000.00',
+  // };
 
   return (
     <div className="myPage">
       <div className="menuArea">
         <div className="userArea">
-          <ProfileImage src={userInfo.src} alt={userInfo.alt} />
-          <p>{userInfo.name}</p>
+          <ProfileImage src={profileImage} alt={userName} />
+          <p>{userName}</p>
         </div>
       </div>
       <div className="userPage">
         <h2 className="title">프로필변경</h2>
         <div className="myPageArea">
-          <ProfileEdit {...userInfo} />
+          <ProfileEdit userName={userName} profileImage={profileImage} />
         </div>
         <h2 className="title">결제내역</h2>
         <div className="userOrders">
-          <OrdersInfo {...orderInfo} />
+          <OrdersInfo {...userData} />
           <div className="qrArea">
             <UserQr />
             <UserQr />

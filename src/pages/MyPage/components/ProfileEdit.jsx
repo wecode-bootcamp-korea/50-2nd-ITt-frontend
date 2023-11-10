@@ -3,8 +3,8 @@ import ProfileImage from './ProfileImage';
 import Button from '../../../components/Button/Button';
 import './ProfileEdit.scss';
 
-const ProfileEdit = ({ name, src, alt }) => {
-  const [userName, setUserName] = useState(name);
+const ProfileEdit = ({ userName, profileImage }) => {
+  const [user, setUserName] = useState(userName);
 
   return (
     <div className="profileEdit">
@@ -14,14 +14,14 @@ const ProfileEdit = ({ name, src, alt }) => {
           <input
             type="text"
             className="nameInput"
-            value={userName}
+            value={user}
             onChange={e => setUserName(e.target.value)}
           />
         </div>
 
         <div className="profileArea">
           <label htmlFor="profile">프로필</label>
-          <ProfileImage src={src} alt={alt} />
+          <ProfileImage src={profileImage} alt={userName} />
           <input type="file" accept="image/*" className="imageUpload" />
         </div>
       </div>
