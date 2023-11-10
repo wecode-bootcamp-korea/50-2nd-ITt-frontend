@@ -1,4 +1,4 @@
 // src/config.js
-const BASE_URL = 'http://10.58.52.121:8000';
+const BASE_URL_JIYOUNG = 'http://10.58.52.250:8000';
 
-export const GET_MOCK_API = `${BASE_URL}/MOCK`;
+export const GET_MOCK_API = `${BASE_URL_JIYOUNG}/detail`;
