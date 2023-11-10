@@ -5,7 +5,7 @@ import OrdersInfo from '../Payment/components/OrdersInfo';
 import UserQr from './components/UserQr';
 import Button from '../../components/Button/Button';
 import './MyPage.scss';
-import { GET_USER_API } from '../../config';
+import { EDIT_USER_API, GET_USER_API } from '../../config';
 import axios from 'axios';
 
 const MyPage = () => {
@@ -38,6 +38,30 @@ const MyPage = () => {
   //   totalAmount: '250000.00',
   // };
 
+  const handleCancel = () => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      axios
+        .post(
+          EDIT_USER_API,
+          {
+            id: 2,
+          },
+          {
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+          },
+        )
+        .then(res => {
+          if (res.data.message === 'cancel_success') {
+            alert('삭제완료');
+          } else {
+            alert('다시 시도해주세요');
+          }
+        });
+    } else {
+      alert('삭제 취소!');
+    }
+  };
+
   return (
     <div className="myPage">
       <div className="menuArea">
@@ -59,7 +83,9 @@ const MyPage = () => {
             <UserQr />
           </div>
           <div className="cancelBtn">
-            <Button width="200px">결제취소</Button>
+            <Button width="200px" onClick={handleCancel}>
+              결제취소
+            </Button>
           </div>
         </div>
       </div>
