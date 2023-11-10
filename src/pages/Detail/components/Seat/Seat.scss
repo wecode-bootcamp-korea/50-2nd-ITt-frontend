@@ -1,0 +1,45 @@
+@import '../../../../styles/variable.scss';
+
+.seat {
+  display: flex;
+  flex-direction: column;
+
+  .seatArea {
+    display: flex;
+
+    ~ .seatArea {
+      margin-top: 10px;
+    }
+  }
+
+  .formInput {
+    ~ .formInput {
+      margin-left: 8px;
+    }
+
+    .formCheck {
+      display: none;
+
+      + .formLabel {
+        display: flex;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        margin: 0;
+        border: 0 none;
+        border-radius: 3px;
+        background-color: $pink;
+
+        span {
+          @include blind;
+        }
+      }
+
+      &:checked {
+        + .formLabel {
+          background-color: $purple;
+        }
+      }
+    }
+  }
+}
