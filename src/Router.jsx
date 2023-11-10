@@ -9,6 +9,8 @@ import Main from './pages/Main/Main';
 import Mypage from './pages/Mypage/Mypage';
 import Payment from './pages/Payment/Payment';
 import Signup from './pages/Signup/Signup';
+import Success from './pages/Payment/Success';
+import Fail from './pages/Payment/Fail';
 
 const Router = () => {
   return (
@@ -22,6 +24,8 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/fail" element={<Fail />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </Layout>
