@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Ordersinfo from './components/Ordersinfo';
 import './Payment.scss';
 import PaymentWidget from './components/PaymentWidget/PaymentWidget';
 import axios from 'axios';
 import { GET_ORDER_API } from '../../config';
+import OrdersInfo from './components/OrdersInfo';
 
 const Payment = () => {
   const [orderData, setOrderData] = useState({});
@@ -22,7 +22,7 @@ const Payment = () => {
     <div className="payment">
       <div className="paymentArea">
         <h2 className="paymentTitle">예매정보</h2>
-        <Ordersinfo {...orderData} />
+        <OrdersInfo {...orderData} />
         <div className="paymentWidgetArea">
           <PaymentWidget {...orderData} />
         </div>

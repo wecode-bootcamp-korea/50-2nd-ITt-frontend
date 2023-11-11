@@ -1,0 +1,17 @@
+.userQr {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  padding: 15px;
+  border: 1px solid #999;
+
+  .userTitle {
+    font-weight: bold;
+  }
+  
+  .qrImage {
+    width: 100px;
+    height: 100px;
+  }
+}

@@ -1,7 +1,7 @@
 import React from 'react';
-import './Ordersinfo.scss';
+import './OrdersInfo.scss';
 
-const Ordersinfo = ({
+const OrdersInfo = ({
   title,
   image,
   time,
@@ -35,7 +35,7 @@ const Ordersinfo = ({
               ))}
             </ul>
             <div className="totalPriceArea">
-              <p className="priceTitle">총 결제금액</p>
+              <p className="priceContent">총 결제금액</p>
               <span className="priceContent">
                 <span className="totalPrice">{amount}</span>원
               </span>
@@ -48,4 +48,4 @@ const Ordersinfo = ({
   );
 };
 
-export default Ordersinfo;
+export default OrdersInfo;
