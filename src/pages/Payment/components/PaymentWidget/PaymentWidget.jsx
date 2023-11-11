@@ -3,7 +3,7 @@ import { loadPaymentWidget } from '@tosspayments/payment-widget-sdk';
 import './PaymentWidget.scss';
 import Button from '../../../../components/Button/Button';
 
-const PaymentWidget = ({ title, totalPrice }) => {
+const PaymentWidget = ({ title, amount }) => {
   // const originUrl = process.env.originUrl;
   const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq'; // 테스트키
   const customerKey = 'v5IQ9Xgi3DpNmW5T_QhDy'; // 테스트키
@@ -29,7 +29,7 @@ const PaymentWidget = ({ title, totalPrice }) => {
   useEffect(() => {
     (async () => {
       const paymentWidget = await loadPaymentWidget(clientKey, customerKey);
-      paymentWidget.renderPaymentMethods('#payment-widget', totalPrice);
+      paymentWidget.renderPaymentMethods('#payment-widget', Number(amount));
       paymentWidgetRef.current = paymentWidget;
     })();
   }, []);
@@ -37,7 +37,6 @@ const PaymentWidget = ({ title, totalPrice }) => {
   return (
     <div className="paymentWidget">
       <div id="payment-widget" />
-
       <div className="btnArea">
         <Button width="200px" onClick={handlePayment}>
           결제하기
