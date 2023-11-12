@@ -1,4 +1,4 @@
-@import '../../../styles/variable.scss';
+@import '../../../../styles/variable.scss';
 
 .profileEdit {
   width: 100%;
@@ -35,6 +35,8 @@
   .editBtn {
     display: flex;
     justify-content: right;
+    position: relative;
+    right: 20px;
     margin-top: 30px;
   }
 }
