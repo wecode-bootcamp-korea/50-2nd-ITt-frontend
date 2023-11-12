@@ -7,6 +7,7 @@ import './Detail.scss';
 const Detail = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [detail, setdetail] = useState({});
+  const [detail1, setdetail1] = useState([]);
 
   useEffect(() => {
     fetch(`${GET_MOCK_API}/1`, {
@@ -17,23 +18,13 @@ const Detail = () => {
     })
       .then(res => res.json())
       .then(data => {
-        setdetail(data.data[0]);
+        setdetail(data.data.itemInfo[0]);
+        setdetail1(data.data.itemClassInfo);
       });
   }, []);
 
-  const {
-    title,
-    image,
-    description,
-    running_time,
-    viewer_age,
-    price,
-    seat_class_name,
-    event_date,
-    event_time,
-    actor_name,
-    location_name,
-  } = detail;
+  const { title, image, running_time, viewer_age, actor_name, location_name } =
+    detail;
 
   return (
     <div className="detail">
@@ -68,30 +59,14 @@ const Detail = () => {
               <dt>가격</dt>
               <dd>
                 <div className="infoPrice">
-                  <dl className="priceList">
-                    <dt>VIP석</dt>
-                    <dd>
-                      <span>150,000</span>원
-                    </dd>
-                  </dl>
-                  <dl className="priceList">
-                    <dt>R석</dt>
-                    <dd>
-                      <span>130,000</span>원
-                    </dd>
-                  </dl>
-                  <dl className="priceList">
-                    <dt>S석</dt>
-                    <dd>
-                      <span>100,000</span>원
-                    </dd>
-                  </dl>
-                  <dl className="priceList">
-                    <dt>A석</dt>
-                    <dd>
-                      <span>80,000</span>원
-                    </dd>
-                  </dl>
+                  {detail1.map(index => (
+                    <dl className="priceList" key={index}>
+                      <dt>{index.name}석</dt>
+                      <dd>
+                        <span>{index.price}</span>원
+                      </dd>
+                    </dl>
+                  ))}
                 </div>
               </dd>
             </dl>
