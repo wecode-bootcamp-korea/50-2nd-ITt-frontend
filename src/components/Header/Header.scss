@@ -1,0 +1,28 @@
+.nav {
+  position: sticky;
+  width: 100%;
+  background-color: white;
+  z-index: 1;
+
+  .wrapper {
+    position: relative;
+    padding: 0 10px;
+    margin-right: px;
+    margin-left: px;
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+
+    .header_links {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+      height: 100%;
+      margin: auto;
+      color: rgb(95, 91, 91);
+      font-size: 20px;
+      font-weight: 1;
+      font-family: 'Noto Sans KR', PingFang, Helvetica, Arial, sans-serif;
+    }
+  }
+}
