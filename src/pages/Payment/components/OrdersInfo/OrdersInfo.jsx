@@ -1,5 +1,6 @@
 import React from 'react';
 import './OrdersInfo.scss';
+import DetailsInfo from '../../../../components/DetailsInfo/DetailsInfo';
 
 const OrdersInfo = ({
   title,
@@ -26,20 +27,7 @@ const OrdersInfo = ({
         <div className="orderInfo">
           <div className="orderList">
             <h1 className="title">{title}</h1>
-            <ul>
-              {ORDERLABEL.map(order => (
-                <li className="ticketInfo" key={order.type}>
-                  <span className="label">{order.type}</span>
-                  <span className="content">{order.content}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="totalPriceArea">
-              <p className="priceContent">총 결제금액</p>
-              <span className="priceContent">
-                <span className="totalPrice">{amount}</span>원
-              </span>
-            </div>
+            <DetailsInfo detailsLabel={ORDERLABEL} />
           </div>
           <div className="dashLine" />
         </div>

@@ -1,0 +1,19 @@
+{
+  "data": {
+    "users": {
+      "userId": 1,
+      "points": 10000
+    },
+    "orders": {
+      "orderId": 1,
+      "title": "뮤지컬 고양이",
+      "image": "/images/visual_01.png",
+      "time": "150분",
+      "date": "2023년 5월 5일",
+      "locationName": "수원아트센터",
+      "seatName": "35번",
+      "className": "일반",
+      "amount": "70000"
+    }
+  }
+}

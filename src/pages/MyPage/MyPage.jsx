@@ -1,10 +1,11 @@
 import React from 'react';
 import ProfileImage from './components/ProfileImage';
 import ProfileEdit from './components/ProfileEdit';
-import OrdersInfo from '../Payment/components/OrdersInfo';
+
 import UserQr from './components/UserQr';
 import Button from '../../components/Button/Button';
 import './MyPage.scss';
+import OrdersInfo from '../Payment/components/OrdersInfo/OrdersInfo';
 
 const MyPage = () => {
   const userInfo = {
