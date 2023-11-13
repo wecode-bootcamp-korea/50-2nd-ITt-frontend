@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Post from '../Post/Post';
 import Button from '../../../../components/Button/Button';
 import './List.scss';
 
-const List = ({ onAddButtonClick }) => {
+const List = () => {
+  const [isPostClicked, setIsPostClicked] = useState(false);
+
+  if (isPostClicked) return <Post onClose={() => setIsPostClicked(false)} />;
+
   return (
     <div className="list">
       <h3 className="listTitle">이벤트 리스트</h3>
       <div className="listArea">
         <div className="listAdd">
-          <Button width="100px" onClick={onAddButtonClick}>
+          <Button width="100px" onClick={() => setIsPostClicked(true)}>
             추가
           </Button>
         </div>

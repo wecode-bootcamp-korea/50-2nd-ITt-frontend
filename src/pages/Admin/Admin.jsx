@@ -1,55 +1,39 @@
 import React, { useState } from 'react';
 import List from './components/List/List';
 import Dashboard from './components/Dashboard/Dashboard';
-import Post from './components/Post/Post';
 import './Admin.scss';
 
 const Admin = () => {
-  const [selectedMenu, setSelectedMenu] = useState('list');
-  const [isAddButtonClicked, setIsAddButtonClicked] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState('리스트');
 
-  const handleMenuClick = menu => {
-    setSelectedMenu(menu);
-    setIsAddButtonClicked(false);
-  };
-
-  const handleAddButtonClick = () => {
-    setIsAddButtonClicked(true);
-  };
+  const ADMIN_MENUS = [
+    {
+      menu: '리스트',
+      component: <List />,
+    },
+    { menu: '대시보드', component: <Dashboard /> },
+  ];
 
   return (
     <div className="admin">
       <div className="navArea">
         <h2 className="navTitle">관리자페이지</h2>
         <ul className="navList">
-          <li>
-            <button
-              type="button"
-              onClick={() => handleMenuClick('list')}
-              className={`navMenu ${selectedMenu === 'list' ? 'active' : ''}`}
-            >
-              리스트
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              onClick={() => handleMenuClick('dashboard')}
-              className={`navMenu ${
-                selectedMenu === 'dashboard' ? 'active' : ''
-              }`}
-            >
-              대시보드
-            </button>
-          </li>
+          {ADMIN_MENUS.map(({ menu }) => (
+            <li key={menu}>
+              <button
+                type="button"
+                onClick={() => setSelectedMenu(menu)}
+                className={`navMenu ${selectedMenu === menu ? 'active' : ''}`}
+              >
+                {menu}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="adminArea">
-        {selectedMenu === 'list' && !isAddButtonClicked && (
-          <List onAddButtonClick={handleAddButtonClick} />
-        )}
-        {selectedMenu === 'dashboard' && <Dashboard />}
-        {isAddButtonClicked && <Post />}
+        {ADMIN_MENUS.find(({ menu }) => menu === selectedMenu).component}
       </div>
     </div>
   );

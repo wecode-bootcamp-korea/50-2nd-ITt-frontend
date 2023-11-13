@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../../../../components/Button/Button';
 import './Post.scss';
 
-const Post = () => {
+const Post = ({ onClose }) => {
   return (
     <div className="post">
       <h3 className="postTitle">이벤트 등록</h3>
@@ -59,7 +59,7 @@ const Post = () => {
         </form>
         <div className="btnArea">
           <Button width="100px">확인</Button>
-          <Button outline width="100px">
+          <Button outline width="100px" onClick={onClose}>
             취소
           </Button>
         </div>
