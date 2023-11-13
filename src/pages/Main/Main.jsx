@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  Main_Slide,
+  MAIN_SLIDE,
   BANNER_SLIDE,
-  COMPONENT_1,
-  COMPONENT_2,
-  COMPONENT_4,
+  COMPONENT_ONE,
+  COMPONENT_TWO,
+  COMPONENT_FOUR,
 } from './MainData/data.js';
 import './Main.scss';
 
@@ -14,14 +14,14 @@ const Main = () => {
   const [bannerSlideIdx, setBannerSlideIdx] = useState(0);
   const slideToLeft = () => {
     if (bannerSlideIdx === 0) {
-      setBannerSlideIdx(Main_Slide.length - 1);
+      setBannerSlideIdx(MAIN_SLIDE.length - 1);
     } else {
       setBannerSlideIdx(prev => prev - 1);
     }
   };
 
   const slideToRight = () => {
-    if (bannerSlideIdx === Main_Slide.length - 1) {
+    if (bannerSlideIdx === MAIN_SLIDE.length - 1) {
       setBannerSlideIdx(0);
     } else {
       setBannerSlideIdx(prev => prev + 1);
@@ -31,7 +31,7 @@ const Main = () => {
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setBannerSlideIdx(prevIdx =>
-        prevIdx === Main_Slide.length - 1 ? 0 : prevIdx + 1,
+        prevIdx === MAIN_SLIDE.length - 1 ? 0 : prevIdx + 1,
       );
     }, 3000);
 
@@ -54,59 +54,58 @@ const Main = () => {
 
   return (
     <div className="main">
-      {Main_Slide.length !== 0 && (
-        <div className="slidebox">
-          <ul
-            className="slidelist"
-            style={{
-              transform: `translateX(calc(-100% * ${bannerSlideIdx}))`,
-            }}
-          >
-            {Main_Slide.map((slide, id) => (
-              <li className="slideitem" key={id}>
-                <img className="slideimg" src={slide.image_source} />
-              </li>
-            ))}
-          </ul>
-          <div className="arrowContainer">
-            <img
-              className="arrow"
-              src="/images/left_arrow.png"
-              alt="left arrow"
-              onClick={slideToLeft}
-            />
-            <img
-              className="arrow"
-              src="/images/right_arrow.png"
-              alt="right arrow"
-              onClick={slideToRight}
-            />
-          </div>
+      <div className="slideBox">
+        <ul
+          className="slideList"
+          style={{
+            transform: `translateX(calc(-100% * ${bannerSlideIdx}))`,
+          }}
+        >
+          {MAIN_SLIDE.map((slide, id) => (
+            <li className="slideItem" key={id}>
+              <img className="slideImg" src={slide.image_source} />
+            </li>
+          ))}
+        </ul>
+        <div className="arrowContainer">
+          <img
+            className="arrow"
+            src="/images/left_arrow.png"
+            alt="left arrow"
+            onClick={slideToLeft}
+          />
+          <img
+            className="arrow"
+            src="/images/right_arrow.png"
+            alt="right arrow"
+            onClick={slideToRight}
+          />
         </div>
-      )}
+      </div>
+
       <div className="compTitle"> Recommandation</div>
 
-      <div className="comp_one">
-        <div className="comp_one_left">
+      <div className="compOne">
+        <div className="compOneLeft">
           <img
-            className="comp_one_leftimg"
+            className="compOneLeftimg"
             alt="img"
             src="/images/comp1_1.png"
           ></img>
         </div>
 
-        <div className="img_container">
-          {COMPONENT_1.map((comp1, id) => (
-            <div className="comp_one_right" key={id}>
-              <div className="img_wrapper">
+        <div className="imgContainer">
+          {COMPONENT_ONE.map((comp1, id) => (
+            <div className="compOneRight" key={id}>
+              <div className="imgWrapper">
                 <img
-                  className="comp_one_rightimg"
+                  className="compOneRightimg"
                   alt="img"
                   src={comp1.image_source}
                 />
                 <div className="info">
-                  <p className="info_title">{comp1.title}</p>
-                  <p className="info_date">{comp1.date}</p>
+                  <p className="infoTitle">{comp1.title}</p>
+                  <p className="infoDate">{comp1.date}</p>
                 </div>
               </div>
             </div>
@@ -177,59 +176,42 @@ const Main = () => {
 
       <div className="compTitle"> ON SALE </div>
 
-      <div className="comp_two">
-        <div className="section_container">
-          {COMPONENT_2.map((comp2, id) => (
-            <div className="comp_two_frame" key={id}>
-              <div className="comp_two_wrapper">
+      <div className="compTwo">
+        <div className="sectionContainer">
+          {COMPONENT_TWO.map((comp2, id) => (
+            <div className="compTwoFrame" key={id}>
+              <div className="compTwoWrapper">
                 <img
-                  className="comp_two_img"
+                  className="compTwoImg"
                   alt="img"
                   src={comp2.image_source}
                 />
 
-                <div className="comp_two_info">
-                  <p className="comp_two_info_discount">{comp2.discount}</p>
-                  <p className="comp_two_info_date">{comp2.date}</p>
-                  <p className="comp_two_info_title">{comp2.title}</p>
+                <div className="compTwoInfo">
+                  <p className="compTwoInfoDiscount">{comp2.discount}</p>
+                  <p className="compTwoInfoDate">{comp2.date}</p>
+                  <p className="compTwoInfoTitle">{comp2.title}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="comp_three">
-        <div className="textbox">
-          <div className="textbox_one">
-            당신은 거부할 수 있는가 뮤지컬 [더데빌]
-          </div>
-          <div className="textbox_two">
-            기존 법칙을 파괴하고 뮤지컬의 새로운 공식을 쓴 문제적 작품
-          </div>
-        </div>
-
-        <div className="video">
-          <video muted autoPlay loop>
-            <source src="video/concertsource.mp4" type="video/mp4" />
-            <strong>Your browser does not support the video tag.</strong>
-          </video>
-        </div>
-      </div>
 
       <div className="compTitle"> UPCOMING EVENT </div>
 
-      <div className="comp_four">
-        <div className="comp_four_container">
-          {COMPONENT_4.map((comp4, id) => (
+      <div className="compFour">
+        <div className="compFourContainer">
+          {COMPONENT_FOUR.map((comp4, id) => (
             <div key={id}>
-              <div className="comp_four_content">
+              <div className="compFourContent">
                 <img
-                  className="comp_four_img"
+                  className="compFourImg"
                   alt="img"
                   src={comp4.image_source}
                 />
                 <div>
-                  <p className="comp_four_title">{comp4.title}</p>
+                  <p className="compFourTitle">{comp4.title}</p>
                 </div>
               </div>
             </div>

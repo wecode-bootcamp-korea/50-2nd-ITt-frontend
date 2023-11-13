@@ -1,4 +1,4 @@
-export const Main_Slide = [
+export const MAIN_SLIDE = [
   { id: 1, image_source: '/images/slideimg01.png ' },
 
   { id: 2, image_source: ' /images/slideimg02.png' },
@@ -8,7 +8,7 @@ export const Main_Slide = [
   { id: 4, image_source: '/images/slideimg04.png ' },
 ];
 
-export const COMPONENT_1 = [
+export const COMPONENT_ONE = [
   {
     id: 2,
     image_source: ' /images/comp1_2.png',
@@ -110,7 +110,7 @@ export const BANNER_SLIDE = [
   },
 ];
 
-export const COMPONENT_2 = [
+export const COMPONENT_TWO = [
   {
     id: 1,
     image_source: ' /images/comp2_1.png',
@@ -160,7 +160,7 @@ export const COMPONENT_2 = [
   },
 ];
 
-export const COMPONENT_4 = [
+export const COMPONENT_FOUR = [
   {
     id: 1,
     image_source: ' /images/comp4_1.png',
