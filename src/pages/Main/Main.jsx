@@ -90,7 +90,7 @@ const Main = () => {
           <img
             className="compOneLeftimg"
             alt="img"
-            src="/images/comp1_1.png"
+            src="https://cdn.pixabay.com/photo/2020/07/05/18/57/woman-5374127_1280.jpg"
           ></img>
         </div>
 
