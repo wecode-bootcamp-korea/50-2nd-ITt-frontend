@@ -79,7 +79,85 @@ const Detail = () => {
       <div className="reserveArea">
         <div className="dateArea">
           <h3 className="dateTitle">날짜/시간 선택</h3>
-          <Datepicker startDate={startDate} setStartDate={setStartDate} />
+          <div className="dateGroup">
+            <Datepicker
+              startDate={startDate}
+              setStartDate={setStartDate}
+              minDate="2023-10-01"
+              maxDate="2023-11-11"
+            />
+            <div className="timePicker">
+              <span className="timeTitle">시간</span>
+              <div className="titleList">
+                <div className="formInput">
+                  <input
+                    type="radio"
+                    id="timePicker01"
+                    className="formRadio"
+                    name="timePicker"
+                  />
+                  <label htmlFor="timePicker01" className="formLabel">
+                    14:00
+                  </label>
+                </div>
+                <div className="formInput">
+                  <input
+                    type="radio"
+                    id="timePicker02"
+                    className="formRadio"
+                    name="timePicker"
+                  />
+                  <label htmlFor="timePicker02" className="formLabel">
+                    16:00
+                  </label>
+                </div>
+                <div className="formInput">
+                  <input
+                    type="radio"
+                    id="timePicker03"
+                    className="formRadio"
+                    name="timePicker"
+                  />
+                  <label htmlFor="timePicker03" className="formLabel">
+                    18:00
+                  </label>
+                </div>
+                <div className="formInput">
+                  <input
+                    type="radio"
+                    id="timePicker04"
+                    className="formRadio"
+                    name="timePicker"
+                  />
+                  <label htmlFor="timePicker04" className="formLabel">
+                    20:00
+                  </label>
+                </div>
+                <div className="formInput">
+                  <input
+                    type="radio"
+                    id="timePicker05"
+                    className="formRadio"
+                    name="timePicker"
+                  />
+                  <label htmlFor="timePicker05" className="formLabel">
+                    22:00
+                  </label>
+                </div>
+                <div className="formInput">
+                  <input
+                    type="radio"
+                    id="timePicker06"
+                    className="formRadio"
+                    name="timePicker"
+                  />
+                  <label htmlFor="timePicker06" className="formLabel">
+                    24:00
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="btnArea">
           <Button width="230px">예매하기</Button>

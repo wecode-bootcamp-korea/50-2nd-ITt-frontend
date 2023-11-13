@@ -4,7 +4,7 @@ import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Datepicker.scss';
 
-const Datepicker = ({ startDate, setStartDate }) => {
+const Datepicker = ({ startDate, setStartDate, minDate, maxDate }) => {
   return (
     <div className="datePicker">
       <DatePicker
@@ -13,7 +13,8 @@ const Datepicker = ({ startDate, setStartDate }) => {
         dateFormat="yyyy년 MM월 dd일"
         locale={ko}
         inline
-        showTimeSelect
+        minDate={new Date(`${minDate}`)}
+        maxDate={new Date(`${maxDate}`)}
       />
     </div>
   );
