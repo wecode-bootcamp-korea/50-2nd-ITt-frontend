@@ -5,6 +5,7 @@ import {
   BANNER_SLIDE,
   COMPONENT_1,
   COMPONENT_2,
+  COMPONENT_4,
 } from './MainData/data.js';
 import './Main.scss';
 
@@ -146,11 +147,13 @@ const Main = () => {
                 key={categ.id}
                 style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
               >
-                <img src={categ.image_source} />
+                <div className="categoryItem">
+                  <img src={categ.image_source} />
 
-                <div className="detail">
-                  <div className="categDate">{categ.date}</div>
-                  <div className="categTitle">{categ.title}</div>
+                  <div className="detail">
+                    <div className="categDate">{categ.date}</div>
+                    <div className="categTitle">{categ.title}</div>
+                  </div>
                 </div>
               </li>
             ),
@@ -189,6 +192,44 @@ const Main = () => {
                   <p className="comp_two_info_discount">{comp2.discount}</p>
                   <p className="comp_two_info_date">{comp2.date}</p>
                   <p className="comp_two_info_title">{comp2.title}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="comp_three">
+        <div className="textbox">
+          <div className="textbox_one">
+            당신은 거부할 수 있는가 뮤지컬 [더데빌]
+          </div>
+          <div className="textbox_two">
+            기존 법칙을 파괴하고 뮤지컬의 새로운 공식을 쓴 문제적 작품
+          </div>
+        </div>
+
+        <div className="video">
+          <video muted autoPlay loop>
+            <source src="video/concertsource.mp4" type="video/mp4" />
+            <strong>Your browser does not support the video tag.</strong>
+          </video>
+        </div>
+      </div>
+
+      <div className="compTitle"> UPCOMING EVENT </div>
+
+      <div className="comp_four">
+        <div className="comp_four_container">
+          {COMPONENT_4.map((comp4, id) => (
+            <div key={id}>
+              <div className="comp_four_content">
+                <img
+                  className="comp_four_img"
+                  alt="img"
+                  src={comp4.image_source}
+                />
+                <div>
+                  <p className="comp_four_title">{comp4.title}</p>
                 </div>
               </div>
             </div>

@@ -80,6 +80,10 @@
       .comp_one_right {
         .img_wrapper {
           position: relative;
+          transition: transform 0.3s ease-in-out;
+          &:hover {
+            transform: scale(1.03);
+          }
         }
 
         .info {
@@ -145,6 +149,7 @@
     overflow: hidden;
     justify-content: center;
     align-items: center;
+
     // margin-left: 20px;
 
     ul {
@@ -165,21 +170,26 @@
         }
       }
     }
-
-    .detail {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-left: 50px;
-
-      .categDate {
-        font-size: 23px;
-        font-style: italic;
+    .categoryItem {
+      transition: transform 0.3s ease-in-out;
+      &:hover {
+        transform: scale(1.01);
       }
-      .categTitle {
-        font-size: 27px;
-        font-style: italic;
-        font-weight: bold;
+      .detail {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-left: 50px;
+
+        .categDate {
+          font-size: 23px;
+          font-style: italic;
+        }
+        .categTitle {
+          font-size: 27px;
+          font-style: italic;
+          font-weight: bold;
+        }
       }
     }
   }
@@ -252,6 +262,78 @@
           }
         }
       }
+    }
+  }
+  .comp_three {
+    display: flex;
+
+    margin: 200px auto;
+
+    &:hover {
+      filter: contrast(85%);
+      transition: 0.2s;
+    }
+    .textbox {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px;
+      background-color: rgb(68, 59, 68);
+      width: 180%;
+
+      .textbox_one {
+        font-size: 50px;
+        font-weight: bold;
+        font-family: 'Noto Sans KR', 'NanumBarunGothic', '맑은 고딕',
+          'Malgun Gothic', sans-serif;
+        letter-spacing: 0.02em;
+        line-height: 1.33333;
+        padding: 30px 0 40px 10px;
+        color: white;
+      }
+
+      .textbox_two {
+        font-size: 30px;
+        font-family: 'Times New Roman', Times, serif;
+        line-height: 1.5;
+        color: white;
+      }
+    }
+  }
+
+  .video {
+    width: 100%;
+  }
+  .comp_four {
+    margin-bottom: 300px;
+    .comp_four_container {
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .comp_four_content {
+      width: 300px;
+      margin: 10px;
+    }
+    .comp_four_img {
+      width: 470px;
+      transition: transform 0.3s ease-in-out;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .comp_four_title {
+      margin-top: 40px;
+      font-size: 33px;
+      font-family:
+        system-ui,
+        Roboto,
+        Helvetica Neue,
+        Apple Color Emoji,
+        Segoe UI Symbol,
+        sans-serif;
     }
   }
 }

@@ -159,3 +159,40 @@ export const COMPONENT_2 = [
     discount: '25%',
   },
 ];
+
+export const COMPONENT_4 = [
+  {
+    id: 1,
+    image_source: ' /images/comp4_1.png',
+    title: '2023 지니뮤직 페스티벌 - 공식 티켓',
+  },
+
+  {
+    id: 2,
+    image_source: ' /images/comp4_2.png',
+    title: 'NCT127 3RD TOUR ‘NEO CITY : SEOUL - THE UNITY’',
+  },
+
+  {
+    id: 3,
+    image_source: ' /images/comp4_3.png',
+    title: ' 2023 노을 연말 투어 콘서트 〈노을이 내린 밤〉',
+  },
+
+  {
+    id: 4,
+    image_source: ' /images/comp4_4.png',
+    title: '2023 조용필＆위대한탄생 Tour Concert',
+  },
+
+  {
+    id: 5,
+    image_source: ' /images/comp4_5.png',
+    title: '뮤지컬 〈레미제라블〉 - 부산',
+  },
+  {
+    id: 6,
+    image_source: ' /images/comp4_6.png',
+    title: '뮤지컬 〈레미제라블〉 - 부산',
+  },
+];
