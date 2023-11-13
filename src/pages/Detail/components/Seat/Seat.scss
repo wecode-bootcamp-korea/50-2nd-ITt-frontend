@@ -3,17 +3,27 @@
 .seat {
   display: flex;
   flex-direction: column;
+  padding-top: 20px;
 
   .seatArea {
     display: flex;
+    flex-direction: column;
 
-    ~ .seatArea {
-      margin-top: 10px;
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+
+    .seatGroup {
+      display: flex;
+
+      &:not(:first-child) {
+        padding-top: 10px;
+      }
     }
   }
 
   .formInput {
-    ~ .formInput {
+    &:not(:first-child) {
       margin-left: 8px;
     }
 

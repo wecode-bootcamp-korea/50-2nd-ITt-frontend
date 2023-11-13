@@ -4,7 +4,7 @@ import './Seat.scss';
 
 const Seat = () => {
   const [seats, setSeats] = useState([]);
-  const uniqueColumns = [...new Set(seats.map(seat => seat.seatCol))];
+  const rows = [...new Set(seats.map(seat => seat.seatRow))];
 
   useEffect(() => {
     fetch(`${GET_JIYOUNG_API}`, {
@@ -22,10 +22,10 @@ const Seat = () => {
   return (
     <div className="seat">
       <div className="seatArea">
-        {uniqueColumns.map(col => (
-          <div key={col}>
+        {rows.map(row => (
+          <div key={row} className="seatGroup">
             {seats
-              .filter(seat => seat.seatCol === col)
+              .filter(seat => seat.seatRow === row)
               .map(seat => {
                 return (
                   <div className="formInput" key={`${seat.seatId}`}>
