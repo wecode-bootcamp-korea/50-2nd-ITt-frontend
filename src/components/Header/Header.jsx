@@ -5,6 +5,7 @@ import './Header.scss';
 const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
+  const userName = localStorage.getItem('userName');
   const handleLogout = () => {
     const isLogoutConfirmed = window.confirm('로그아웃 하시겠습니까?');
 
@@ -14,18 +15,6 @@ const Header = () => {
     }
   };
 
-  function UserNameDisplay() {
-    // 사용자 이름을 저장할 상태 변수
-    const [userName, setuserName] = useState('');
-
-    useEffect(() => {
-      // localStorage에서 사용자 이름 가져오기
-      const storedUserName = localStorage.getItem('userName');
-      if (storedUserName) {
-        setuserName(storedUserName);
-      }
-    }, []); // 빈 배열을 넣어 컴포넌트가 처음 마운트될 때만 실행되도록 함
-  }
   return (
     <div className="nav">
       <div className="wrapper">

@@ -1,44 +1,30 @@
 @import '../../styles/variable.scss';
 
 .nav {
-  border-bottom: 1px solid black;
   display: flex;
-  position: absolute;
   width: 100%;
   background-color: white;
-  z-index: 1;
-  margin-top: -60px;
+  border-bottom: 1px solid black;
+
   .wrapper {
-    position: relative;
-    padding: 0 10px;
-    margin-right: px;
-    margin-left: px;
-    height: 75px;
     display: flex;
     justify-content: space-between;
-    // background-color: yellow;
+    align-items: center;
+    height: 75px;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
 
     .logo {
-      position: relative;
-      left: 110%;
-      margin-top: 10px;
-      width: 8%;
-      justify-content: center;
+      width: 40px;
     }
 
     .header_links {
-      position: relative;
-      right: 20px;
       display: flex;
       align-items: center;
-      gap: 100px;
+      gap: 40px;
       height: 100%;
-      // margin: auto;
-
-      font-size: 20px;
-      font-weight: 1;
-      font-family: 'Noto Sans KR', PingFang, Helvetica, Arial, sans-serif;
     }
   }
 }
