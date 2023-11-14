@@ -23,6 +23,7 @@ export default function KaKaoLogin() {
         if (data.result.token) {
           // postKakaoToken(data.access_token);
           localStorage.setItem('token', data.result.token);
+          localStorage.setItem('userName', data.result.userName);
           navigate('/');
         }
       });
