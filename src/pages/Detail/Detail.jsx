@@ -89,72 +89,22 @@ const Detail = () => {
             <div className="timePicker">
               <span className="timeTitle">시간</span>
               <div className="titleList">
-                <div className="formInput">
-                  <input
-                    type="radio"
-                    id="timePicker01"
-                    className="formRadio"
-                    name="timePicker"
-                  />
-                  <label htmlFor="timePicker01" className="formLabel">
-                    14:00
-                  </label>
-                </div>
-                <div className="formInput">
-                  <input
-                    type="radio"
-                    id="timePicker02"
-                    className="formRadio"
-                    name="timePicker"
-                  />
-                  <label htmlFor="timePicker02" className="formLabel">
-                    16:00
-                  </label>
-                </div>
-                <div className="formInput">
-                  <input
-                    type="radio"
-                    id="timePicker03"
-                    className="formRadio"
-                    name="timePicker"
-                  />
-                  <label htmlFor="timePicker03" className="formLabel">
-                    18:00
-                  </label>
-                </div>
-                <div className="formInput">
-                  <input
-                    type="radio"
-                    id="timePicker04"
-                    className="formRadio"
-                    name="timePicker"
-                  />
-                  <label htmlFor="timePicker04" className="formLabel">
-                    20:00
-                  </label>
-                </div>
-                <div className="formInput">
-                  <input
-                    type="radio"
-                    id="timePicker05"
-                    className="formRadio"
-                    name="timePicker"
-                  />
-                  <label htmlFor="timePicker05" className="formLabel">
-                    22:00
-                  </label>
-                </div>
-                <div className="formInput">
-                  <input
-                    type="radio"
-                    id="timePicker06"
-                    className="formRadio"
-                    name="timePicker"
-                  />
-                  <label htmlFor="timePicker06" className="formLabel">
-                    24:00
-                  </label>
-                </div>
+                {TIMEDATA.map(time => (
+                  <div className="formInput" key={time.id}>
+                    <input
+                      type="radio"
+                      id={`timePicker${time.id}`}
+                      className="formRadio"
+                      name="timePicker"
+                    />
+                    <label
+                      htmlFor={`timePicker${time.id}`}
+                      className="formLabel"
+                    >
+                      {time.time}
+                    </label>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -168,3 +118,11 @@ const Detail = () => {
 };
 
 export default Detail;
+
+export const TIMEDATA = [
+  { id: 1, time: '14:00' },
+  { id: 2, time: '16:00' },
+  { id: 3, time: '18:00' },
+  { id: 4, time: '20:00' },
+  { id: 5, time: '22:00' },
+];
