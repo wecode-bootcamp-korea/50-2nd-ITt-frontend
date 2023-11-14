@@ -6,7 +6,7 @@
   align-items: center;
   width: 100%;
   margin-bottom: 50px;
-  
+
   .paymentTitle {
     display: block;
     width: 100%;
@@ -16,15 +16,18 @@
   }
   .orderListArea {
     width: 70%;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $gray-normal;
   }
-  
+
   .paymentArea {
     display: flex;
     justify-content: center;
     width: 500px;
     margin: 40px 0;
+    padding: 40px;
     border: 1px solid $gray-normal;
     border-radius: 8px;
-    padding: 40px;
   }
 }

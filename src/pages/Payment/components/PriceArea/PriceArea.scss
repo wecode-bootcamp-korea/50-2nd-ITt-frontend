@@ -12,11 +12,6 @@
     padding-bottom: 15px;
     border-bottom: 1px solid $gray-normal;
 
-    .orderInfoArea {
-      border-bottom: 1px solid $gray-normal;
-      padding-bottom: 20px;
-    }
-
     .isOrder {
       margin-top: 10px;
       font-weight: bold;
@@ -38,7 +33,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    padding-top: 20px;
+    padding-top: 75px;
 
     .label {
       margin-bottom: 5px;

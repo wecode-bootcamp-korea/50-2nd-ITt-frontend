@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DetailsInfo from '../../../../components/DetailsInfo/DetailsInfo';
@@ -49,7 +49,7 @@ const PriceArea = ({
           alert('결제 성공!');
           navigate('/mypage');
         } else {
-          alert('결제 실패');
+          alert('결제 실패!');
           return;
         }
       });

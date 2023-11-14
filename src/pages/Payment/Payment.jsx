@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-import { GET_ORDER_API, MY_ORDER_API } from '../../config';
+import { GET_ORDER_API } from '../../config';
 import OrdersInfo from './components/OrdersInfo/OrdersInfo';
 import PriceArea from './components/PriceArea/PriceArea';
 import './Payment.scss';
 
 const Payment = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const admin = process.env.REACT_APP_ADMIN_KEY;
-
-  const tid = localStorage.getItem('tid');
-
   const [paymentData, setPaymentData] = useState([]);
   const [addPoints, setAddPoints] = useState('');
 
+  const admin = process.env.REACT_APP_ADMIN_KEY;
   const pgToken = searchParams.get('pg_token');
+  const tid = localStorage.getItem('tid');
 
   // 유저정보, 주문내역 데이터
   const getUserPaymentData = () => {
@@ -50,7 +48,8 @@ const Payment = () => {
         searchParams.delete('pg_token');
         setSearchParams(searchParams);
         changePoints(res.data.amount.total, remainingPoint);
-      });
+      })
+      .catch(error => console.error(error));
   };
 
   // 백엔드로 데이터 전달
@@ -71,7 +70,8 @@ const Payment = () => {
       .then(() => {
         alert('데이터 전달완료');
         getUserPaymentData().then(res => setPaymentData(res.data.data));
-      });
+      })
+      .catch(error => console.error(error));
   };
 
   useEffect(() => {
