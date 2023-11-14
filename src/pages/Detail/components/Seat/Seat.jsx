@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { GET_JIYOUNG_API } from '../../../../config.js';
 import './Seat.scss';
 
 const Seat = () => {
@@ -7,7 +6,7 @@ const Seat = () => {
   const rows = [...new Set(seats.map(seat => seat.seatRow))];
 
   useEffect(() => {
-    fetch(`${GET_JIYOUNG_API}`, {
+    fetch('/data/seatData.json', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
