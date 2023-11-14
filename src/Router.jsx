@@ -24,7 +24,7 @@ const Router = () => {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/kakaologin" element={<KaKaoLogin />} />
+          <Route path="/users/kakaologin" element={<KaKaoLogin />} />
         </Routes>
       </Layout>
     </BrowserRouter>
