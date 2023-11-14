@@ -3,8 +3,9 @@ import axios from 'axios';
 import Button from '../../../../components/Button/Button';
 import './AddPoints.scss';
 
-const AddPoints = ({ userId, addPoints }) => {
+const AddPoints = ({ addPoints, userId }) => {
   const admin = process.env.REACT_APP_ADMIN_KEY;
+
   const handleAddPoints = () => {
     if (!addPoints) {
       alert('충전할 포인트를 입력해 주세요!');
@@ -21,9 +22,9 @@ const AddPoints = ({ userId, addPoints }) => {
           quantity: 1,
           total_amount: addPoints,
           tax_free_amount: 0,
-          approval_url: 'http://localhost:3000/payresult',
-          cancel_url: 'http://localhost:3000/payment',
-          fail_url: 'http://localhost:3000/payment',
+          approval_url: 'http://localhost:3000/pay-result',
+          cancel_url: 'http://localhost:3000/pay-cancel',
+          fail_url: 'http://localhost:3000/pay-cancel',
         },
         {
           headers: {
@@ -34,7 +35,14 @@ const AddPoints = ({ userId, addPoints }) => {
       )
       .then(res => {
         localStorage.setItem('tid', res.data.tid);
-        window.location.href = res.data.next_redirect_pc_url;
+        window.open(
+          res.data.next_redirect_pc_url,
+          'kakaoPay',
+          'width=400,height=700,top=500,left=300',
+        );
+      })
+      .catch(error => {
+        console.error(error);
       });
   };
 

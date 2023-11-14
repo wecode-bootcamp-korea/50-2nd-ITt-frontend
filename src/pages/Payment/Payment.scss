@@ -14,15 +14,17 @@
     font-size: 26px;
     font-weight: bold;
   }
+  .orderListArea {
+    width: 70%;
+  }
   
   .paymentArea {
     display: flex;
     justify-content: center;
     width: 500px;
-    height: 400px;
     margin: 40px 0;
     border: 1px solid $gray-normal;
     border-radius: 8px;
-    padding: 20px;
+    padding: 40px;
   }
 }

@@ -9,7 +9,6 @@ const OrdersInfo = ({
   date,
   locationName,
   seatName,
-  amount,
   className,
 }) => {
   const ORDERLABEL = [

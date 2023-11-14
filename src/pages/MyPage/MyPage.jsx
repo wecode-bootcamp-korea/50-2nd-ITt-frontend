@@ -4,8 +4,8 @@ import ProfileEdit from './components/ProfileEdit';
 
 import UserQr from './components/UserQr';
 import Button from '../../components/Button/Button';
-import './MyPage.scss';
 import OrdersInfo from '../Payment/components/OrdersInfo/OrdersInfo';
+import './MyPage.scss';
 
 const MyPage = () => {
   const userInfo = {

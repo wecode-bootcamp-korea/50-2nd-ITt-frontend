@@ -12,6 +12,11 @@
     padding-bottom: 15px;
     border-bottom: 1px solid $gray-normal;
 
+    .orderInfoArea {
+      border-bottom: 1px solid $gray-normal;
+      padding-bottom: 20px;
+    }
+
     .isOrder {
       margin-top: 10px;
       font-weight: bold;
