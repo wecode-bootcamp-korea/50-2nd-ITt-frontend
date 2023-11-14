@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 
@@ -14,6 +14,18 @@ const Header = () => {
     }
   };
 
+  function UserNameDisplay() {
+    // 사용자 이름을 저장할 상태 변수
+    const [userName, setuserName] = useState('');
+
+    useEffect(() => {
+      // localStorage에서 사용자 이름 가져오기
+      const storedUserName = localStorage.getItem('userName');
+      if (storedUserName) {
+        setuserName(storedUserName);
+      }
+    }, []); // 빈 배열을 넣어 컴포넌트가 처음 마운트될 때만 실행되도록 함
+  }
   return (
     <div className="nav">
       <div className="wrapper">
@@ -30,7 +42,7 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <li>
-                <p>한적한 하루의 고양이 님</p>
+                <p>{userName} 님</p>
               </li>
               <li>
                 <p></p>
