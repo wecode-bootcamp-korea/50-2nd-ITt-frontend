@@ -36,14 +36,10 @@ const Header = () => {
                 <p></p>
               </li>
               <li>
-                <p className="btn" onClick={handleLogout}>
-                  로그아웃
-                </p>
+                <p onClick={handleLogout}>로그아웃</p>
               </li>
               <li>
-                <p className="btn" onClick={() => navigate('/mypage')}>
-                  마이페이지
-                </p>
+                <p onClick={() => navigate('/mypage')}>마이페이지</p>
               </li>
             </>
           ) : (
