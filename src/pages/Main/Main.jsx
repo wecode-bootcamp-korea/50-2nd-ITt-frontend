@@ -39,15 +39,15 @@ const Main = () => {
   }, []);
 
   const carouselToLeft = () => {
-    if (carouselIdx === 0) return;
-
-    setCarouselIdx(prev => prev - 1);
+    setCarouselIdx(prev =>
+      prev === 0 ? BANNER_SLIDE.length - SLIDE_TO_SHOW : prev - 1,
+    );
   };
 
   const carouselToRight = () => {
-    if (carouselIdx === BANNER_SLIDE.length - SLIDE_TO_SHOW) return;
-
-    setCarouselIdx(prev => prev + 1);
+    setCarouselIdx(prev =>
+      prev === BANNER_SLIDE.length - SLIDE_TO_SHOW ? 0 : prev + 1,
+    );
   };
 
   const SLIDE_TO_SHOW = 4;
@@ -91,7 +91,7 @@ const Main = () => {
             className="RecommendationLeftimg"
             alt="img"
             src="https://cdn.pixabay.com/photo/2020/07/05/18/57/woman-5374127_1280.jpg"
-          ></img>
+          />
         </div>
 
         <div className="imgContainer">
@@ -201,22 +201,18 @@ const Main = () => {
       <div className="compTitle"> UPCOMING EVENT </div>
 
       <div className="upComingEvent">
-        <div className="upComingEventContainer">
-          {UPCOMING_EVENT.map((event, idx) => (
-            <div key={idx}>
-              <div className="upComingEventContent">
-                <img
-                  className="upComingEventImg"
-                  alt="img"
-                  src={event.image_source}
-                />
-                <div>
-                  <p className="upComingEventTitle">{event.title}</p>
-                </div>
-              </div>
+        {UPCOMING_EVENT.map((event, idx) => (
+          <div className="upComingEventContent" key={idx}>
+            <img
+              className="upComingEventImg"
+              alt="img"
+              src={event.image_source}
+            />
+            <div>
+              <p className="upComingEventTitle">{event.title}</p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
