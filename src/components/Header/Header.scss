@@ -1,5 +1,7 @@
 .nav {
-  position: sticky;
+  border: 1px solid black;
+  display: flex;
+  position: absolute;
   width: 100%;
   background-color: white;
   z-index: 1;
@@ -12,8 +14,21 @@
     height: 75px;
     display: flex;
     justify-content: space-between;
+    // background-color: yellow;
+    width: 100%;
+
+    .logo {
+      position: relative;
+      left: 100%;
+      margin-top: 10px;
+      width: 8%;
+      justify-content: center;
+      background-color: yellow;
+    }
 
     .header_links {
+      position: relative;
+      right: 10;
       display: flex;
       align-items: center;
       gap: 100px;
@@ -23,6 +38,7 @@
       font-size: 20px;
       font-weight: 1;
       font-family: 'Noto Sans KR', PingFang, Helvetica, Arial, sans-serif;
+      background-color: yellow;
     }
   }
 }

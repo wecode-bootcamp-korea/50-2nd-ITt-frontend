@@ -17,11 +17,12 @@ const Header = () => {
   return (
     <div className="nav">
       <div className="wrapper">
-        <div className="logo">
+        <div>
           <img
+            className="logo"
             alt="logoimg"
             src="/images/gitcat.png"
-            onClick={() => navigate('/main')}
+            onClick={() => navigate('/')}
           />
         </div>
 
@@ -48,9 +49,7 @@ const Header = () => {
           ) : (
             <>
               <li></li>
-              <li>
-                <Link to="/signup">회원 가입</Link>
-              </li>
+
               <li>
                 <Link to="/login">로그인</Link>
               </li>
