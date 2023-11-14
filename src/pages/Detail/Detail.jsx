@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Datepicker from './components/Datepicker/Datepicker';
 import Button from '../../components/Button/Button';
 import { GET_MOCK_API } from '../../config';
@@ -6,11 +7,12 @@ import './Detail.scss';
 
 const Detail = () => {
   const [startDate, setStartDate] = useState(new Date());
+  const { detailId } = useParams();
   const [detail, setdetail] = useState({});
   const [detail1, setdetail1] = useState([]);
 
   useEffect(() => {
-    fetch(`${GET_MOCK_API}/1`, {
+    fetch(`${GET_MOCK_API}/${detailId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -21,7 +23,7 @@ const Detail = () => {
         setdetail(data.data.itemInfo[0]);
         setdetail1(data.data.itemClassInfo);
       });
-  }, []);
+  }, [detailId]);
 
   const { title, image, running_time, viewer_age, actor_name, location_name } =
     detail;
