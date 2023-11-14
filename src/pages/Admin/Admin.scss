@@ -1,0 +1,50 @@
+@import '../../styles/variable.scss';
+
+.admin {
+  display: flex;
+  height: calc(100vh - 120px);
+  background-color: $white;
+
+  .navArea {
+    height: 100%;
+    padding: 32px 24px;
+    background-color: $navy;
+
+    .navTitle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $white;
+    }
+
+    .navList {
+      padding-top: 48px;
+      li {
+        color: $white;
+
+        &:not(:first-child) {
+          padding-top: 16px;
+        }
+
+        .navMenu {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-width: 168px;
+          height: 48px;
+          border-radius: 8px;
+
+          &.active {
+            background-color: $purple;
+          }
+        }
+      }
+    }
+  }
+
+  .adminArea {
+    width: 100%;
+    padding: 32px;
+    border: 1px solid $gray-strong;
+  }
+}
