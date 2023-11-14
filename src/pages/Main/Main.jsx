@@ -6,7 +6,7 @@ import {
   RECOMMANDATION,
   ONSALE,
   UPCOMING_EVENT,
-} from './MainData/data.js';
+} from './MainData/data';
 import './Main.scss';
 
 const Main = () => {
@@ -95,17 +95,17 @@ const Main = () => {
         </div>
 
         <div className="imgContainer">
-          {RECOMMANDATION.map((comp1, id) => (
-            <div className="RecommendationRight" key={id}>
+          {RECOMMANDATION.map((Recomm, idx) => (
+            <div className="RecommendationRight" key={idx}>
               <div className="imgWrapper">
                 <img
                   className="RecommendationRightimg"
                   alt="img"
-                  src={comp1.image_source}
+                  src={Recomm.image_source}
                 />
                 <div className="info">
-                  <p className="infoTitle">{comp1.title}</p>
-                  <p className="infoDate">{comp1.date}</p>
+                  <p className="infoTitle">{Recomm.title}</p>
+                  <p className="infoDate">{Recomm.date}</p>
                 </div>
               </div>
             </div>
@@ -116,18 +116,18 @@ const Main = () => {
       <div className="compTitle"> CATEGORY</div>
 
       <div className="categoryLinks">
-        <a className="categoryText" href="/concerts">
+        <Link className="categoryText" to="/concerts">
           #콘서트
-        </a>
-        <a className="categoryText" href="/musicals">
+        </Link>
+        <Link className="categoryText" to="/musicals">
           #뮤지컬
-        </a>
-        <a className="categoryText" href="/theatre">
+        </Link>
+        <Link className="categoryText" to="/theatre">
           #연극
-        </a>
-        <a className="categoryText" href="/exhibitions">
+        </Link>
+        <Link className="categoryText" to="/exhibitions">
           #전시
-        </a>
+        </Link>
       </div>
 
       <div className="categoryList">
@@ -178,15 +178,19 @@ const Main = () => {
 
       <div className="onSale">
         <div className="sectionContainer">
-          {ONSALE.map((comp2, id) => (
-            <div className="onSaleFrame" key={id}>
+          {ONSALE.map((discount, idx) => (
+            <div className="onSaleFrame" key={idx}>
               <div className="onSaleWrapper">
-                <img className="onSaleImg" alt="img" src={comp2.image_source} />
+                <img
+                  className="onSaleImg"
+                  alt="img"
+                  src={discount.image_source}
+                />
 
                 <div className="onSaleInfo">
-                  <p className="onSaleInfoDiscount">{comp2.discount}</p>
-                  <p className="onSaleInfoDate">{comp2.date}</p>
-                  <p className="onSaleInfoTitle">{comp2.title}</p>
+                  <p className="onSaleInfoDiscount">{discount.discount}</p>
+                  <p className="onSaleInfoDate">{discount.date}</p>
+                  <p className="onSaleInfoTitle">{discount.title}</p>
                 </div>
               </div>
             </div>
@@ -198,16 +202,16 @@ const Main = () => {
 
       <div className="upComingEvent">
         <div className="upComingEventContainer">
-          {UPCOMING_EVENT.map((comp4, id) => (
-            <div key={id}>
+          {UPCOMING_EVENT.map((event, idx) => (
+            <div key={idx}>
               <div className="upComingEventContent">
                 <img
                   className="upComingEventImg"
                   alt="img"
-                  src={comp4.image_source}
+                  src={event.image_source}
                 />
                 <div>
-                  <p className="upComingEventTitle">{comp4.title}</p>
+                  <p className="upComingEventTitle">{event.title}</p>
                 </div>
               </div>
             </div>
