@@ -1,6 +1,8 @@
 @import '../../styles/variable.scss';
 
 .detail {
+  padding-bottom: 60px;
+
   .detailArea {
     padding-top: 60px;
 
@@ -144,5 +146,11 @@
     .btnArea {
       padding-top: 20px;
     }
+  }
+
+  .seatsArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

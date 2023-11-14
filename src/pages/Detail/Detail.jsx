@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Datepicker from './components/Datepicker/Datepicker';
 import Button from '../../components/Button/Button';
+import Seat from './components/Seat/Seat';
 import './Detail.scss';
 
 const Detail = () => {
@@ -84,6 +85,9 @@ const Detail = () => {
         <div className="btnArea">
           <Button width="230px">예매하기</Button>
         </div>
+      </div>
+      <div className="seatsArea">
+        <Seat />
       </div>
     </div>
   );
