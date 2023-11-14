@@ -56,17 +56,17 @@
     margin: 200px 0 200px 0;
   }
 
-  .compOne {
+  .Recommendation {
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 90%;
 
-    .compOneLeft {
+    .RecommendationLeft {
       width: 50%;
 
-      .compOneLeftimg {
+      .RecommendationLeftimg {
         height: 100%;
         width: 95%;
       }
@@ -77,7 +77,7 @@
       grid-template-rows: repeat(2, auto);
       grid-gap: 40px;
 
-      .compOneRight {
+      .RecommendationRight {
         .imgWrapper {
           position: relative;
           transition: transform 0.3s ease-in-out;
@@ -191,7 +191,7 @@
       }
     }
   }
-  .compTwo .sectionContainer {
+  .onSale .sectionContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, auto);
@@ -200,12 +200,12 @@
     margin: 10px auto;
     margin-bottom: 200px;
 
-    .compTwoFrame {
+    .onSaleFrame {
       border: 1px groove #efe8e8;
       border-radius: 20px;
       height: 400px;
 
-      .compTwoWrapper {
+      .onSaleWrapper {
         display: flex;
         flex-direction: row;
 
@@ -214,18 +214,18 @@
           transition: 0.3s;
         }
 
-        .compTwoImg {
+        .onSaleImg {
           height: 400px;
         }
 
-        .compTwoInfo {
+        .onSaleInfo {
           display: flex;
           flex-direction: column;
           margin-left: 30px;
           justify-content: center;
           gap: 30px;
 
-          .compTwoInfoDiscount {
+          .onSaleInfoDiscount {
             font-size: 30px;
             color: red;
             display: flex;
@@ -241,7 +241,7 @@
             width: 100px;
           }
 
-          .compTwoInfoTitle {
+          .onSaleInfoTitle {
             font-size: 35px;
             color: black;
             font-weight: bolder;
@@ -253,7 +253,7 @@
               Segoe UI Symbol,
               sans-serif;
           }
-          .compTwoInfodate {
+          .onSaleInfodate {
             font-size: 35px;
             color: blue;
             font-weight: bolder;
@@ -262,18 +262,18 @@
       }
     }
   }
-  .compFour {
+  .upComingEvent {
     margin-bottom: 300px;
 
-    .compFourContainer {
+    .upComingEventContainer {
       display: flex;
       justify-content: space-evenly;
 
-      .compFourContent {
+      .upComingEventContent {
         width: 300px;
         margin: 10px;
 
-        .compFourImg {
+        .upComingEventImg {
           width: 470px;
           transition: transform 0.3s ease-in-out;
 
@@ -282,7 +282,7 @@
           }
         }
 
-        .compFourTitle {
+        .upComingEventTitle {
           margin-top: 40px;
           font-size: 33px;
           font-family:

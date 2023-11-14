@@ -24,7 +24,7 @@ export const MAIN_SLIDE = [
   },
 ];
 
-export const COMPONENT_ONE = [
+export const RECOMMANDATION = [
   {
     id: 2,
     image_source:
@@ -140,7 +140,7 @@ export const BANNER_SLIDE = [
   },
 ];
 
-export const COMPONENT_TWO = [
+export const ONSALE = [
   {
     id: 1,
     image_source:
@@ -196,7 +196,7 @@ export const COMPONENT_TWO = [
   },
 ];
 
-export const COMPONENT_FOUR = [
+export const UPCOMING_EVENT = [
   {
     id: 1,
     image_source:

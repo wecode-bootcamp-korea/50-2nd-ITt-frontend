@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   MAIN_SLIDE,
   BANNER_SLIDE,
-  COMPONENT_ONE,
-  COMPONENT_TWO,
-  COMPONENT_FOUR,
+  RECOMMANDATION,
+  ONSALE,
+  UPCOMING_EVENT,
 } from './MainData/data.js';
 import './Main.scss';
 
@@ -85,21 +85,21 @@ const Main = () => {
 
       <div className="compTitle"> Recommandation</div>
 
-      <div className="compOne">
-        <div className="compOneLeft">
+      <div className="Recommendation">
+        <div className="RecommendationLeft">
           <img
-            className="compOneLeftimg"
+            className="RecommendationLeftimg"
             alt="img"
             src="https://cdn.pixabay.com/photo/2020/07/05/18/57/woman-5374127_1280.jpg"
           ></img>
         </div>
 
         <div className="imgContainer">
-          {COMPONENT_ONE.map((comp1, id) => (
-            <div className="compOneRight" key={id}>
+          {RECOMMANDATION.map((comp1, id) => (
+            <div className="RecommendationRight" key={id}>
               <div className="imgWrapper">
                 <img
-                  className="compOneRightimg"
+                  className="RecommendationRightimg"
                   alt="img"
                   src={comp1.image_source}
                 />
@@ -176,21 +176,17 @@ const Main = () => {
 
       <div className="compTitle"> ON SALE </div>
 
-      <div className="compTwo">
+      <div className="onSale">
         <div className="sectionContainer">
-          {COMPONENT_TWO.map((comp2, id) => (
-            <div className="compTwoFrame" key={id}>
-              <div className="compTwoWrapper">
-                <img
-                  className="compTwoImg"
-                  alt="img"
-                  src={comp2.image_source}
-                />
+          {ONSALE.map((comp2, id) => (
+            <div className="onSaleFrame" key={id}>
+              <div className="onSaleWrapper">
+                <img className="onSaleImg" alt="img" src={comp2.image_source} />
 
-                <div className="compTwoInfo">
-                  <p className="compTwoInfoDiscount">{comp2.discount}</p>
-                  <p className="compTwoInfoDate">{comp2.date}</p>
-                  <p className="compTwoInfoTitle">{comp2.title}</p>
+                <div className="onSaleInfo">
+                  <p className="onSaleInfoDiscount">{comp2.discount}</p>
+                  <p className="onSaleInfoDate">{comp2.date}</p>
+                  <p className="onSaleInfoTitle">{comp2.title}</p>
                 </div>
               </div>
             </div>
@@ -200,18 +196,18 @@ const Main = () => {
 
       <div className="compTitle"> UPCOMING EVENT </div>
 
-      <div className="compFour">
-        <div className="compFourContainer">
-          {COMPONENT_FOUR.map((comp4, id) => (
+      <div className="upComingEvent">
+        <div className="upComingEventContainer">
+          {UPCOMING_EVENT.map((comp4, id) => (
             <div key={id}>
-              <div className="compFourContent">
+              <div className="upComingEventContent">
                 <img
-                  className="compFourImg"
+                  className="upComingEventImg"
                   alt="img"
                   src={comp4.image_source}
                 />
                 <div>
-                  <p className="compFourTitle">{comp4.title}</p>
+                  <p className="upComingEventTitle">{comp4.title}</p>
                 </div>
               </div>
             </div>
