@@ -27,6 +27,17 @@ const Post = ({ onClose }) => {
             <input type="text" id="formPrice" className="formControl" />
           </div>
           <div className="formInput">
+            <label htmlFor="formSelect" className="formLabel">
+              카테고리
+            </label>
+            <select name="category" id="formSelect" className="formControl">
+              <option value="01">뮤지컬</option>
+              <option value="02">연극</option>
+              <option value="03">전시</option>
+              <option value="04">콘서트</option>
+            </select>
+          </div>
+          <div className="formInput">
             <label htmlFor="formAge" className="formLabel">
               등급
             </label>
