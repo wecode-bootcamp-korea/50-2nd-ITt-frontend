@@ -1,0 +1,70 @@
+@import '../../../../styles/variable.scss';
+
+.post {
+  overflow: hidden;
+  height: 100%;
+
+  .postTitle {
+    display: block;
+  }
+
+  .postArea {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 24px);
+    padding-top: 24px;
+
+    .formArea {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .formInput {
+        display: flex;
+        flex-direction: column;
+
+        &:not(:first-child) {
+          padding-top: 16px;
+        }
+      }
+
+      .formLabel {
+        display: flex;
+        align-items: center;
+      }
+
+      .formControl {
+        margin-top: 10px;
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        border: 1px solid $gray-strong;
+        border-radius: 8px;
+        outline: none;
+
+        &:focus {
+          border: 2px solid $gray-strong;
+        }
+
+        &.textarea {
+          overflow-y: auto;
+          height: 100px;
+          resize: none;
+        }
+      }
+    }
+
+    .btnArea {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 20px;
+
+      .btn {
+        + .btn {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
