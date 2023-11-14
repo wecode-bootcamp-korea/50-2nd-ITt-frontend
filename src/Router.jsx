@@ -8,6 +8,7 @@ import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 import MyPage from './pages/MyPage/MyPage';
 import Payment from './pages/Payment/Payment';
+import Post from './pages/Admin/components/Post/Post';
 import Signup from './pages/Signup/Signup';
 
 const Router = () => {
@@ -17,6 +18,7 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/post/:id" element={<Post />} />
           <Route path="/category" element={<Category />} />
           <Route path="/detail" element={<Detail />} />
           <Route path="/login" element={<Login />} />
