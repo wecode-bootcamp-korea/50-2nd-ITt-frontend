@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import ProfileImage from './components/ProfileImage/ProfileImage';
 import ProfileEdit from './components/ProfileEdit/ProfileEdit';
 import UserQr from './components/UserQr/UserQr';
+=======
+import React from 'react';
+import ProfileImage from './components/ProfileImage';
+import ProfileEdit from './components/ProfileEdit';
+
+import UserQr from './components/UserQr';
+>>>>>>> 1ccb7e8338cbd4a7d05e113c6f379fb3e24bfa11
 import Button from '../../components/Button/Button';
+import OrdersInfo from '../Payment/components/OrdersInfo/OrdersInfo';
 import './MyPage.scss';
 import { EDIT_USER_API, GET_USER_API } from '../../config';
 import axios from 'axios';

@@ -1,0 +1,33 @@
+@import '../../../../styles/variable.scss';
+
+.dashboard {
+  overflow: hidden;
+  height: 100%;
+
+  .dashboardTitle {
+    display: block;
+  }
+
+  .dashboardArea {
+    height: 100%;
+    padding-top: 24px;
+
+    .dashboardGroup {
+      overflow-y: auto;
+      height: calc(100% - 88px);
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 24px;
+        border: 1px solid $gray-normal;
+        border-radius: 8px;
+
+        &:not(:first-child) {
+          margin-top: 16px;
+        }
+      }
+    }
+  }
+}

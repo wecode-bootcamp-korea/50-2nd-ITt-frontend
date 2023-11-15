@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Datepicker from './components/Datepicker/Datepicker';
 import Button from '../../components/Button/Button';
+import Seat from './components/Seat/Seat';
 import './Detail.scss';
 
 const Detail = () => {
@@ -79,14 +80,53 @@ const Detail = () => {
       <div className="reserveArea">
         <div className="dateArea">
           <h3 className="dateTitle">날짜/시간 선택</h3>
-          <Datepicker startDate={startDate} setStartDate={setStartDate} />
+          <div className="dateGroup">
+            <Datepicker
+              startDate={startDate}
+              setStartDate={setStartDate}
+              minDate="2023-10-01"
+              maxDate="2023-11-11"
+            />
+            <div className="timePicker">
+              <span className="timeTitle">시간</span>
+              <div className="titleList">
+                {TIMEDATA.map(time => (
+                  <div className="formInput" key={time.id}>
+                    <input
+                      type="radio"
+                      id={`timePicker${time.id}`}
+                      className="formRadio"
+                      name="timePicker"
+                    />
+                    <label
+                      htmlFor={`timePicker${time.id}`}
+                      className="formLabel"
+                    >
+                      {time.time}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="btnArea">
           <Button width="230px">예매하기</Button>
         </div>
+      </div>
+      <div className="seatsArea">
+        <Seat />
       </div>
     </div>
   );
 };
 
 export default Detail;
+
+export const TIMEDATA = [
+  { id: 1, time: '14:00' },
+  { id: 2, time: '16:00' },
+  { id: 3, time: '18:00' },
+  { id: 4, time: '20:00' },
+  { id: 5, time: '22:00' },
+];
