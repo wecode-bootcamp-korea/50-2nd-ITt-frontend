@@ -27,14 +27,11 @@ const Header = () => {
           />
         </div>
 
-        <ul className="header_links">
+        <ul className="headerText">
           {isLoggedIn ? (
             <>
               <li>
                 <p>{userName} 님</p>
-              </li>
-              <li>
-                <p></p>
               </li>
               <li>
                 <p onClick={handleLogout}>로그아웃</p>
