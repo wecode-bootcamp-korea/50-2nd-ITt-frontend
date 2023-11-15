@@ -1,5 +1,11 @@
 .main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+
   .slideBox {
+    position: relative;
     margin-top: 100px;
     width: 100%;
     white-space: nowrap;
@@ -18,14 +24,14 @@
       vertical-align: middle;
       width: 100%;
       .slideImg {
-        height: 1200px;
+        height: 700px;
       }
     }
   }
 
   .arrowContainer {
-    // position: absolute;
-    top: 40%;
+    position: absolute;
+    top: 50%;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -297,28 +303,3 @@
     }
   }
 }
-// @media screen and (min-width: 3000px) {
-//   .main .slideBox .slideImg {
-//     height: auto;
-//   }
-
-//   .main .arrowContainer .arrow {
-//     width: 75px;
-//   }
-
-//   .main .Recommendation {
-//     flex-direction: row;
-//   }
-
-//   .main .categoryLinks {
-//     gap: 200px;
-//   }
-
-//   .main .onSale .sectionContainer {
-//     grid-template-columns: repeat(4, 1fr);
-//   }
-
-//   .main .upComingEvent .upComingEventContainer .upComingEventContent {
-//     width: 400px;
-//   }
-// }
