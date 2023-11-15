@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import SocialLogin from '../../components/Auth/SocialLogin';
 import './Login.scss';
 
 const Login = () => {
-  const [userID, setUserID] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [isClicked, setIsClicked] = useState(false);
-  // const Kakao = process.env.REACT_APP_CLIENT_ID;
+  const navigate = useNavigate();
+
+  const validUserEmail = 'admin@admin.com';
+  const validUserPassword = 'admin12345';
+
+  const handleLogin = () => {
+    if (userEmail === validUserEmail && userPassword === validUserPassword) {
+      navigate('/admin');
+    } else {
+      alert('잘못된 이메일 또는 비밀번호입니다.');
+      setUserEmail('');
+      setUserPassword('');
+    }
+  };
 
   return (
     <div className="login">
@@ -29,9 +42,9 @@ const Login = () => {
       <div>
         <div className="main">
           <img alt="logoimg" className="logo" src="/images/gitcat.png" />
-          <div className="maincont">"페이지 간단 소개 글"</div>
-          <img alt="social" className="mainCont" src="/images/social.png" />
-          <div className="social">
+          <div className="maincont">"환영합니다!"</div>
+
+          <div>
             <SocialLogin />
           </div>
         </div>
@@ -39,19 +52,23 @@ const Login = () => {
         <div className={`loginArea${isClicked ? ' visible' : ''}`}>
           <input
             className="inputWrap"
-            onChange={event => setUserID(event.target.value)}
+            value={userEmail}
+            onChange={event => setUserEmail(event.target.value)}
             type="text"
-            placeholder="아이디:"
+            placeholder="이메일:"
           />
 
           <input
             className="inputWrap"
+            value={userPassword}
             onChange={event => setUserPassword(event.target.value)}
             type="password"
             placeholder="비밀번호:"
           />
 
-          <Button width="500px">로그인</Button>
+          <Button className="adminLogin" onClick={handleLogin}>
+            로그인
+          </Button>
         </div>
       </div>
     </div>

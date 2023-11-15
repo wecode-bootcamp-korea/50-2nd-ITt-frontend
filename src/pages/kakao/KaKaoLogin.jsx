@@ -5,6 +5,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 export default function KaKaoLogin() {
   const [searchParams] = useSearchParams();
   const AUTHORIZE_CODE = searchParams.get('code');
+  console.log(AUTHORIZE_CODE);
   const navigate = useNavigate();
 
   const getKakaoToken = () => {
@@ -21,6 +22,9 @@ export default function KaKaoLogin() {
           localStorage.setItem('token', data.result.token);
           localStorage.setItem('userName', data.result.userName);
           navigate('/');
+        } else {
+          alert('로그인 실패');
+          navigate('/login');
         }
       });
   };

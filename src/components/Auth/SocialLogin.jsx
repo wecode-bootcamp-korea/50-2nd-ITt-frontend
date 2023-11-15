@@ -1,4 +1,5 @@
 import React from 'react';
+import './SocialLogin.scss';
 
 export default function SocialLogin() {
   const kakaoAuthUrl = process.env.REACT_APP_KAKAO_AUTH_URL;
@@ -8,7 +9,12 @@ export default function SocialLogin() {
 
   return (
     <div>
-      <button onClick={handleLogin}>카카오로 로그인</button>
+      <img
+        className="socialImg"
+        alt="social"
+        src="/images/kakao_login_large_wide.png"
+        onClick={handleLogin}
+      />
     </div>
   );
 }
