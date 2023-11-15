@@ -42,8 +42,6 @@ const Header = () => {
             </>
           ) : (
             <>
-              <li></li>
-
               <li>
                 <Link to="/login">로그인</Link>
               </li>
