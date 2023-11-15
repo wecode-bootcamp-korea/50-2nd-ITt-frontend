@@ -7,15 +7,11 @@ import Detail from './pages/Detail/Detail';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 import MyPage from './pages/MyPage/MyPage';
-<<<<<<< HEAD
 import Payment from './pages/Payment/Payment';
-import Post from './pages/Admin/components/Post/Post';
-=======
->>>>>>> main
-import Signup from './pages/Signup/Signup';
 import PayResult from './pages/Payment/PayResult';
-import Payment from './pages/Payment/Payment';
 import PayCancel from './pages/Payment/PayCancel';
+import Post from './pages/Admin/components/Post/Post';
+import Signup from './pages/Signup/Signup';
 
 const Router = () => {
   return (
