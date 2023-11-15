@@ -16,6 +16,10 @@ const PriceArea = ({
   time,
   locationName,
   title,
+  totalAmount,
+  reservationIds,
+  seatIds,
+  seatNames,
 }) => {
   const navigate = useNavigate();
 
@@ -34,9 +38,18 @@ const PriceArea = ({
 
   const handlePayment = () => {
     axios
-      .post(
+      .put(
         '백엔드결제api주소',
-        { amount, remainingPoint },
+        {
+          remainingPoint,
+          totalAmount,
+          reservationIds,
+          seatIds,
+          seatNames,
+          title,
+          date,
+          time,
+        },
         {
           headers: {
             // Authorization: `token`,

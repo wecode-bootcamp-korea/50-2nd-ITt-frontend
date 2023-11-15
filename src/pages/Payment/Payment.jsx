@@ -94,6 +94,10 @@ const Payment = () => {
     return acc + parseInt(cur.amount, 10);
   }, 0);
 
+  const reservationIds = paymentData.map(obj => obj.reservationId);
+  const seatIds = paymentData.map(obj => obj.seatId);
+  const seatNames = paymentData.map(obj => obj.seatName);
+
   return (
     <div className="payment">
       <h2 className="paymentTitle">결제하기</h2>
@@ -109,6 +113,10 @@ const Payment = () => {
           amount={totalAmount}
           addPoints={addPoints}
           setAddPoints={setAddPoints}
+          totalAmount={totalAmount}
+          reservationIds={reservationIds}
+          seatIds={seatIds}
+          seatNames={seatNames}
         />
       </div>
     </div>
