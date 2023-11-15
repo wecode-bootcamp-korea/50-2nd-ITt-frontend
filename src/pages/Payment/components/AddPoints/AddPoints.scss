@@ -1,0 +1,11 @@
+.addPoints {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .payIcon {
+    width: 60px;
+    margin-left: 10px;
+  }
+}

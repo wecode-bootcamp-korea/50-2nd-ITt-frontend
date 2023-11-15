@@ -1,0 +1,47 @@
+@import '../../../../styles/variable.scss';
+
+.list {
+  overflow: hidden;
+  height: 100%;
+
+  .listTitle {
+    display: block;
+  }
+
+  .listArea {
+    height: 100%;
+    padding-top: 24px;
+
+    .listAdd {
+      margin-bottom: 24px;
+    }
+
+    .listGroup {
+      overflow-y: auto;
+      height: calc(100% - 88px);
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 24px;
+        border: 1px solid $gray-normal;
+        border-radius: 8px;
+
+        &:not(:first-child) {
+          margin-top: 16px;
+        }
+
+        .btnArea {
+          display: flex;
+
+          .btn {
+            + .btn {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

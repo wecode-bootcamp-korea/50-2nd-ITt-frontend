@@ -12,7 +12,7 @@
 
   &:disabled {
     background-color: $gray-normal;
-    cursor: none;
+    cursor: not-allowed;
   }
 
   &.btnLine {
