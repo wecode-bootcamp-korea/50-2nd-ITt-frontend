@@ -1,9 +1,10 @@
 import React from 'react';
 import ProfileImage from './components/ProfileImage';
 import ProfileEdit from './components/ProfileEdit';
-import OrdersInfo from '../Payment/components/OrdersInfo';
+
 import UserQr from './components/UserQr';
 import Button from '../../components/Button/Button';
+import OrdersInfo from '../Payment/components/OrdersInfo/OrdersInfo';
 import './MyPage.scss';
 
 const MyPage = () => {
