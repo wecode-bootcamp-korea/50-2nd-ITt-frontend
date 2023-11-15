@@ -1,6 +1,6 @@
 import React from 'react';
-import './UserOrders.scss';
 import DetailsInfo from '../../../../components/DetailsInfo/DetailsInfo';
+import './UserOrders.scss';
 
 const UserOrders = ({
   eventDate,
