@@ -5,31 +5,28 @@
     display: flex;
     justify-content: space-between;
 
-    .topback {
+    .topBack {
       color: black;
       font-size: 20px;
 
       width: 10%;
     }
 
-    .backimg {
+    .backImg {
       width: 14%;
       margin-right: 5px;
     }
 
-    .toptext {
+    .topText {
       font-size: 30px;
       font-weight: bold;
     }
 
-    .topadmin {
+    .topAdmin {
       border: none;
       color: $purple;
       font-size: 20px;
-
-      &:hover {
-        cursor: pointer;
-      }
+      cursor: pointer;
     }
   }
 
@@ -40,7 +37,7 @@
     margin-top: 100px;
     gap: 40px;
 
-    .maincont {
+    .mainCont {
       font-size: 30px;
     }
 
