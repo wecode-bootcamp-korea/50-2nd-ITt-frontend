@@ -1,6 +1,8 @@
 @import '../../styles/variable.scss';
 
 .detail {
+  padding-bottom: 60px;
+
   .detailArea {
     padding-top: 60px;
 
@@ -41,7 +43,7 @@
             width: 14px;
             height: 16px;
             margin: 0 0 4px 4px;
-            background: url('../../assets/images/iocn/icon_location.png') center /
+            background: url('../../assets/images/icon/icon_location.png') center /
               14px 16px no-repeat;
           }
         }
@@ -129,5 +131,93 @@
         }
       }
     }
+  }
+
+  .reserveArea {
+    margin-top: 40px;
+    padding: 20px;
+
+    .dateArea {
+      .dateTitle {
+        font-weight: 700;
+      }
+
+      .dateGroup {
+        display: flex;
+        padding-top: 10px;
+
+        .datePicker {
+          flex: 1;
+        }
+
+        .timePicker {
+          overflow: hidden;
+          flex: 1;
+          height: 100%;
+          margin-left: 10px;
+          border: 1px solid #aeaeae;
+          border-radius: 4px;
+
+          .timeTitle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 56px;
+            font-weight: 700;
+            border-bottom: 1px solid #aeaeae;
+          }
+
+          .titleList {
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 176px;
+            padding: 12px;
+
+            .formInput {
+              &:not(:first-child) {
+                margin-top: 10px;
+              }
+
+              .formRadio {
+                display: none;
+
+                + .formLabel {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  width: 100px;
+                  height: 30px;
+                  margin: 0;
+                  border: 1px solid $purple;
+                  border-radius: 3px;
+                  background-color: $white;
+                }
+
+                &:checked {
+                  + .formLabel {
+                    color: $white;
+                    background-color: $purple;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .btnArea {
+      display: flex;
+      justify-content: center;
+      padding-top: 20px;
+    }
+  }
+
+  .seatsArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

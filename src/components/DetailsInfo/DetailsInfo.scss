@@ -1,0 +1,22 @@
+@import '../../styles/variable.scss';
+
+.detailsInfo {
+  li {
+    margin: 10px 0;
+
+    .label {
+      display: inline-block;
+      width: 100px;
+      font-weight: bold;
+      color: $gray-strong;
+    }
+
+    &.info {
+      display: flex;
+
+      &.content {
+        color: $gray-strong;
+      }
+    }
+  }
+}

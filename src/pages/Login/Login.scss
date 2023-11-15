@@ -1,12 +1,16 @@
 @import '../../styles/variable.scss';
 
 .login {
+<<<<<<< HEAD
   width: 50%;
   margin: 10px auto;
+=======
+>>>>>>> main
   .top {
     display: flex;
     justify-content: space-between;
 
+<<<<<<< HEAD
     .topBack {
       color: black;
       font-size: 20px;
@@ -15,20 +19,45 @@
     }
 
     .backImg {
+=======
+    .topback {
+      color: black;
+      font-size: 20px;
+
+      width: 10%;
+    }
+
+    .backimg {
+>>>>>>> main
       width: 14%;
       margin-right: 5px;
     }
 
+<<<<<<< HEAD
     .topText {
+=======
+    .toptext {
+>>>>>>> main
       font-size: 30px;
       font-weight: bold;
     }
 
+<<<<<<< HEAD
     .topAdmin {
       border: none;
       color: $purple;
       font-size: 20px;
       cursor: pointer;
+=======
+    .topadmin {
+      border: none;
+      color: $purple;
+      font-size: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
+>>>>>>> main
     }
   }
 
