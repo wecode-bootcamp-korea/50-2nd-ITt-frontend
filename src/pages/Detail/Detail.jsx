@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import Datepicker from './components/Datepicker/Datepicker';
 import Button from '../../components/Button/Button';
 import Seat from './components/Seat/Seat';
-import { GET_DETAIL_API } from '../../config';
+import { GET_DETAIL_API, GET_SEAT_API } from '../../config';
 import './Detail.scss';
 
 const Detail = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { detailId } = useParams();
-  const [detail, setdetail] = useState({});
+  const [detail, setDetail] = useState({});
   const [price, setPrice] = useState([]);
+  const [seat, setSeat] = useState([]);
+
+  const [checkedItems, setCheckedItems] = useState([]);
 
   useEffect(() => {
     fetch(`${GET_DETAIL_API}/${detailId}`, {
@@ -21,13 +25,31 @@ const Detail = () => {
     })
       .then(res => res.json())
       .then(data => {
-        setdetail(data.data.itemInfo[0]);
+        setDetail(data.data.itemInfo[0]);
         setPrice(data.data.itemClassInfo);
       });
   }, [detailId]);
 
   const { title, image, running_time, viewer_age, actor_name, location_name } =
     detail;
+
+  const test = () => {
+    axios
+      .post(
+        GET_SEAT_API,
+        {
+          locationId: detail.location_id,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        },
+      )
+      .then(res => {
+        setSeat(res.data.data.seatInfo);
+      });
+  };
 
   return (
     <div className="detail">
@@ -117,11 +139,12 @@ const Detail = () => {
           </div>
         </div>
         <div className="btnArea">
+          {/* <Button width="230px" onClick={test}> */}
           <Button width="230px">예매하기</Button>
         </div>
       </div>
       <div className="seatsArea">
-        <Seat />
+        <Seat seats={seat} />
       </div>
     </div>
   );
