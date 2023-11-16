@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import Datepicker from './components/Datepicker/Datepicker';
 import Button from '../../components/Button/Button';
 import Seat from './components/Seat/Seat';
-import { GET_DETAIL_API } from '../../config';
+import { GET_DETAIL_API, GET_SEAT_API } from '../../config';
 import './Detail.scss';
 
 const Detail = () => {
@@ -46,6 +47,24 @@ const Detail = () => {
     runningTime,
     viewerAge,
   } = itemInfo;
+
+  // const test = () => {
+  //   axios
+  //     .post(
+  //       GET_SEAT_API,
+  //       {
+  //         locationId: detail.location_id,
+  //       },
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json;charset=utf-8',
+  //         },
+  //       },
+  //     )
+  //     .then(res => {
+  //       setSeat(res.data.data.seatInfo);
+  //     });
+  // };
 
   return (
     <div className="detail">
