@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Header from '../../components/Header/Header';
 import {
   MAIN_SLIDE,
   BANNER_SLIDE,
@@ -55,7 +54,6 @@ const Main = () => {
 
   return (
     <div className="main">
-      <Header />
       <div className="slideBox">
         <ul
           className="slideList"
@@ -117,19 +115,16 @@ const Main = () => {
 
       <div className="compTitle"> CATEGORY</div>
 
+      <div className="searchContainer">
+        <input type="text" className="searchBox" placeholder="검색..." />
+        <button className="searchButton">🔍</button>
+      </div>
+
       <div className="categoryLinks">
-        <Link className="categoryText" to="/concerts">
-          #콘서트
-        </Link>
-        <Link className="categoryText" to="/musicals">
-          #뮤지컬
-        </Link>
-        <Link className="categoryText" to="/theatre">
-          #연극
-        </Link>
-        <Link className="categoryText" to="/exhibitions">
-          #전시
-        </Link>
+        <p className="categoryText">#콘서트</p>
+        <p className="categoryText">#뮤지컬</p>
+        <p className="categoryText">#연극</p>
+        <p className="categoryText">#전시</p>
       </div>
 
       <div className="categoryList">

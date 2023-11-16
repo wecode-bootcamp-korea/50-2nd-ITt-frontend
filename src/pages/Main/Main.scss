@@ -147,6 +147,30 @@
   }
 }
 
+.searchContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: 20px;
+
+  .searchBox {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .searchButton {
+    background-color: #ffffff;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
 .categoryLinks {
   display: flex;
   justify-content: center;
