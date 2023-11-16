@@ -40,7 +40,7 @@ const Seat = () => {
               .map(seat => {
                 const { id } = seat;
                 return (
-                  <div className="formInput" key={`${id}`}>
+                  <div className="formInput" key={id}>
                     <input
                       type="checkbox"
                       id={`seat${id}`}
@@ -49,7 +49,7 @@ const Seat = () => {
                       checked={checkedItems.some(item => item.id === id)}
                     />
                     <label htmlFor={`seat${id}`} className="formLabel">
-                      <span>{`${id}`}</span>
+                      <span>{id}</span>
                     </label>
                   </div>
                 );
