@@ -5,11 +5,10 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 export default function KaKaoLogin() {
   const [searchParams] = useSearchParams();
   const AUTHORIZE_CODE = searchParams.get('code');
-  console.log(AUTHORIZE_CODE);
   const navigate = useNavigate();
 
   const getKakaoToken = () => {
-    fetch(`http://10.58.52.212:8000/users/kakaologin`, {
+    fetch(`http://10.58.52.65:8000/users/kakaologin`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json;charset=utf-8',
