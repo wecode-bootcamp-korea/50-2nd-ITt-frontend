@@ -7,6 +7,7 @@ import Detail from './pages/Detail/Detail';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
 import MyPage from './pages/MyPage/MyPage';
+import Header from './components/Header/Header';
 import Payment from './pages/Payment/Payment';
 import PayResult from './pages/Payment/PayResult';
 import PayCancel from './pages/Payment/PayCancel';
@@ -16,13 +17,14 @@ import Signup from './pages/Signup/Signup';
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Layout>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/post/:id" element={<Post />} />
           <Route path="/category" element={<Category />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/:detailId" element={<Detail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/payment" element={<Payment />} />
