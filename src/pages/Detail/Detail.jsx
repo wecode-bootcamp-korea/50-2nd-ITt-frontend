@@ -8,10 +8,19 @@ import './Detail.scss';
 
 const Detail = () => {
   const { detailId } = useParams();
+
   const [startDate, setStartDate] = useState(new Date());
   const [itemInfo, setItemInfo] = useState([]);
   const [actorInfo, setActorInfo] = useState([]);
   const [date, setDate] = useState([{}]);
+  const [isAdvanceClicked, setIsAdvanceClicked] = useState(false);
+  const [isTimeClicked, setIsTimeClicked] = useState(false);
+
+  const year = startDate.getFullYear();
+  const month = startDate.getMonth() + 1;
+  const day =
+    startDate.getDate() > 10 ? startDate.getDate() : `0${startDate.getDate()}`;
+  const selectDate = `${year}-${month}-${day}`;
 
   useEffect(() => {
     fetch(`${GET_DETAIL_API}/${detailId}`, {
@@ -37,16 +46,6 @@ const Detail = () => {
     runningTime,
     viewerAge,
   } = itemInfo;
-
-  const [isAdvanceClicked, setIsAdvanceClicked] = useState(false);
-
-  const [isTimeClicked, setIsTimeClicked] = useState(false);
-
-  const day =
-    startDate.getDate() > 10 ? startDate.getDate() : `0${startDate.getDate()}`;
-  const selectDate = `${startDate.getFullYear()}-${
-    startDate.getMonth() + 1
-  }-${day}`;
 
   return (
     <div className="detail">
@@ -137,7 +136,11 @@ const Detail = () => {
           </Button>
         </div>
       </div>
-      <div className="seatsArea">{isAdvanceClicked && <Seat />}</div>
+      {isAdvanceClicked && (
+        <div className="seatsArea">
+          <Seat />
+        </div>
+      )}
     </div>
   );
 };
