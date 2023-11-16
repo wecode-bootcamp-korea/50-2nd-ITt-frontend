@@ -16,7 +16,7 @@
     border-radius: 8px 0 0 8px;
     background-color: $navy;
 
-    .userArea {
+    .myPageArea {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -33,24 +33,21 @@
     width: 100%;
     padding: 26px;
 
-    .myPageArea {
+    .userArea {
       width: 100%;
     }
 
-    .userOrders {
+    .orderArea {
       margin: 30px 0;
-      padding: 30px 10px;
+      padding: 30px 20px;
       border: 1px solid $gray-normal;
       border-radius: 8px;
 
       .qrArea {
         display: flex;
         margin: 16px 0;
-
-        * {
-          margin-right: 10px;
-        }
       }
+
       .cancelBtn {
         display: flex;
         justify-content: right;

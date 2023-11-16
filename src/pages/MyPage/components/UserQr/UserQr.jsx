@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserQr.scss';
 
-const UserQR = () => {
+const UserQR = ({ seatClass, seatNumber }) => {
   return (
     <div className="userQr">
       <p className="userTitle">QR 코드</p>
@@ -10,7 +10,9 @@ const UserQR = () => {
         alt="orderQrCode"
         className="qrImage"
       />
-      <span>좌석 : R석 35번</span>
+      <span>
+        {seatClass} {seatNumber}번
+      </span>
     </div>
   );
 };
