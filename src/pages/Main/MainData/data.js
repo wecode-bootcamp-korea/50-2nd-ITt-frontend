@@ -26,6 +26,14 @@ export const MAIN_SLIDE = [
 
 export const RECOMMANDATION = [
   {
+    id: 1,
+    image_source:
+      ' https://cdn.pixabay.com/photo/2015/09/04/23/00/vintage-922963_1280.jpg',
+    date: '2023.10.19 ~ 2024.03.31',
+    title: '2023 지니뮤직 페스티벌 - 공식 티켓',
+  },
+
+  {
     id: 2,
     image_source:
       ' https://cdn.pixabay.com/photo/2023/08/15/09/21/camera-8191564_1280.jpg',

@@ -86,16 +86,16 @@ const Main = () => {
       <div className="compTitle"> Recommandation</div>
 
       <div className="Recommendation">
-        <div className="RecommendationLeft">
-          <img
-            className="RecommendationLeftimg"
-            alt="img"
-            src="https://cdn.pixabay.com/photo/2020/07/05/18/57/woman-5374127_1280.jpg"
-          />
-        </div>
-
-        <div className="imgContainer">
-          {RECOMMANDATION.map((Recomm, idx) => (
+        {RECOMMANDATION.map((Recomm, idx) =>
+          idx === 0 ? (
+            <div className="RecommendationLeft" key={idx}>
+              <img
+                className="RecommendationLeftimg"
+                alt="img"
+                src={Recomm.image_source}
+              />
+            </div>
+          ) : (
             <div className="RecommendationRight" key={idx}>
               <div className="imgWrapper">
                 <img
@@ -109,8 +109,8 @@ const Main = () => {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          ),
+        )}
       </div>
 
       <div className="compTitle"> CATEGORY</div>
