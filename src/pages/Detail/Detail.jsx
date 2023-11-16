@@ -8,13 +8,20 @@ import { GET_DETAIL_API, GET_SEAT_API } from '../../config';
 import './Detail.scss';
 
 const Detail = () => {
-  const [startDate, setStartDate] = useState(new Date());
   const { detailId } = useParams();
-  const [detail, setDetail] = useState({});
-  const [price, setPrice] = useState([]);
-  const [seat, setSeat] = useState([]);
 
-  const [checkedItems, setCheckedItems] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [itemInfo, setItemInfo] = useState([]);
+  const [actorInfo, setActorInfo] = useState([]);
+  const [date, setDate] = useState([{}]);
+  const [isAdvanceClicked, setIsAdvanceClicked] = useState(false);
+  const [isTimeClicked, setIsTimeClicked] = useState(false);
+
+  const year = startDate.getFullYear();
+  const month = startDate.getMonth() + 1;
+  const day =
+    startDate.getDate() > 10 ? startDate.getDate() : `0${startDate.getDate()}`;
+  const selectDate = `${year}-${month}-${day}`;
 
   useEffect(() => {
     fetch(`${GET_DETAIL_API}/${detailId}`, {
@@ -25,31 +32,39 @@ const Detail = () => {
     })
       .then(res => res.json())
       .then(data => {
-        setDetail(data.data.itemInfo[0]);
-        setPrice(data.data.itemClassInfo);
+        setItemInfo(data.data.itemInfo[0]);
+        setActorInfo(data.data.actorsInfoByitemId);
+        setDate(data.data.calenderTime);
       });
   }, [detailId]);
 
-  const { title, image, running_time, viewer_age, actor_name, location_name } =
-    detail;
+  const {
+    title,
+    image,
+    itemNotice,
+    locationName,
+    price,
+    runningTime,
+    viewerAge,
+  } = itemInfo;
 
-  const test = () => {
-    axios
-      .post(
-        GET_SEAT_API,
-        {
-          locationId: detail.location_id,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-        },
-      )
-      .then(res => {
-        setSeat(res.data.data.seatInfo);
-      });
-  };
+  // const test = () => {
+  //   axios
+  //     .post(
+  //       GET_SEAT_API,
+  //       {
+  //         locationId: detail.location_id,
+  //       },
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json;charset=utf-8',
+  //         },
+  //       },
+  //     )
+  //     .then(res => {
+  //       setSeat(res.data.data.seatInfo);
+  //     });
+  // };
 
   return (
     <div className="detail">
@@ -57,9 +72,11 @@ const Detail = () => {
         <div className="titleArea">
           <h2 className="title">{title}</h2>
           <div className="titleInfo">
-            <span className="date">2023.11.08 ~ 2023.12.25</span>
+            <span className="date">
+              {date[0].eventDate} ~ {date[date.length - 1].eventDate}
+            </span>
             <button type="button" className="location">
-              {location_name}
+              {locationName}
             </button>
           </div>
         </div>
@@ -70,37 +87,27 @@ const Detail = () => {
           <div className="infoGroup">
             <dl className="infoList">
               <dt>등급</dt>
-              <dd>{viewer_age}</dd>
+              <dd>{viewerAge}</dd>
             </dl>
             <dl className="infoList">
               <dt>관람시간</dt>
-              <dd>{running_time}분</dd>
+              <dd>{runningTime}분</dd>
             </dl>
             <dl className="infoList">
               <dt>출연</dt>
-              <dd>{actor_name}</dd>
+              {actorInfo.map((actor, i) => (
+                <dd key={i}>{actor.name}</dd>
+              ))}
             </dl>
             <dl className="infoList">
               <dt>가격</dt>
               <dd>
-                <div className="infoPrice">
-                  {price.map(index => (
-                    <dl className="priceList" key={index}>
-                      <dt>{index.name}석</dt>
-                      <dd>
-                        <span>{index.price}</span>원
-                      </dd>
-                    </dl>
-                  ))}
-                </div>
+                <span>{price}</span>원
               </dd>
             </dl>
             <dl className="infoList block">
               <dt>공연시간 안내</dt>
-              <dd>
-                평일 오후 7시 30분 / 주말 및 공휴일 오후 2시, 6시 30분 <br />
-                (월요일 공연 없음, 9월 29일 공연없음)
-              </dd>
+              <dd>{itemNotice}</dd>
             </dl>
           </div>
         </div>
@@ -112,40 +119,47 @@ const Detail = () => {
             <Datepicker
               startDate={startDate}
               setStartDate={setStartDate}
-              minDate="2023-10-01"
-              maxDate="2023-11-11"
+              minDate={date[0].eventDate}
+              maxDate={date[date.length - 1].eventDate}
+              onChange={() => setIsTimeClicked(true)}
             />
             <div className="timePicker">
               <span className="timeTitle">시간</span>
               <div className="titleList">
-                {TIMEDATA.map(time => (
-                  <div className="formInput" key={time.id}>
-                    <input
-                      type="radio"
-                      id={`timePicker${time.id}`}
-                      className="formRadio"
-                      name="timePicker"
-                    />
-                    <label
-                      htmlFor={`timePicker${time.id}`}
-                      className="formLabel"
-                    >
-                      {time.time}
-                    </label>
-                  </div>
-                ))}
+                {isTimeClicked &&
+                  date
+                    .filter(el => el.eventDate === selectDate)
+                    .map(dateTime => (
+                      <div className="formInput" key={dateTime.id}>
+                        <input
+                          type="radio"
+                          id={`timePicker${dateTime.id}`}
+                          className="formRadio"
+                          name="timePicker"
+                        />
+                        <label
+                          htmlFor={`timePicker${dateTime.id}`}
+                          className="formLabel"
+                        >
+                          {dateTime.eventTime}
+                        </label>
+                      </div>
+                    ))}
               </div>
             </div>
           </div>
         </div>
         <div className="btnArea">
-          {/* <Button width="230px" onClick={test}> */}
-          <Button width="230px">예매하기</Button>
+          <Button width="230px" onClick={() => setIsAdvanceClicked(true)}>
+            예매하기
+          </Button>
         </div>
       </div>
-      <div className="seatsArea">
-        <Seat seats={seat} />
-      </div>
+      {isAdvanceClicked && (
+        <div className="seatsArea">
+          <Seat />
+        </div>
+      )}
     </div>
   );
 };
