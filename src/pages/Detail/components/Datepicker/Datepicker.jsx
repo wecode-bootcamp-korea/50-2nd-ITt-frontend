@@ -4,12 +4,22 @@ import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Datepicker.scss';
 
-const Datepicker = ({ startDate, setStartDate, minDate, maxDate }) => {
+const Datepicker = ({
+  startDate,
+  setStartDate,
+  minDate,
+  maxDate,
+  onChange,
+}) => {
+  const handleChange = date => {
+    setStartDate(date);
+    onChange();
+  };
   return (
     <div className="datePicker">
       <DatePicker
         selected={startDate}
-        onChange={date => setStartDate(date)}
+        onChange={date => handleChange(date)}
         dateFormat="yyyy년 MM월 dd일"
         locale={ko}
         inline
