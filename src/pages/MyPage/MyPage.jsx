@@ -1,52 +1,89 @@
-import React from 'react';
-import ProfileImage from './components/ProfileImage';
-import ProfileEdit from './components/ProfileEdit';
-import OrdersInfo from '../Payment/components/OrdersInfo';
-import UserQr from './components/UserQr';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { GET_USER_API } from '../../config';
+import ProfileImage from './components/ProfileImage/ProfileImage';
+import ProfileEdit from './components/ProfileEdit/ProfileEdit';
+import User from './components/UserOrders/UserOrders';
+import UserQr from './components/UserQr/UserQr';
 import Button from '../../components/Button/Button';
 import './MyPage.scss';
 
 const MyPage = () => {
-  const userInfo = {
-    userId: 1,
-    name: '김코드',
-    src: '/images/visual_01.png',
-    alt: '유저프로필이미지',
-  };
+  const [userData, setUserData] = useState({});
 
-  const orderInfo = {
-    orderId: 1,
-    title: '뮤지컬 고양이',
-    imgUrl: '/images/visual_01.png',
-    time: '150분',
-    date: '2023년 5월 5일 오후 2시',
-    location: '수원아트센터',
-    seatNumber: 'R열 35번',
-    totalPrice: '70,000',
+  // useEffect(() => {
+  //   axios
+  //     .get(GET_USER_API, {
+  //       headers: { 'Content-Type': 'application/json;charset=utf-8' },
+  //     })
+  //     .then(res => {
+  //       setUserData(res.data.message);
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    axios
+      .get('/data/mypageData.json', {
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      })
+      .then(res => {
+        setUserData(res.data.data);
+      });
+  }, []);
+
+  const { profileImage, userName, seatClass, seatNumber } = userData;
+
+  const handleCancel = () => {
+    if (window.confirm('삭제하시겠습니까?')) {
+      axios
+        .post(
+          'http://13.209.21.84:8000/users/mypage/cancel',
+          {
+            reservationId: 21,
+            totalAmount: 10000000,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+              // token : 'token'
+            },
+          },
+        )
+        .then(res => {
+          if (res.data.message === 'cancel_success') {
+            alert('삭제완료');
+          } else {
+            alert('삭제실패');
+          }
+        });
+    } else {
+      alert('삭제 취소!');
+    }
   };
 
   return (
     <div className="myPage">
       <div className="menuArea">
-        <div className="userArea">
-          <ProfileImage src={userInfo.src} alt={userInfo.alt} />
-          <p>{userInfo.name}</p>
+        <div className="myPageArea">
+          <ProfileImage src={profileImage} alt={userName} />
+          <p>{userName}</p>
         </div>
       </div>
       <div className="userPage">
         <h2 className="title">프로필변경</h2>
-        <div className="myPageArea">
-          <ProfileEdit {...userInfo} />
+        <div className="userArea">
+          <ProfileEdit userName={userName} profileImage={profileImage} />
         </div>
         <h2 className="title">결제내역</h2>
-        <div className="userOrders">
-          <OrdersInfo {...orderInfo} />
+        <div className="orderArea">
+          <User {...userData} />
           <div className="qrArea">
-            <UserQr />
-            <UserQr />
+            <UserQr seatClass={seatClass} seatNumber={seatNumber} />
           </div>
           <div className="cancelBtn">
-            <Button width="200px">결제취소</Button>
+            <Button width="200px" onClick={handleCancel}>
+              결제취소
+            </Button>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Header from '../../components/Header/Header';
 import {
   MAIN_SLIDE,
   BANNER_SLIDE,
@@ -54,6 +55,7 @@ const Main = () => {
 
   return (
     <div className="main">
+      <Header />
       <div className="slideBox">
         <ul
           className="slideList"
