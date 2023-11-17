@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useHistory, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import {
   MAIN_SLIDE,
   BANNER_SLIDE,
@@ -51,6 +52,24 @@ const Main = () => {
   };
 
   const SLIDE_TO_SHOW = 4;
+
+  const [wholeData, setwholeData] = useState({});
+  const [categoryId, setcategoryId] = useState({});
+
+  useEffect(() => {
+    fetch('http://10.58.52.217:8000/itemList', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setwholeData(data);
+      });
+  }, []);
+
+  const { sildeItem, recommandation, categotItem, onSale, newItem } = wholeData;
 
   return (
     <div className="main">
