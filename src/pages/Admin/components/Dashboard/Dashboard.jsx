@@ -9,7 +9,9 @@ const Dashboard = () => {
       <div className="dashboardArea">
         <ul className="dashboardGroup">
           <li className="dashboardInfo">
-            <span className="infoTitle">구매 내역</span>
+            <span className="infoTitle">
+              유저이름, 타이틀, 날짜, 시간, 가격
+            </span>
             <div className="btnArea">
               <Button outline width="100px" height="40px">
                 예매 취소
