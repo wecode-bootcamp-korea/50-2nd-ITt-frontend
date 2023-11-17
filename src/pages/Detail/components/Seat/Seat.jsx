@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { GET_SEAT_API } from '../../../../config';
 import './Seat.scss';
 
-const Seat = ({ seatsItem }) => {
-  const [seats, setSeats] = useState([]);
+const Seat = ({ itemInfo }) => {
   const [checkedItems, setCheckedItems] = useState([]);
-  const rows = [...new Set(seatsItem.map(seat => seat.seatRow))];
+  const [seats, setSeats] = useState([]);
+  const rows = [...new Set(seats.map(seat => seat.seatRow))];
 
   useEffect(() => {
-    // fetch('/data/seatData.json', {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //   },
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     setSeats(data.seatInfo);
-    //   });
-    console.log(seats);
+    axios
+      .post(
+        GET_SEAT_API,
+        {
+          locationId: itemInfo.locationId,
+          itemId: itemInfo.itemId,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJwYzBidW1AZ21haWwuY29tIiwibmFtZSI6Iuq5gOyYgeuylCIsImlhdCI6MTcwMDExNDU4Nn0.GbMPNLlMF27ThioX5DnQUqLMcQNVl58Ux4Ww_IuGmTc',
+          },
+        },
+      )
+      .then(res => {
+        setSeats(res.data.data.seatInfo);
+      });
   }, []);
 
   const seatOnChange = seat => {
@@ -35,8 +44,8 @@ const Seat = ({ seatsItem }) => {
         {rows.map(row => (
           <div key={row} className="seatGroup">
             {row}
-            {seatsItem
-              .filter(seat => seat.seat_row === row)
+            {seats
+              .filter(seat => seat.seatRow === row)
               .map(seat => {
                 const { id } = seat;
                 return (

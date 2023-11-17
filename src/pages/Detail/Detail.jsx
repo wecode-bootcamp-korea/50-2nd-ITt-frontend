@@ -13,9 +13,8 @@ const Detail = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [itemInfo, setItemInfo] = useState([]);
   const [actorInfo, setActorInfo] = useState([]);
-  const [seats, setSeats] = useState([]);
   const [date, setDate] = useState([{}]);
-  // const [isAdvanceClicked, setIsAdvanceClicked] = useState(true);
+  const [isAdvanceClicked, setIsAdvanceClicked] = useState(false);
   const [isTimeClicked, setIsTimeClicked] = useState(false);
 
   const year = startDate.getFullYear();
@@ -25,21 +24,20 @@ const Detail = () => {
   const selectDate = `${year}-${month}-${day}`;
 
   useEffect(() => {
-    fetch(`${GET_DETAIL_API}/${detailId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setItemInfo(data.data.itemInfo[0]);
-        setActorInfo(data.data.actorsInfoByitemId);
-        setDate(data.data.calenderTime);
+    axios
+      .get(`${GET_DETAIL_API}/${detailId}`, {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          authorization:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJwYzBidW1AZ21haWwuY29tIiwibmFtZSI6Iuq5gOyYgeuylCIsImlhdCI6MTcwMDExNDU4Nn0.GbMPNLlMF27ThioX5DnQUqLMcQNVl58Ux4Ww_IuGmTc',
+        },
+      })
+      .then(res => {
+        setItemInfo(res.data.data.itemInfo[0]);
+        setActorInfo(res.data.data.actorsInfoByitemId);
+        setDate(res.data.data.calenderTime);
       });
   }, [detailId]);
-
-  // console.log(seats);
 
   const {
     title,
@@ -51,28 +49,16 @@ const Detail = () => {
     viewerAge,
   } = itemInfo;
 
-  const TEST = () => {
-    axios
-      .post(
-        GET_SEAT_API,
-        {
-          locationId: itemInfo.locationId,
-          itemId: itemInfo.itemId,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJwYzBidW1AZ21haWwuY29tIiwibmFtZSI6Iuq5gOyYgeuylCIsImlhdCI6MTcwMDExNDU4Nn0.GbMPNLlMF27ThioX5DnQUqLMcQNVl58Ux4Ww_IuGmTc',
-          },
-        },
-      )
-      .then(res => {
-        setSeats(res.data.data.seatInfo);
-      });
+  const advanceClick = () => {
+    // if(token) {
+    //   setIsAdvanceClicked(true);
+    // } else return alert('로그인을 해주세요.')
+    setIsAdvanceClicked(true);
   };
 
-  // setIsAdvanceClicked(true);
+  const payClick = () => {
+    console.log('dd');
+  };
 
   return (
     <div className="detail">
@@ -158,19 +144,22 @@ const Detail = () => {
           </div>
         </div>
         <div className="btnArea">
-          <Button width="230px" onClick={TEST}>
+          <Button width="230px" onClick={advanceClick}>
             예매하기
           </Button>
         </div>
       </div>
-      {/* {isAdvanceClicked && (
+      {isAdvanceClicked && (
         <div className="seatsArea">
-          <Seat seats={seats} />
+          <Seat itemInfo={itemInfo} />
+          <Button width="230px" onClick={payClick}>
+            결제하기
+          </Button>
         </div>
-      )} */}
-      <div className="seatsArea">
-        <Seat seatsItem={seats} />
-      </div>
+      )}
+      {/* <div className="seatsArea">
+        <Seat itemInfo={itemInfo} />
+      </div> */}
     </div>
   );
 };
