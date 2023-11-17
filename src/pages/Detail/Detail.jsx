@@ -4,7 +4,7 @@ import axios from 'axios';
 import Datepicker from './components/Datepicker/Datepicker';
 import Button from '../../components/Button/Button';
 import Seat from './components/Seat/Seat';
-import { GET_DETAIL_API, GET_SEAT_API } from '../../config';
+import { GET_DETAIL_API } from '../../config';
 import './Detail.scss';
 
 const Detail = () => {
@@ -24,17 +24,18 @@ const Detail = () => {
   const selectDate = `${year}-${month}-${day}`;
 
   useEffect(() => {
-    fetch(`${GET_DETAIL_API}/${detailId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setItemInfo(data.data.itemInfo[0]);
-        setActorInfo(data.data.actorsInfoByitemId);
-        setDate(data.data.calenderTime);
+    axios
+      .get(`${GET_DETAIL_API}/${detailId}`, {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          authorization:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJwYzBidW1AZ21haWwuY29tIiwibmFtZSI6Iuq5gOyYgeuylCIsImlhdCI6MTcwMDExNDU4Nn0.GbMPNLlMF27ThioX5DnQUqLMcQNVl58Ux4Ww_IuGmTc',
+        },
+      })
+      .then(res => {
+        setItemInfo(res.data.data.itemInfo[0]);
+        setActorInfo(res.data.data.actorsInfoByitemId);
+        setDate(res.data.data.calenderTime);
       });
   }, [detailId]);
 
@@ -48,23 +49,17 @@ const Detail = () => {
     viewerAge,
   } = itemInfo;
 
-  // const test = () => {
-  //   axios
-  //     .post(
-  //       GET_SEAT_API,
-  //       {
-  //         locationId: detail.location_id,
-  //       },
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json;charset=utf-8',
-  //         },
-  //       },
-  //     )
-  //     .then(res => {
-  //       setSeat(res.data.data.seatInfo);
-  //     });
-  // };
+  const advanceClick = () => {
+    // 추가 예정
+    // if(token) {
+    //   setIsAdvanceClicked(true);
+    // } else return alert('로그인을 해주세요.')
+    setIsAdvanceClicked(true);
+  };
+
+  const payClick = () => {
+    console.log('추가 예정');
+  };
 
   return (
     <div className="detail">
@@ -85,79 +80,86 @@ const Detail = () => {
             <img src={image} alt={title} />
           </div>
           <div className="infoGroup">
-            <dl className="infoList">
-              <dt>등급</dt>
-              <dd>{viewerAge}</dd>
-            </dl>
-            <dl className="infoList">
-              <dt>관람시간</dt>
-              <dd>{runningTime}분</dd>
-            </dl>
-            <dl className="infoList">
-              <dt>출연</dt>
-              {actorInfo.map((actor, i) => (
-                <dd key={i}>{actor.name}</dd>
-              ))}
-            </dl>
-            <dl className="infoList">
-              <dt>가격</dt>
-              <dd>
-                <span>{price}</span>원
-              </dd>
-            </dl>
-            <dl className="infoList block">
-              <dt>공연시간 안내</dt>
-              <dd>{itemNotice}</dd>
-            </dl>
-          </div>
-        </div>
-      </div>
-      <div className="reserveArea">
-        <div className="dateArea">
-          <h3 className="dateTitle">날짜/시간 선택</h3>
-          <div className="dateGroup">
-            <Datepicker
-              startDate={startDate}
-              setStartDate={setStartDate}
-              minDate={date[0].eventDate}
-              maxDate={date[date.length - 1].eventDate}
-              onChange={() => setIsTimeClicked(true)}
-            />
-            <div className="timePicker">
-              <span className="timeTitle">시간</span>
-              <div className="titleList">
-                {isTimeClicked &&
-                  date
-                    .filter(el => el.eventDate === selectDate)
-                    .map(dateTime => (
-                      <div className="formInput" key={dateTime.id}>
-                        <input
-                          type="radio"
-                          id={`timePicker${dateTime.id}`}
-                          className="formRadio"
-                          name="timePicker"
-                        />
-                        <label
-                          htmlFor={`timePicker${dateTime.id}`}
-                          className="formLabel"
-                        >
-                          {dateTime.eventTime}
-                        </label>
-                      </div>
-                    ))}
+            <div className="listArea">
+              <dl className="infoList">
+                <dt>등급</dt>
+                <dd>{viewerAge}</dd>
+              </dl>
+              <dl className="infoList">
+                <dt>관람시간</dt>
+                <dd>{runningTime}분</dd>
+              </dl>
+              <dl className="infoList">
+                <dt>출연</dt>
+                {actorInfo.map((actor, i) => (
+                  <dd key={i}>{actor.name}</dd>
+                ))}
+              </dl>
+              <dl className="infoList">
+                <dt>가격</dt>
+                <dd>
+                  <span>{price}</span>원
+                </dd>
+              </dl>
+              <dl className="infoList block">
+                <dt>공연시간 안내</dt>
+                <dd>{itemNotice}</dd>
+              </dl>
+            </div>
+            <div className="reserveArea">
+              <div className="dateArea">
+                <h3 className="dateTitle">날짜/시간 선택</h3>
+                <div className="dateGroup">
+                  <Datepicker
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    minDate={date[0].eventDate}
+                    maxDate={date[date.length - 1].eventDate}
+                    onChange={() => setIsTimeClicked(true)}
+                  />
+                  <div className="timePicker">
+                    <span className="timeTitle">시간</span>
+                    <div className="titleList">
+                      {isTimeClicked &&
+                        date
+                          .filter(el => el.eventDate === selectDate)
+                          .map(dateTime => (
+                            <div className="formInput" key={dateTime.id}>
+                              <input
+                                type="radio"
+                                id={`timePicker${dateTime.id}`}
+                                className="formRadio"
+                                name="timePicker"
+                              />
+                              <label
+                                htmlFor={`timePicker${dateTime.id}`}
+                                className="formLabel"
+                              >
+                                {dateTime.eventTime}
+                              </label>
+                            </div>
+                          ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="btnArea">
+                <Button onClick={advanceClick}>예매하기</Button>
               </div>
             </div>
           </div>
         </div>
-        <div className="btnArea">
-          <Button width="230px" onClick={() => setIsAdvanceClicked(true)}>
-            예매하기
-          </Button>
-        </div>
       </div>
+
       {isAdvanceClicked && (
         <div className="seatsArea">
-          <Seat />
+          <div className="seatsGroup">
+            <h3 className="seatTitle">좌석 선택</h3>
+            <Seat itemInfo={itemInfo} />
+          </div>
+          <Button width="230px" onClick={payClick}>
+            결제하기
+          </Button>
         </div>
       )}
     </div>

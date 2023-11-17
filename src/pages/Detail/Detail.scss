@@ -74,7 +74,7 @@
           display: flex;
 
           &:not(:first-child) {
-            padding-top: 30px;
+            padding-top: 20px;
           }
 
           &.block {
@@ -134,8 +134,7 @@
   }
 
   .reserveArea {
-    margin-top: 40px;
-    padding: 20px;
+    padding-top: 20px;
 
     .dateArea {
       .dateTitle {
@@ -217,7 +216,22 @@
 
   .seatsArea {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 20px;
+
+    .seatsGroup {
+      padding: 10px;
+      border: 1px solid $gray-strong;
+      border-radius: 8px;
+      .seatTitle {
+        font-weight: 700;
+      }
+    }
+
+    .btn {
+      margin-top: 20px;
+    }
   }
 }
