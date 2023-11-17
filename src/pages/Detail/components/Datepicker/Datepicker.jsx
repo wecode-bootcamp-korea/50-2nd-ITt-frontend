@@ -23,8 +23,8 @@ const Datepicker = ({
         dateFormat="yyyy년 MM월 dd일"
         locale={ko}
         inline
-        minDate={new Date(`${minDate}`)}
-        maxDate={new Date(`${maxDate}`)}
+        minDate={new Date(minDate)}
+        maxDate={new Date(maxDate)}
       />
     </div>
   );
