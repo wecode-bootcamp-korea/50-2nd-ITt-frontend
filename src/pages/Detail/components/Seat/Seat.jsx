@@ -43,7 +43,7 @@ const Seat = ({ itemInfo }) => {
       <div className="seatArea">
         {rows.map(row => (
           <div key={row} className="seatGroup">
-            {row}
+            <span className="seatRow">{row}</span>
             {seats
               .filter(seat => seat.seatRow === row)
               .map(seat => {
