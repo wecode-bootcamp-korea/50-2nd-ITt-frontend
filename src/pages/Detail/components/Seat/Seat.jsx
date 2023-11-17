@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './Seat.scss';
 
-// seats
-const Seat = () => {
+const Seat = ({ seatsItem }) => {
   const [seats, setSeats] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
-  const rows = [...new Set(seats.map(seat => seat.seat_row))];
+  const rows = [...new Set(seatsItem.map(seat => seat.seatRow))];
 
   useEffect(() => {
-    fetch('/data/seatData.json', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setSeats(data.seatInfo);
-      });
+    // fetch('/data/seatData.json', {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8',
+    //   },
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     setSeats(data.seatInfo);
+    //   });
+    console.log(seats);
   }, []);
 
   const seatOnChange = seat => {
@@ -35,7 +35,7 @@ const Seat = () => {
         {rows.map(row => (
           <div key={row} className="seatGroup">
             {row}
-            {seats
+            {seatsItem
               .filter(seat => seat.seat_row === row)
               .map(seat => {
                 const { id } = seat;

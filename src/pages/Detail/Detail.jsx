@@ -13,8 +13,9 @@ const Detail = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [itemInfo, setItemInfo] = useState([]);
   const [actorInfo, setActorInfo] = useState([]);
+  const [seats, setSeats] = useState([]);
   const [date, setDate] = useState([{}]);
-  const [isAdvanceClicked, setIsAdvanceClicked] = useState(false);
+  // const [isAdvanceClicked, setIsAdvanceClicked] = useState(true);
   const [isTimeClicked, setIsTimeClicked] = useState(false);
 
   const year = startDate.getFullYear();
@@ -38,6 +39,8 @@ const Detail = () => {
       });
   }, [detailId]);
 
+  // console.log(seats);
+
   const {
     title,
     image,
@@ -48,23 +51,28 @@ const Detail = () => {
     viewerAge,
   } = itemInfo;
 
-  // const test = () => {
-  //   axios
-  //     .post(
-  //       GET_SEAT_API,
-  //       {
-  //         locationId: detail.location_id,
-  //       },
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json;charset=utf-8',
-  //         },
-  //       },
-  //     )
-  //     .then(res => {
-  //       setSeat(res.data.data.seatInfo);
-  //     });
-  // };
+  const TEST = () => {
+    axios
+      .post(
+        GET_SEAT_API,
+        {
+          locationId: itemInfo.locationId,
+          itemId: itemInfo.itemId,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJwYzBidW1AZ21haWwuY29tIiwibmFtZSI6Iuq5gOyYgeuylCIsImlhdCI6MTcwMDExNDU4Nn0.GbMPNLlMF27ThioX5DnQUqLMcQNVl58Ux4Ww_IuGmTc',
+          },
+        },
+      )
+      .then(res => {
+        setSeats(res.data.data.seatInfo);
+      });
+  };
+
+  // setIsAdvanceClicked(true);
 
   return (
     <div className="detail">
@@ -150,16 +158,19 @@ const Detail = () => {
           </div>
         </div>
         <div className="btnArea">
-          <Button width="230px" onClick={() => setIsAdvanceClicked(true)}>
+          <Button width="230px" onClick={TEST}>
             예매하기
           </Button>
         </div>
       </div>
-      {isAdvanceClicked && (
+      {/* {isAdvanceClicked && (
         <div className="seatsArea">
-          <Seat />
+          <Seat seats={seats} />
         </div>
-      )}
+      )} */}
+      <div className="seatsArea">
+        <Seat seatsItem={seats} />
+      </div>
     </div>
   );
 };
