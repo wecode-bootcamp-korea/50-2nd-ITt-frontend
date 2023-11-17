@@ -17,6 +17,10 @@
         background-color: $white;
       }
 
+      .react-datepicker__month {
+        height: 194px;
+      }
+
       .react-datepicker__day--selected {
         background-color: $purple;
       }

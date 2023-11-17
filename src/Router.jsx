@@ -9,6 +9,7 @@ import Main from './pages/Main/Main';
 import MyPage from './pages/MyPage/MyPage';
 import Signup from './pages/Signup/Signup';
 import KaKaoLogin from './pages/kakao/KaKaoLogin';
+import Header from './components/Header/Header';
 import PayResult from './pages/Payment/PayResult';
 import Payment from './pages/Payment/Payment';
 import PayCancel from './pages/Payment/PayCancel';
@@ -16,6 +17,7 @@ import PayCancel from './pages/Payment/PayCancel';
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Layout>
         <Routes>
           <Route path="/" element={<Main />} />
