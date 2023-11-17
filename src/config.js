@@ -6,6 +6,7 @@ const BASE_URL_ORDER = 'http://10.58.52.206:8000';
 
 export const GET_MOCK_API = `${BASE_URL}/MOCK`;
 export const GET_DETAIL_API = `${BASE_URL_DETAIL}/detail`;
+export const GET_SEAT_API = `${BASE_URL_DETAIL}/detail`;
 export const GET_ORDER_API = `${BASE_URL_ORDER}/order`;
 export const GET_ADMIN_SELECTLIST_API = `${BASE_URL_ADMIN}/admin/selectList`;
 export const GET_ADMIN_UPDATELIST_API = `${BASE_URL_ADMIN}/admin/updateList`;
