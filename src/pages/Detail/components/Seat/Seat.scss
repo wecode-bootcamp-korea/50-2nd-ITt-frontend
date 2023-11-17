@@ -19,6 +19,12 @@
       &:not(:first-child) {
         padding-top: 10px;
       }
+
+      .seatRow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 
@@ -41,7 +47,7 @@
         background-color: $pink;
 
         span {
-          // @include blind;
+          @include blind;
         }
       }
 
