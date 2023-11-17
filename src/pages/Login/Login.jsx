@@ -10,17 +10,46 @@ const Login = () => {
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
 
-  const validUserEmail = 'admin@admin.com';
-  const validUserPassword = 'admin12345';
+  // const handleLogin = () => {
+  //   if (userEmail === validUserEmail && userPassword === validUserPassword) {
+  //     navigate('/admin');
+  //   } else {
+  //     alert('잘못된 이메일 또는 비밀번호입니다.');
+  //     setUserEmail('');
+  //     setUserPassword('');
+  //   }
+  // };
 
-  const handleLogin = () => {
-    if (userEmail === validUserEmail && userPassword === validUserPassword) {
-      navigate('/admin');
-    } else {
-      alert('잘못된 이메일 또는 비밀번호입니다.');
-      setUserEmail('');
-      setUserPassword('');
-    }
+  const adminLogin = () => {
+    fetch(`http://10.58.52.65:8000/users/adminlogin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        email: userEmail,
+        password: userPassword,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'ADMIN_SIGN_IN_SUCCESS') {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('id', data.id);
+          localStorage.setItem('is_admin', data.is_admin);
+          localStorage.setItem('name', data.name);
+
+          navigate('/admin');
+        } else if (data.message === 'NON_EXISTENT_USER') {
+          alert('가입되지 않은 이메일 입니다.');
+          setUserEmail('');
+          setUserPassword('');
+        } else if (data.message === 'INVALID_PASSWORD') {
+          alert('비밀번호가 틀렸습니다.');
+          setUserEmail('');
+          setUserPassword('');
+        }
+      });
   };
 
   return (
@@ -66,7 +95,7 @@ const Login = () => {
             placeholder="비밀번호:"
           />
 
-          <Button className="adminLogin" onClick={handleLogin}>
+          <Button className="adminLogin" onClick={adminLogin}>
             로그인
           </Button>
         </div>
