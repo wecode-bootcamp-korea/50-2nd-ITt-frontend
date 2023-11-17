@@ -6,6 +6,8 @@ const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
   const userName = localStorage.getItem('userName');
+  const profileImg = localStorage.getItem('profile_image');
+
   const handleLogout = () => {
     const isLogoutConfirmed = window.confirm('로그아웃 하시겠습니까?');
 
@@ -30,6 +32,9 @@ const Header = () => {
         <ul className="headerText">
           {isLoggedIn ? (
             <>
+              <li>
+                <img alt="profilepic" src={profileImg} />
+              </li>
               <li>
                 <p>{userName} 님</p>
               </li>
