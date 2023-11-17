@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useHistory, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useHistory, Navigate } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
+import { GET_ITEM_API } from '../../config';
 import {
   MAIN_SLIDE,
   BANNER_SLIDE,
@@ -11,53 +12,54 @@ import {
 import './Main.scss';
 
 const Main = () => {
-  const [carouselIdx, setCarouselIdx] = useState(0);
   const [bannerSlideIdx, setBannerSlideIdx] = useState(0);
+  const [carouselIdx, setCarouselIdx] = useState(0);
+
   const slideToLeft = () => {
     if (bannerSlideIdx === 0) {
-      setBannerSlideIdx(MAIN_SLIDE.length - 1);
+      // setBannerSlideIdx(productsData.length - 1);
     } else {
       setBannerSlideIdx(prev => prev - 1);
     }
   };
 
   const slideToRight = () => {
-    if (bannerSlideIdx === MAIN_SLIDE.length - 1) {
-      setBannerSlideIdx(0);
-    } else {
-      setBannerSlideIdx(prev => prev + 1);
-    }
+    // if (bannerSlideIdx === productsData.length - 1) {
+    //   setBannerSlideIdx(0);
+    // } else {
+    //   setBannerSlideIdx(prev => prev + 1);
+    // }
   };
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
-      setBannerSlideIdx(prevIdx =>
-        prevIdx === MAIN_SLIDE.length - 1 ? 0 : prevIdx + 1,
-      );
+      // setBannerSlideIdx(prevIdx =>
+      //   prevIdx === productsData.length - 1 ? 0 : prevIdx + 1,
+      // );
     }, 3000);
 
     return () => clearInterval(slideInterval);
   }, []);
 
   const carouselToLeft = () => {
-    setCarouselIdx(prev =>
-      prev === 0 ? BANNER_SLIDE.length - SLIDE_TO_SHOW : prev - 1,
-    );
+    // setCarouselIdx(prev =>
+    //   prev === 0 ? productsData.length - SLIDE_TO_SHOW : prev - 1,
+    // );
   };
 
   const carouselToRight = () => {
-    setCarouselIdx(prev =>
-      prev === BANNER_SLIDE.length - SLIDE_TO_SHOW ? 0 : prev + 1,
-    );
+    // setCarouselIdx(prev =>
+    //   prev === productsData.length - SLIDE_TO_SHOW ? 0 : prev + 1,
+    // );
   };
 
   const SLIDE_TO_SHOW = 4;
 
-  const [wholeData, setwholeData] = useState({});
-  const [categoryId, setcategoryId] = useState({});
+  const [categoryId, setcategoryId] = useState(1);
+  const [productsData, setProductsData] = useState({});
 
   useEffect(() => {
-    fetch('http://10.58.52.217:8000/itemList', {
+    fetch(`${GET_ITEM_API}?category=${categoryId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -65,11 +67,18 @@ const Main = () => {
     })
       .then(res => res.json())
       .then(data => {
-        setwholeData(data);
+        setProductsData(data.data);
       });
-  }, []);
+  }, [categoryId]);
 
-  const { sildeItem, recommandation, categotItem, onSale, newItem } = wholeData;
+  const mainSlide = productsData.mainSlide;
+  const categoryItemList = productsData.categoryItemList;
+  console.log(mainSlide);
+  console.log(categoryItemList);
+
+  const handleCategoryClick = id => {
+    setcategoryId(id);
+  };
 
   return (
     <div className="main">
@@ -80,9 +89,9 @@ const Main = () => {
             transform: `translateX(calc(-100% * ${bannerSlideIdx}))`,
           }}
         >
-          {MAIN_SLIDE.map((slide, id) => (
-            <li className="slideItem" key={id}>
-              <img className="slideImg" src={slide.image_source} />
+          {mainSlide?.map(slide => (
+            <li className="slideItem" key={slide.id}>
+              <img className="slideImg" src={slide.image} />
             </li>
           ))}
         </ul>
@@ -111,7 +120,7 @@ const Main = () => {
               <img
                 className="RecommendationLeftimg"
                 alt="img"
-                src={Recomm.image_source}
+                src={Recomm.image}
               />
             </div>
           ) : (
@@ -120,7 +129,7 @@ const Main = () => {
                 <img
                   className="RecommendationRightimg"
                   alt="img"
-                  src={Recomm.image_source}
+                  src={Recomm.image}
                 />
                 <div className="info">
                   <p className="infoTitle">{Recomm.title}</p>
@@ -140,21 +149,29 @@ const Main = () => {
       </div>
 
       <div className="categoryLinks">
-        <p className="categoryText">#콘서트</p>
-        <p className="categoryText">#뮤지컬</p>
-        <p className="categoryText">#연극</p>
-        <p className="categoryText">#전시</p>
+        <p className="categoryText" onClick={() => handleCategoryClick(1)}>
+          #콘서트
+        </p>
+        <p className="categoryText" onClick={() => handleCategoryClick(2)}>
+          #뮤지컬
+        </p>
+        <p className="categoryText" onClick={() => handleCategoryClick(3)}>
+          #연극
+        </p>
+        <p className="categoryText" onClick={() => handleCategoryClick(4)}>
+          #전시
+        </p>
       </div>
 
       <div className="categoryList">
         <ul
           style={{
             transform: `translateX(calc(-100% * ${
-              carouselIdx / BANNER_SLIDE.length
+              carouselIdx / categoryItemList?.length
             }))`,
           }}
         >
-          {BANNER_SLIDE.map(
+          {categoryItemList?.map(
             (
               categ, //
             ) => (
@@ -163,10 +180,10 @@ const Main = () => {
                 style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
               >
                 <div className="categoryItem">
-                  <img src={categ.image_source} />
+                  <img src={categ.image} />
 
                   <div className="detail">
-                    <div className="categDate">{categ.date}</div>
+                    <div className="categprice">{categ.price}</div>
                     <div className="categTitle">{categ.title}</div>
                   </div>
                 </div>
