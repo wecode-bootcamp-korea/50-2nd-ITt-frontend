@@ -81,18 +81,9 @@ const MyPage = () => {
   const handleCancelOrder = () => {
     if (window.confirm('예매 취소하시겠습니까?')) {
       axios
-        .post(
-          POST_CANCEL_API,
-          {
-            data: body,
-          },
-          {
-            headers: {
-              Authorization:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJwYzBidW1AZ21haWwuY29tIiwibmFtZSI6Iuq5gOyYgeuylCIsImlhdCI6MTcwMDExNDU4Nn0.GbMPNLlMF27ThioX5DnQUqLMcQNVl58Ux4Ww_IuGmTc',
-            },
-          },
-        )
+        .post(POST_CANCEL_API, {
+          data: body,
+        })
         .then(res => {
           if (res.data.message === 'cancel_success') {
             alert('결제취소완료');
