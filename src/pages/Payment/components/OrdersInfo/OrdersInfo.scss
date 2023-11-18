@@ -5,7 +5,6 @@
   border: 1px solid $gray-normal;
   border-radius: 8px;
   background-color: $gray-normal;
-  margin-bottom: 10px;
 
   .ordersInfoArea {
     display: flex;
@@ -16,9 +15,9 @@
       background-color: $white;
       
       .orderImage {
-        border-radius: 8px 0 0 8px;
         width: 100%;
         height: 100%;
+        border-radius: 8px 0 0 8px;
         object-fit: cover;
       }
     }
@@ -36,7 +35,7 @@
         padding: 16px;
 
         .title {
-          margin: 16px 0 24px 0;
+          margin: 44px 0 60px 0;
           font-size: 36px;
           font-weight: bold;
         }

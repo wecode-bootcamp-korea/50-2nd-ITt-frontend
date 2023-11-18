@@ -1,22 +1,15 @@
 import React from 'react';
-import './OrdersInfo.scss';
 import DetailsInfo from '../../../../components/DetailsInfo/DetailsInfo';
+import './OrdersInfo.scss';
 
-const OrdersInfo = ({
-  title,
-  image,
-  time,
-  date,
-  locationName,
-  seatName,
-  className,
-}) => {
+const OrdersInfo = ({ title, image, time, date, locationName, seatNames }) => {
   const ORDERLABEL = [
     { id: 1, type: '관람일자', content: date },
     { id: 2, type: '관람시간', content: time },
     { id: 3, type: '위치', content: locationName },
-    { id: 4, type: '좌석', content: `${className}석 ${seatName}` },
+    { id: 4, type: '좌석', content: seatNames.join(', ') },
   ];
+
   return (
     <div className="ordersInfo">
       <div className="ordersInfoArea">

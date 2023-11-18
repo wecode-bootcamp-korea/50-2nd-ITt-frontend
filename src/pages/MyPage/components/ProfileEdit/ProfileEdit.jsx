@@ -1,41 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { PUT_PROFILE_API } from '../../../../config';
 import ProfileImage from '../ProfileImage/ProfileImage';
 import Button from '../../../../components/Button/Button';
 import './ProfileEdit.scss';
 
-const ProfileEdit = ({ userName, profileImage }) => {
-  const [user, setUserName] = useState('');
-  const [images, setImages] = useState('');
+const ProfileEdit = ({ name, profileImage }) => {
+  const [user, setUserName] = useState(name);
+  const [imageUrl, setImageUrl] = useState('');
 
-  const setPreview = e => {
-    const reader = new FileReader();
+  const handleFileChange = e => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
 
-    reader.onload = e => {
-      setImages(e.target.result);
-    };
-    reader.readAsDataURL(e.target.files[0]);
-  };
-
-  const handleUserEdit = () => {
     axios
-      .put(
-        'http://13.209.21.84:8000/users/mypage/update',
-        { profileImages: images },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            // token : 'token'
-          },
-        },
-      )
+      .post(PUT_PROFILE_API, {
+        formData,
+      })
       .then(res => {
-        if (res.data.message === 'update_success') {
-          alert('변경 성공');
-        } else {
-          alert('변경 실패');
+        if (res.data.data) {
+          setImageUrl(res.data.data);
         }
-      });
+      })
+      .catch(error => console.error(error));
   };
 
   return (
@@ -48,29 +37,24 @@ const ProfileEdit = ({ userName, profileImage }) => {
             className="nameInput"
             value={user}
             onChange={e => setUserName(e.target.value)}
-            placeholder={userName}
+            placeholder={name}
           />
         </div>
 
         <div className="profileArea">
           <label htmlFor="profile">프로필</label>
-          <ProfileImage
-            src={images ? images : profileImage}
-            alt="profileImage"
-          />
-
+          <ProfileImage src={profileImage} alt="profileImage" />
           <input
+            id="fileInput"
             type="file"
             accept="image/*"
             className="imageUpload"
-            onChange={setPreview}
+            onChange={handleFileChange}
           />
         </div>
       </div>
       <div className="editBtn">
-        <Button width="200px" onClick={handleUserEdit}>
-          변경하기
-        </Button>
+        <Button width="200px">변경하기</Button>
       </div>
     </div>
   );
