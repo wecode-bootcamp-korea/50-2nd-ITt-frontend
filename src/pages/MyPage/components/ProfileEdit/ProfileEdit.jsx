@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { PUT_PROFILE_API } from '../../../../config';
 import ProfileImage from '../ProfileImage/ProfileImage';
@@ -6,23 +6,28 @@ import Button from '../../../../components/Button/Button';
 import './ProfileEdit.scss';
 
 const ProfileEdit = ({ name, profileImage }) => {
-  const [user, setUserName] = useState(name);
-  const [imageUrl, setImageUrl] = useState('');
+  const [user, setUserName] = useState('');
+  const [files, setFiles] = useState({});
+  const [imageUrl, setImageUrl] = useState(profileImage);
 
-  const handleFileChange = e => {
+  const handleFileUpload = e => {
     e.preventDefault();
     const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file);
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = data => {
+      setImageUrl(data.target.result);
+      setFiles(file);
+    };
+  };
 
-    axios
-      .post(PUT_PROFILE_API, {
-        formData,
-      })
-      .then(res => {
-        if (res.data.data) {
-          setImageUrl(res.data.data);
-        }
+  const handleSubmit = async e => {
+    const formData = new FormData();
+    formData.append('file', files);
+
+    await axios
+      .post(PUT_PROFILE_API, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
       .catch(error => console.error(error));
   };
@@ -43,18 +48,22 @@ const ProfileEdit = ({ name, profileImage }) => {
 
         <div className="profileArea">
           <label htmlFor="profile">프로필</label>
-          <ProfileImage src={profileImage} alt="profileImage" />
-          <input
-            id="fileInput"
-            type="file"
-            accept="image/*"
-            className="imageUpload"
-            onChange={handleFileChange}
-          />
+          <ProfileImage src={imageUrl} alt="profileImage" />
+          <form className="profileForm" enctype="multipart/form-data">
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              className="imageUpload"
+              onChange={handleFileUpload}
+            />
+          </form>
         </div>
       </div>
       <div className="editBtn">
-        <Button width="200px">변경하기</Button>
+        <Button width="200px" onClick={handleSubmit}>
+          변경하기
+        </Button>
       </div>
     </div>
   );

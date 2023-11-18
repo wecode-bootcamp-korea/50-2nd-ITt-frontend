@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://10.58.52.250:8000';
+axios.defaults.headers.common.Authorization = `${process.env.REACT_APP_PAYMENT_TOKEN}`;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.timeout = 2500;
 
