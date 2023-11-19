@@ -18,7 +18,7 @@ const Detail = () => {
   const [isAdvanceClicked, setIsAdvanceClicked] = useState(false);
   const [isTimeClicked, setIsTimeClicked] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
-  const [timeOnChange, setTtimeOnChange] = useState([]);
+  const [timeOnChange, setTimeOnChange] = useState([]);
   const [location, setLocation] = useState([]);
 
   const year = startDate.getFullYear();
@@ -42,17 +42,17 @@ const Detail = () => {
         setDate(res.data.data.calenderTime);
       });
 
-    axios
-      .get('POSITION', {
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-          authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJqb21pbnN1Nzc4QG5hdGUuY29tIiwibmFtZSI6IuyhsOuvvOyImCIsImlzX2FkbWluIjowLCJpYXQiOjE3MDAxOTQ0MTF9.XEFtIKSKQH2kqScgntH_krpdCdKZvrUFCj_zlx1eZU8',
-        },
-      })
-      .then(res => {
-        setLocation(res.data.data);
-      });
+    // axios
+    //   .get('POSITION', {
+    //     headers: {
+    //       'Content-Type': 'application/json;charset=utf-8',
+    //       authorization:
+    //         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJqb21pbnN1Nzc4QG5hdGUuY29tIiwibmFtZSI6IuyhsOuvvOyImCIsImlzX2FkbWluIjowLCJpYXQiOjE3MDAxOTQ0MTF9.XEFtIKSKQH2kqScgntH_krpdCdKZvrUFCj_zlx1eZU8',
+    //     },
+    //   })
+    //   .then(res => {
+    //     setLocation(res.data.data);
+    //   });
   }, [detailId]);
 
   const {
@@ -166,7 +166,7 @@ const Detail = () => {
                                 id={`timePicker${dateTime.id}`}
                                 className="formRadio"
                                 name="timePicker"
-                                onChange={() => setTtimeOnChange(dateTime)}
+                                onChange={() => setTimeOnChange(dateTime)}
                               />
                               <label
                                 htmlFor={`timePicker${dateTime.id}`}
@@ -203,7 +203,7 @@ const Detail = () => {
         </div>
       )}
       <div className="productArea">
-        <Location lat={lat} lng={lng} />
+        <Location />
       </div>
     </div>
   );
