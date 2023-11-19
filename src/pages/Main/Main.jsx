@@ -17,40 +17,40 @@ const Main = () => {
 
   const slideToLeft = () => {
     if (bannerSlideIdx === 0) {
-      // setBannerSlideIdx(productsData.length - 1);
+      setBannerSlideIdx(mainSlide.length - 1);
     } else {
       setBannerSlideIdx(prev => prev - 1);
     }
   };
 
   const slideToRight = () => {
-    // if (bannerSlideIdx === productsData.length - 1) {
-    //   setBannerSlideIdx(0);
-    // } else {
-    //   setBannerSlideIdx(prev => prev + 1);
-    // }
+    if (bannerSlideIdx === mainSlide.length - 1) {
+      setBannerSlideIdx(0);
+    } else {
+      setBannerSlideIdx(prev => prev + 1);
+    }
   };
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
-      // setBannerSlideIdx(prevIdx =>
-      //   prevIdx === productsData.length - 1 ? 0 : prevIdx + 1,
-      // );
+      setBannerSlideIdx(prevIdx =>
+        prevIdx === productsData.length - 1 ? 0 : prevIdx + 1,
+      );
     }, 3000);
 
     return () => clearInterval(slideInterval);
   }, []);
 
   const carouselToLeft = () => {
-    // setCarouselIdx(prev =>
-    //   prev === 0 ? productsData.length - SLIDE_TO_SHOW : prev - 1,
-    // );
+    setCarouselIdx(prev =>
+      prev === 0 ? categoryItemList.length - SLIDE_TO_SHOW : prev - 1,
+    );
   };
 
   const carouselToRight = () => {
-    // setCarouselIdx(prev =>
-    //   prev === productsData.length - SLIDE_TO_SHOW ? 0 : prev + 1,
-    // );
+    setCarouselIdx(prev =>
+      prev === categoryItemList.length - SLIDE_TO_SHOW ? 0 : prev + 1,
+    );
   };
 
   const SLIDE_TO_SHOW = 4;
@@ -145,7 +145,6 @@ const Main = () => {
 
       <div className="searchContainer">
         <input type="text" className="searchBox" placeholder="검색..." />
-        <button className="searchButton">🔍</button>
       </div>
 
       <div className="categoryLinks">
