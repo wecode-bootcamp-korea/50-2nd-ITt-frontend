@@ -1,6 +1,6 @@
 // src/config.js
 const BASE_URL = 'http://10.58.52.121:8000';
-const BASE_URL_DETAIL = 'http://10.58.52.168:8000';
+const BASE_URL_DETAIL = 'http://10.58.52.77:8000';
 const BASE_URL_ADVANCE = 'http://10.58.52.176:8000';
 const BASE_URL_ORDER = 'http://10.58.52.206:8000';
 

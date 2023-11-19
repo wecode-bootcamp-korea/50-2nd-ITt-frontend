@@ -10,11 +10,7 @@ const Location = ({ lat, lng }) => {
         style={{ width: '100%', height: '600px' }} // 지도 크기
         level={3} // 지도 확대 레벨
       >
-        {/* <MapMarker position={{ lat: { lat }, lng: { lng } }}> </MapMarker>; */}
-        <MapMarker
-          position={{ lat: 37.58254169139292, lng: 127.00312754672551 }}
-        />
-        ;
+        <MapMarker position={{ lat: lat, lng: lng }} />
       </Map>
     </div>
   );
