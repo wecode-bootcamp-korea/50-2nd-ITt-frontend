@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Datepicker from './components/Datepicker/Datepicker';
 import Button from '../../components/Button/Button';
+import Datepicker from './components/Datepicker/Datepicker';
+import Location from './components/Location/Location';
 import Seat from './components/Seat/Seat';
 import { GET_DETAIL_API, GET_ADVANCE_API } from '../../config';
 import './Detail.scss';
@@ -18,6 +19,7 @@ const Detail = () => {
   const [isTimeClicked, setIsTimeClicked] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
   const [timeOnChange, setTtimeOnChange] = useState([]);
+  const [location, setLocation] = useState([]);
 
   const year = startDate.getFullYear();
   const month = startDate.getMonth() + 1;
@@ -38,6 +40,18 @@ const Detail = () => {
         setItemInfo(res.data.data.itemInfo[0]);
         setActorInfo(res.data.data.actorsInfoByitemId);
         setDate(res.data.data.calenderTime);
+      });
+
+    axios
+      .get('POSITION', {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          authorization:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJqb21pbnN1Nzc4QG5hdGUuY29tIiwibmFtZSI6IuyhsOuvvOyImCIsImlzX2FkbWluIjowLCJpYXQiOjE3MDAxOTQ0MTF9.XEFtIKSKQH2kqScgntH_krpdCdKZvrUFCj_zlx1eZU8',
+        },
+      })
+      .then(res => {
+        setLocation(res.data.data);
       });
   }, [detailId]);
 
@@ -92,7 +106,7 @@ const Detail = () => {
             <span className="date">
               {date[0].eventDate} ~ {date[date.length - 1].eventDate}
             </span>
-            <button type="button" className="location">
+            <button type="button" className="locationName">
               {locationName}
             </button>
           </div>
@@ -188,8 +202,29 @@ const Detail = () => {
           </Button>
         </div>
       )}
+      <div className="productArea">
+        <Location lat={lat} lng={lng} />
+      </div>
     </div>
   );
 };
 
 export default Detail;
+
+const POSITION = [
+  { id: 1, name: 'JNT아트홀', lat: 37.57654780506502, lng: 127.00393105354709 },
+  {
+    id: 2,
+    name: '대학로 아트포레스트',
+    lat: 37.58254169139292,
+    lng: 127.00312754672551,
+  },
+  { id: 3, name: '티오엠', lat: 37.58266555564927, lng: 127.0038804286556 },
+  {
+    id: 4,
+    name: '바탕골 소극장',
+    lat: 37.581886233441494,
+    lng: 127.0025048457791,
+  },
+  { id: 5, name: '틴틴홀', lat: 37.581886233441494, lng: 127.0025048457791 },
+];
