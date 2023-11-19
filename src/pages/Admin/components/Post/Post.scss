@@ -47,6 +47,12 @@
           border: 2px solid $gray-strong;
         }
 
+        &.img {
+          + img {
+            width: 300px;
+          }
+        }
+
         &.textarea {
           overflow-y: auto;
           height: 100px;
