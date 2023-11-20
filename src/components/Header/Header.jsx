@@ -5,12 +5,19 @@ import './Header.scss';
 const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
-  const userName = localStorage.getItem('userName');
+  const name = localStorage.getItem('name');
+  const profile_image = localStorage.getItem('profile_image');
   const handleLogout = () => {
     const isLogoutConfirmed = window.confirm('로그아웃 하시겠습니까?');
 
     if (isLogoutConfirmed) {
       localStorage.removeItem('token');
+      localStorage.removeItem('id');
+      localStorage.removeItem('is_admin');
+      localStorage.removeItem('name');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('profile_image');
+
       navigate('/main');
     }
   };
@@ -30,8 +37,10 @@ const Header = () => {
         <ul className="headerText">
           {isLoggedIn ? (
             <>
+              <img className="propic" alt="propic" src={profile_image} />
+
               <li>
-                <p>{userName} 님</p>
+                <p>{name} 님</p>
               </li>
               <li>
                 <p onClick={handleLogout}>로그아웃</p>

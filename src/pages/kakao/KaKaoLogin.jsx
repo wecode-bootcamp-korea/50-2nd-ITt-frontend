@@ -19,7 +19,7 @@ export default function KaKaoLogin() {
       .then(data => {
         if (data.result.token) {
           localStorage.setItem('token', data.result.token);
-          localStorage.setItem('userName', data.result.userName);
+          localStorage.setItem('name', data.result.name);
           localStorage.setItem('profile_image', data.result.profile_image);
           navigate('/');
         } else {
