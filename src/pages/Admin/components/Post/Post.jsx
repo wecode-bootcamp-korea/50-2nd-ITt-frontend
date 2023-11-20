@@ -13,6 +13,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './Post.scss';
 
 const Post = () => {
+  const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const onChange = dates => {
@@ -22,76 +23,106 @@ const Post = () => {
   };
   const { itemId } = useParams();
   const [update, setUpdate] = useState({});
-  const [updateData, setUpdateData] = useState({});
-  const [titleText, setTitleText] = useState('');
+  const [updateData, setUpdateData] = useState({
+    title: '',
+    image: '',
+    runningTime: Number,
+    viewerAge: '',
+    price: Number,
+    itemNotice: '',
+    categoryName: '',
+    locationName: '',
+    actorName: '',
+  });
+  const [category, setCategory] = useState([]);
   const [actor, setActor] = useState([]);
-  const navigate = useNavigate();
+  const [date, setDate] = useState([{}]);
 
   useEffect(() => {
-    axios
-      .get(`${GET_ADMIN_SELECTITEMLIST_API}/${itemId}`, {
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-          authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
-        },
-      })
-      .then(res => {
-        setUpdate(res.data.data);
-        setUpdateData(res.data.data.itemInfo[0]);
-      });
-  }, [itemId]);
-
-  const updateObject = Object.keys(update).length > 0;
-  if (updateObject.length) setUpdateData(update.itemInfo[0]);
-
-  const {
-    title,
-    image,
-    runningTime,
-    viewerAge,
-    price,
-    itemNotice,
-    categoryName,
-    locationName,
-  } = updateData;
-
-  const handlePostClick = () => {
-    // axios
-    //   .put(
-    //     `${GET_ADMIN_UPDATITEMLIST_API}`,
-    //     {
-    //       itemId: itemId,
-    //       title: titleText,
-    //     },
-    //     {
-    //       headers: {
-    //         'Content-Type': 'application/json;charset=utf-8',
-    //         authorization:
-    //           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
-    //       },
-    //     },
-    //   )
-    //   .then(() => {
-    //     console.log('aa');
-    //   });
-    axios
-      .post(
-        `${GET_ADMIN_INSERTITENLIST_API}`,
-        {
-          title: titleText,
-        },
-        {
+    if (itemId) {
+      axios
+        .get(`${GET_ADMIN_SELECTITEMLIST_API}/${itemId}`, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
             authorization:
               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
-        },
-      )
-      .then(() => {
-        console.log('dd');
-      });
+        })
+        .then(res => {
+          setUpdate(res.data.data);
+          setUpdateData(res.data.data.itemInfo[0]);
+          setCategory(res.data.data.categoryInfo);
+          setActor(res.data.data.actorInfo);
+          setDate(res.data.data.itemOption);
+        });
+    }
+  }, [itemId]);
+
+  const updateObject = Object.keys(update).length > 0;
+  if (updateObject.length) setUpdateData(update.itemInfo[0]);
+
+  const [newActorName, setNewActorName] = useState('');
+  const actorAddClick = () => {
+    const newActor = { actorName: newActorName };
+    setActor([...actor, newActor]);
+    setNewActorName('');
+  };
+
+  const handlePostClick = () => {
+    if (itemId) {
+      axios
+        .put(
+          `${GET_ADMIN_UPDATITEMLIST_API}`,
+          {
+            itemId: itemId,
+            title: updateData.title,
+            image: updateData.image,
+            runningTime: updateData.runningTime,
+            viewerAge: updateData.viewerAge,
+            price: updateData.price,
+            itemNotice: updateData.itemNotice,
+            categoryName: updateData.categoryName,
+            locationName: updateData.locationName,
+            actorName: actor.map(a => a.actorName),
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+              authorization:
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+            },
+          },
+        )
+        .then(() => {
+          console.log('aa');
+        });
+    } else {
+      axios
+        .post(
+          `${GET_ADMIN_INSERTITENLIST_API}`,
+          {
+            title: updateData.title,
+            image: updateData.image,
+            runningTime: updateData.runningTime,
+            viewerAge: updateData.viewerAge,
+            price: updateData.price,
+            itemNotice: updateData.itemNotice,
+            categoryName: updateData.categoryName,
+            locationName: updateData.locationName,
+            actorName: actor.map(a => a.actorName),
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+              authorization:
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+            },
+          },
+        )
+        .then(() => {
+          console.log('dd');
+        });
+    }
   };
 
   const onClose = () => {
@@ -111,22 +142,18 @@ const Post = () => {
               type="text"
               id="formTitle"
               className="formControl"
-              defaultValue={titleText}
-              value={title}
-              onChange={event => setTitleText(event.target.value)}
+              value={updateData.title}
+              onChange={event =>
+                setUpdateData({ ...updateData, title: event.target.value })
+              }
             />
           </div>
           <div className="formInput">
             <label htmlFor="formImg" className="formLabel">
               이미지 업로드
             </label>
-            <input
-              type="file"
-              id="formImg"
-              className="formControl img"
-              defaultValue={image}
-            />
-            <img src={image} alt={title} />
+            <input type="file" id="formImg" className="formControl img" />
+            <img src={updateData.image} alt={updateData.title} />
           </div>
           <div className="formInput">
             <label htmlFor="formTime" className="formLabel">
@@ -136,7 +163,13 @@ const Post = () => {
               type="text"
               id="formTime"
               className="formControl"
-              defaultValue={runningTime}
+              value={updateData.runningTime}
+              onChange={event =>
+                setUpdateData({
+                  ...updateData,
+                  runningTime: event.target.value,
+                })
+              }
             />
           </div>
           <div className="formInput">
@@ -147,7 +180,10 @@ const Post = () => {
               type="text"
               id="formAge"
               className="formControl"
-              defaultValue={viewerAge}
+              value={updateData.viewerAge}
+              onChange={event =>
+                setUpdateData({ ...updateData, viewerAge: event.target.value })
+              }
             />
           </div>
           <div className="formInput">
@@ -158,7 +194,10 @@ const Post = () => {
               type="text"
               id="formPrice"
               className="formControl"
-              value={price}
+              value={updateData.price}
+              onChange={event =>
+                setUpdateData({ ...updateData, price: event.target.value })
+              }
             />
           </div>
           <div className="formInput">
@@ -169,7 +208,10 @@ const Post = () => {
               type="text"
               id="formDate"
               className="formControl"
-              defaultValue={itemNotice}
+              value={updateData.itemNotice}
+              onChange={event =>
+                setUpdateData({ ...updateData, itemNotice: event.target.value })
+              }
             />
           </div>
           <div className="formInput">
@@ -180,11 +222,17 @@ const Post = () => {
               name="category"
               id="formSelect"
               className="formControl"
-              value={categoryName}
+              value={updateData.categoryName}
+              onChange={event =>
+                setUpdateData({
+                  ...updateData,
+                  categoryName: event.target.value,
+                })
+              }
             >
-              {CATEGORY.map(item => (
-                <option key={item.id} defaultValue={item.category}>
-                  {item.category}
+              {category.map(category => (
+                <option key={category.categoryId}>
+                  {category.categoryName}
                 </option>
               ))}
             </select>
@@ -197,7 +245,13 @@ const Post = () => {
               type="text"
               id="formLocation"
               className="formControl"
-              value={locationName}
+              value={updateData.locationName}
+              onChange={event =>
+                setUpdateData({
+                  ...updateData,
+                  locationName: event.target.value,
+                })
+              }
             />
           </div>
           <div className="formInput">
@@ -208,10 +262,13 @@ const Post = () => {
               type="text"
               id="formActor"
               className="formControl"
-              defaultValue={actor}
-              value={actor}
-              onChange={event => setActor(event.target.value)}
+              value={newActorName}
+              onChange={event => setNewActorName(event.target.value)}
             />
+            <Button onClick={() => actorAddClick}>추가</Button>
+            {actor.map((actor, index) => (
+              <span key={index}>{actor.actorName}</span>
+            ))}
           </div>
         </form>
         <div className="dateArea">
@@ -240,10 +297,3 @@ const Post = () => {
 };
 
 export default Post;
-
-const CATEGORY = [
-  { id: 1, category: '뮤지컬' },
-  { id: 2, category: '연극' },
-  { id: 3, category: '전시' },
-  { id: 4, category: '콘서트' },
-];

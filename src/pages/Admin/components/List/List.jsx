@@ -28,7 +28,7 @@ const List = () => {
   }, []);
 
   const setPostClicked = () => {
-    navigate(`/admin/post/1`);
+    navigate('/admin/post');
   };
 
   const setIsPostClicked = itemId => {
@@ -64,7 +64,7 @@ const List = () => {
       <h3 className="listTitle">이벤트 리스트</h3>
       <div className="listArea">
         <div className="listAdd">
-          <Button width="100px" onClick={() => setPostClicked()}>
+          <Button width="100px" onClick={setPostClicked}>
             추가
           </Button>
         </div>

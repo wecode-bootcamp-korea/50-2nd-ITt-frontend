@@ -23,6 +23,7 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/post" element={<Post />} />
           <Route path="/admin/post/:itemId" element={<Post />} />
           <Route path="/category" element={<Category />} />
           <Route path="/detail/:detailId" element={<Detail />} />
