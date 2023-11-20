@@ -5,24 +5,37 @@ import DetailsInfo from '../../../../components/DetailsInfo/DetailsInfo';
 import AddPoints from '../AddPoints/AddPoints';
 import Button from '../../../../components/Button/Button';
 import './PriceArea.scss';
+import { PUT_PAYMENT_API } from '../../../../config';
 
 const PriceArea = ({
+  totalAmount,
+  reservationIds,
+  seatIds,
+  seatNames,
+  amount,
   remainingPoint,
+  title,
+  date,
+  time,
   userId,
   addPoints,
   setAddPoints,
-  amount,
-  date,
-  time,
   locationName,
-  title,
 }) => {
   const navigate = useNavigate();
 
   const PAYMENTLABEL = [
-    { id: 1, type: '주문금액', content: amount },
+    {
+      id: 1,
+      type: '주문금액',
+      content: `${Number(amount).toLocaleString()}원`,
+    },
     { id: 2, type: '결제방법', content: '포인트사용' },
-    { id: 3, type: '보유포인트', content: remainingPoint },
+    {
+      id: 3,
+      type: '보유포인트',
+      content: `${Number(remainingPoint).toLocaleString()}P`,
+    },
   ];
 
   const ORDERLABEL = [
@@ -34,20 +47,20 @@ const PriceArea = ({
 
   const handlePayment = () => {
     axios
-      .post(
-        '백엔드결제api주소',
-        { amount, remainingPoint },
-        {
-          headers: {
-            // Authorization: `token`,
-            'Content-type': `application/json`,
-          },
-        },
-      )
+      .put(PUT_PAYMENT_API, {
+        remainingPoint,
+        totalAmount,
+        reservationIds,
+        seatIds,
+        seatNames,
+        title,
+        date,
+        time,
+      })
       .then(res => {
-        if (res.data.message === 'success') {
+        if (res.data.message === 'pointChange') {
           alert('결제 성공!');
-          navigate('/mypage');
+          navigate('/mypage?status=complete');
         } else {
           alert('결제 실패!');
           return;
@@ -84,7 +97,8 @@ const PriceArea = ({
       <div className="totalPriceArea">
         <p className="label">총 결제금액</p>
         <span className="priceContent">
-          <span className="totalPrice">{amount}</span>원
+          <span className="totalPrice">{Number(amount).toLocaleString()}</span>
+          원
         </span>
         <Button onClick={handlePayment} disabled={!isBuyAble}>
           결제하기
