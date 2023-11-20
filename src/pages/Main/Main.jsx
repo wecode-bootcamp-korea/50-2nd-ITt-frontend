@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link, useNavigate, useHistory, Navigate } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 import { GET_ITEM_API } from '../../config';
@@ -64,15 +65,18 @@ const Main = () => {
   };
 
   useEffect(() => {
-    fetch(`${GET_ITEM_API}?category=${categoryId}&search=${searchTerm}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-    })
-      .then(res => res.json())
-      .then(data => {
-        setProductsData(data.data);
+    axios
+      .get(`${GET_ITEM_API}`, {
+        params: {
+          category: categoryId,
+          search: searchTerm,
+        },
+      })
+      .then(response => {
+        setProductsData(response.data.data);
+      })
+      .catch(error => {
+        console.error('에러 발생!', error);
       });
   }, [searchTerm, categoryId]);
 
@@ -130,11 +134,13 @@ const Main = () => {
         {mdItemsLists?.map((Recomm, idx) =>
           idx === 0 ? (
             <div className="RecommendationLeft" key={idx}>
-              <img
-                className="RecommendationLeftimg"
-                alt="img"
-                src={Recomm.image}
-              />
+              <Link to={`/detail/${Recomm.id}`}>
+                <img
+                  className="RecommendationLeftimg"
+                  alt="img"
+                  src={Recomm.image}
+                />
+              </Link>
             </div>
           ) : (
             <div className="RecommendationRight" key={idx}>
@@ -145,8 +151,10 @@ const Main = () => {
                   src={Recomm.image}
                 />
                 <div className="info">
-                  <p className="infoTitle">{Recomm.title}</p>
-                  <p className="infoDate">{Recomm.price} 원</p>
+                  <Link to={`/detail/${Recomm.id}`}>
+                    <p className="infoTitle">{Recomm.title}</p>
+                    <p className="infoDate">{Recomm.price} 원</p>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -232,15 +240,17 @@ const Main = () => {
         <div className="sectionContainer">
           {bestitems?.map((discount, idx) => (
             <div className="onSaleFrame" key={idx}>
-              <div className="onSaleWrapper">
-                <img className="onSaleImg" alt="img" src={discount.image} />
+              <Link to={`/detail/${discount.id}`}>
+                <div className="onSaleWrapper">
+                  <img className="onSaleImg" alt="img" src={discount.image} />
 
-                <div className="onSaleInfo">
-                  <p className="onSaleInfoDiscount">{discount.discount}</p>
-                  <p className="onSaleInfoTitle">{discount.title}</p>
-                  <p className="onSaleInfoDate">{discount.price} 원</p>
+                  <div className="onSaleInfo">
+                    <p className="onSaleInfoDiscount">{discount.discount}</p>
+                    <p className="onSaleInfoTitle">{discount.title}</p>
+                    <p className="onSaleInfoDate">{discount.price} 원</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
@@ -251,11 +261,13 @@ const Main = () => {
       <div className="upComingEvent">
         {newItems?.map((event, idx) => (
           <div className="upComingEventContent" key={idx}>
-            <img className="upComingEventImg" alt="img" src={event.image} />
-            <div className="upComingEventInfo">
-              <p className="upComingEventTitle">{event.title}</p>
-              <p className="upComingEventPrice">{event.price} 원</p>
-            </div>
+            <Link to={`/detail/${event.id}`}>
+              <img className="upComingEventImg" alt="img" src={event.image} />
+              <div className="upComingEventInfo">
+                <p className="upComingEventTitle">{event.title}</p>
+                <p className="upComingEventPrice">{event.price} 원</p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>
