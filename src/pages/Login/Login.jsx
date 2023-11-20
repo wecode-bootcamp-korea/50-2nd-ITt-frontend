@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
-<<<<<<< HEAD
-// import SocialLogin from '../../components/Auth/SocialLogin';
-=======
 import SocialLogin from '../../components/Auth/SocialLogin';
->>>>>>> main
 import './Login.scss';
 
 const Login = () => {
@@ -14,19 +10,6 @@ const Login = () => {
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-  // const handleLogin = () => {
-  //   if (userEmail === validUserEmail && userPassword === validUserPassword) {
-  //     navigate('/admin');
-  //   } else {
-  //     alert('잘못된 이메일 또는 비밀번호입니다.');
-  //     setUserEmail('');
-  //     setUserPassword('');
-  //   }
-  // };
-
-=======
->>>>>>> main
   const adminLogin = () => {
     fetch(`http://10.58.52.65:8000/users/adminlogin`, {
       method: 'POST',
@@ -80,7 +63,6 @@ const Login = () => {
           <img alt="logoimg" className="logo" src="/images/gitcat.png" />
           <div className="maincont">"환영합니다!"</div>
 
-          
           <div>
             <SocialLogin />
           </div>
