@@ -1,12 +1,12 @@
 // src/config.js
-const BASE_URL_ITEM = 'http://10.58.52.162:8000';
+
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://10.58.52.250:8000';
 axios.defaults.headers.common.Authorization = `${process.env.REACT_APP_PAYMENT_TOKEN}`;
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.timeout = 2500;
-
+const BASE_URL_ITEM = 'http://10.58.52.162:8000';
 const BASE_URL = 'http://10.58.52.121:8000';
 const BASE_URL_DETAIL = 'http://10.58.52.119:8000';
 const BASE_URL_ADVANCE = 'http://10.58.52.176:8000';
