@@ -6,13 +6,16 @@ axios.defaults.headers.common.Authorization = `${process.env.REACT_APP_PAYMENT_T
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.timeout = 2500;
 
-const BASE_URL_DETAIL = 'http://10.58.52.186:8000';
+const BASE_URL = 'http://10.58.52.121:8000';
+const BASE_URL_DETAIL = 'http://10.58.52.119:8000';
+const BASE_URL_ADVANCE = 'http://10.58.52.176:8000';
 const BASE_URL_ORDER = 'http://10.58.52.176:8000';
 const BASE_URL_MYPAGE = 'http://10.58.52.115:8000';
 
 //상세페이지
 export const GET_DETAIL_API = `${BASE_URL_DETAIL}/detail`;
 export const GET_SEAT_API = `${BASE_URL_DETAIL}/detail`;
+export const GET_ADVANCE_API = `${BASE_URL_ADVANCE}/order`;
 
 //결제페이지 유저정보
 export const GET_ORDER_API = `${BASE_URL_ORDER}/order`;
