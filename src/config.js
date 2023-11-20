@@ -7,7 +7,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.timeout = 2500;
 
 const BASE_URL_DETAIL = 'http://10.58.52.186:8000';
-const BASE_URL_ORDER = 'http://10.58.52.176:8000';
+const BASE_URL_ORDER = 'http://10.58.52.162:8000';
 const BASE_URL_MYPAGE = 'http://10.58.52.115:8000';
 
 //상세페이지

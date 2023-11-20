@@ -6,7 +6,6 @@ import Button from '../../../../components/Button/Button';
 import './ProfileEdit.scss';
 
 const ProfileEdit = ({ name, profileImage }) => {
-  const [user, setUserName] = useState('');
   const [files, setFiles] = useState({});
   const [imageUrl, setImageUrl] = useState(profileImage);
 
@@ -23,12 +22,12 @@ const ProfileEdit = ({ name, profileImage }) => {
 
   const handleSubmit = async e => {
     const formData = new FormData();
-    formData.append('file', files);
-
+    formData.append('profileImage', files);
     await axios
       .post(PUT_PROFILE_API, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
+      .then(res => setImageUrl(res.data.profileImage))
       .catch(error => console.error(error));
   };
 
@@ -36,20 +35,16 @@ const ProfileEdit = ({ name, profileImage }) => {
     <div className="profileEdit">
       <div className="profileEditArea">
         <div className="nameArea">
-          <label htmlFor="nameInput">이름</label>
-          <input
-            type="text"
-            className="nameInput"
-            value={user}
-            onChange={e => setUserName(e.target.value)}
-            placeholder={name}
-          />
+          <p className="label">이름</p>
+          <p className="nameValue">{name}</p>
         </div>
 
         <div className="profileArea">
-          <label htmlFor="profile">프로필</label>
+          <label htmlFor="profile" className="label">
+            프로필
+          </label>
           <ProfileImage src={imageUrl} alt="profileImage" />
-          <form className="profileForm" enctype="multipart/form-data">
+          <form className="profileForm" encType="multipart/form-data">
             <input
               id="fileInput"
               type="file"

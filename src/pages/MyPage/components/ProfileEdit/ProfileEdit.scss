@@ -26,8 +26,12 @@
     .nameArea {
       margin-bottom: 20px;
 
-      .nameInput {
+      .label {
         width: 200px;
+        font-weight: bold;
+      }
+      .nameValue {
+        padding-top: 10px;
       }
     }
   }

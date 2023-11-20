@@ -11,7 +11,7 @@ const Payment = () => {
   const [paymentData, setPaymentData] = useState([]);
   const [addPoints, setAddPoints] = useState('');
 
-  const admin = process.env.REACT_APP_ADMIN_KEY || '';
+  const admin = process.env.REACT_APP_ADMIN_KEY;
   const pgToken = searchParams.get('pg_token');
   const tid = localStorage.getItem('tid');
 
@@ -19,7 +19,7 @@ const Payment = () => {
   const getUserPaymentData = async () => {
     try {
       const response = await axios.get(GET_ORDER_API);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error('결제 데이터를 가져오는 중 에러가 발생했습니다', error);
       throw error;
@@ -92,6 +92,7 @@ const Payment = () => {
   // 좌석 정보 배열로 변환
   const seatInfo = {
     totalAmount: 0,
+    timeData: '',
     reservationIds: [],
     seatIds: [],
     seatNames: [],
@@ -101,6 +102,12 @@ const Payment = () => {
     seatInfo.totalAmount = paymentData.reduce((acc, cur) => {
       return acc + parseInt(cur.amount, 10);
     }, 0);
+
+    const hour = paymentData[0].time.slice(0, 2);
+    const timeOfDay = seatInfo.hour < 12 ? '오전' : '오후';
+    const minute = paymentData[0].time.slice(3, 5);
+
+    seatInfo.timeData = `${timeOfDay} ${hour}시 ${minute}분`;
     seatInfo.reservationIds = paymentData.map(data => data.reservationId);
     seatInfo.seatIds = paymentData.map(data => data.seatId);
     seatInfo.seatNames = paymentData.map(data => data.seatName);
