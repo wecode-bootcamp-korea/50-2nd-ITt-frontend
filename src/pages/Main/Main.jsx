@@ -24,7 +24,7 @@ const Main = () => {
   };
 
   const slideToRight = () => {
-    if (bannerSlideIdx === mainSlide.length - 1) {
+    if (bannerSlideIdx === mainSlide?.length - 1) {
       setBannerSlideIdx(0);
     } else {
       setBannerSlideIdx(prev => prev + 1);
@@ -34,9 +34,9 @@ const Main = () => {
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setBannerSlideIdx(prevIdx =>
-        prevIdx === productsData.length - 1 ? 0 : prevIdx + 1,
+        prevIdx === mainSlide?.length - 1 ? 0 : prevIdx + 1,
       );
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(slideInterval);
   }, []);
@@ -57,9 +57,14 @@ const Main = () => {
 
   const [categoryId, setcategoryId] = useState(1);
   const [productsData, setProductsData] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = event => {
+    setSearchTerm(event.target.value);
+  };
 
   useEffect(() => {
-    fetch(`${GET_ITEM_API}?category=${categoryId}`, {
+    fetch(`${GET_ITEM_API}?category=${categoryId}&search=${searchTerm}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -69,7 +74,7 @@ const Main = () => {
       .then(data => {
         setProductsData(data.data);
       });
-  }, [categoryId]);
+  }, [searchTerm, categoryId]);
 
   const mainSlide = productsData.mainSlide;
   const categoryItemList = productsData.categoryItemList;
@@ -85,16 +90,6 @@ const Main = () => {
   const handleCategoryClick = id => {
     setcategoryId(id);
   };
-
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSearchChange = event => {
-    setSearchTerm(event.target.value);
-  };
-
-  const filteredItems = categoryItemList?.filter(categ => {
-    return categ.title.toLowerCase().includes(searchTerm.toLowerCase());
-  });
 
   return (
     <div className="main">
@@ -191,9 +186,6 @@ const Main = () => {
             transform: `translateX(calc(-100% * ${
               carouselIdx / categoryItemList?.length
             }))`,
-            transform: `translateX(calc(-100% * ${
-              carouselIdx / filteredItems?.length
-            }))`,
           }}
         >
           {categoryItemList?.map(
@@ -217,20 +209,6 @@ const Main = () => {
               </li>
             ),
           )}
-          {filteredItems?.map(categ => (
-            <li
-              key={categ.id}
-              style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
-            >
-              <div className="categoryItem">
-                <img src={categ.image} />
-                <div className="detail">
-                  <div className="categTitle">{categ.title}</div>
-                  <div className="categprice">{categ.price} 원</div>
-                </div>
-              </div>
-            </li>
-          ))}
         </ul>
         <div className="arrowContainer">
           <img
