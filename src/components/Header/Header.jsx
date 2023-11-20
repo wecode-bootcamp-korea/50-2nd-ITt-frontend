@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 
@@ -29,7 +29,7 @@ const Header = () => {
           <img
             className="logo"
             alt="logoimg"
-            src="/images/gitcat.png"
+            src="/images/logo2.png"
             onClick={() => navigate('/')}
           />
         </div>
