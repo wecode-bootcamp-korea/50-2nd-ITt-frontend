@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Button from '../../../../components/Button/Button';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
@@ -12,7 +12,7 @@ import {
 import 'react-datepicker/dist/react-datepicker.css';
 import './Post.scss';
 
-const Post = ({ onClose }) => {
+const Post = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
   const onChange = dates => {
@@ -25,6 +25,7 @@ const Post = ({ onClose }) => {
   const [updateData, setUpdateData] = useState({});
   const [titleText, setTitleText] = useState('');
   const [actor, setActor] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -93,6 +94,10 @@ const Post = ({ onClose }) => {
       });
   };
 
+  const onClose = () => {
+    navigate(`/admin`);
+  };
+
   return (
     <div className="post">
       <h3 className="postTitle">이벤트 등록</h3>
@@ -106,8 +111,8 @@ const Post = ({ onClose }) => {
               type="text"
               id="formTitle"
               className="formControl"
-              defaultValue={title}
-              value={titleText}
+              defaultValue={titleText}
+              value={title}
               onChange={event => setTitleText(event.target.value)}
             />
           </div>
