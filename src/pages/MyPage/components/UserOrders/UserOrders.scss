@@ -2,14 +2,11 @@
 
 .userOrders {
   display:flex;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid $gray-normal;
+  justify-content: space-between;
 
   .imageArea {
-    width: 120px;
-    height: 140px;
-    margin-right: 30px;
+    width: 150px;
+    height: 150px;
     border: 1px solid $gray-normal;
     border-radius: 8px;
     background-color: $white;
