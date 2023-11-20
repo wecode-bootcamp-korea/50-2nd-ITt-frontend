@@ -1,63 +1,97 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { GET_USER_API } from '../../config';
+import { useSearchParams } from 'react-router-dom';
+import {
+  GET_USER_API,
+  GET_USER_ORDER_API,
+  POST_CANCEL_API,
+} from '../../config';
 import ProfileImage from './components/ProfileImage/ProfileImage';
 import ProfileEdit from './components/ProfileEdit/ProfileEdit';
-import User from './components/UserOrders/UserOrders';
-import UserQr from './components/UserQr/UserQr';
+import OrderArea from './components/OrderArea/OrderArea';
 import Button from '../../components/Button/Button';
 import './MyPage.scss';
 
 const MyPage = () => {
+  const [searchParams] = useSearchParams();
+  const queryString = searchParams.toString();
   const [userData, setUserData] = useState({});
+  const [userOrderData, setUserOrderData] = useState([]);
+  const [isOrder, setIsOrder] = useState(true);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(GET_USER_API, {
-  //       headers: { 'Content-Type': 'application/json;charset=utf-8' },
-  //     })
-  //     .then(res => {
-  //       setUserData(res.data.message);
-  //     });
-  // }, []);
-
-  useEffect(() => {
+  // 유저정보 api
+  const getUserData = () => {
     axios
-      .get('/data/mypageData.json', {
-        headers: { 'Content-Type': 'application/json;charset=utf-8' },
-      })
+      .get(GET_USER_API)
       .then(res => {
-        setUserData(res.data.data);
-      });
+        setUserData(res.data.data[0]);
+      })
+      .catch(error => console.error(error));
+  };
+
+  // 유저 결제내역 api
+  const getOrderData = () => {
+    if (queryString) {
+      axios
+        .get(`${GET_USER_ORDER_API}?${queryString}`)
+        .then(res => {
+          setIsOrder(true);
+          setUserOrderData(res.data.data);
+        })
+        .catch(error => console.error(error));
+    } else {
+      setIsOrder(false);
+    }
+  };
+
+  // 유저정보 api
+  useEffect(() => {
+    getUserData();
   }, []);
 
-  const { profileImage, userName, seatClass, seatNumber } = userData;
+  // 결제내역 api
+  useEffect(() => {
+    getOrderData();
+  }, []);
 
-  const handleCancel = () => {
-    if (window.confirm('삭제하시겠습니까?')) {
+  const seatInfo = {
+    totalAmount: 0,
+    reservationIds: [],
+    seatNames: [],
+  };
+
+  if (userOrderData && userOrderData.length > 0) {
+    seatInfo.totalAmount = userOrderData.reduce((acc, cur) => {
+      return acc + parseInt(cur.amount, 10);
+    }, 0);
+    seatInfo.reservationIds = userOrderData.map(data => data.reservationId);
+    seatInfo.seatNames = userOrderData.map(data => data.seatName);
+  }
+
+  const { reservationIds, totalAmount, seatNames } = seatInfo;
+
+  const { profileImage, name } = userData;
+
+  const body = reservationIds.map(data => ({
+    reservationId: data,
+    totalAmount: totalAmount,
+  }));
+
+  // 결제취소 api
+  const handleCancelOrder = () => {
+    if (window.confirm('예매 취소하시겠습니까?')) {
       axios
-        .post(
-          'http://13.209.21.84:8000/users/mypage/cancel',
-          {
-            reservationId: 21,
-            totalAmount: 10000000,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-              // token : 'token'
-            },
-          },
-        )
+        .post(POST_CANCEL_API, {
+          data: body,
+        })
         .then(res => {
           if (res.data.message === 'cancel_success') {
-            alert('삭제완료');
+            alert('결제취소완료');
           } else {
-            alert('삭제실패');
+            alert('결제취소실패');
           }
-        });
-    } else {
-      alert('삭제 취소!');
+        })
+        .error(error => console.error(error));
     }
   };
 
@@ -65,25 +99,28 @@ const MyPage = () => {
     <div className="myPage">
       <div className="menuArea">
         <div className="myPageArea">
-          <ProfileImage src={profileImage} alt={userName} />
-          <p>{userName}</p>
+          <ProfileImage src={profileImage} name={name} />
+          <p>{name}</p>
         </div>
       </div>
       <div className="userPage">
         <h2 className="title">프로필변경</h2>
         <div className="userArea">
-          <ProfileEdit userName={userName} profileImage={profileImage} />
+          <ProfileEdit name={name} profileImage={profileImage} />
         </div>
         <h2 className="title">결제내역</h2>
-        <div className="orderArea">
-          <User {...userData} />
-          <div className="qrArea">
-            <UserQr seatClass={seatClass} seatNumber={seatNumber} />
-          </div>
+        <div className="orderList">
+          {isOrder ? (
+            <OrderArea {...userOrderData[0]} seatNames={seatNames} />
+          ) : (
+            <div className="notOrder">결제 내역이 없습니다.</div>
+          )}
           <div className="cancelBtn">
-            <Button width="200px" onClick={handleCancel}>
-              결제취소
-            </Button>
+            {isOrder && (
+              <Button width="200px" onClick={handleCancelOrder}>
+                결제취소
+              </Button>
+            )}
           </div>
         </div>
       </div>

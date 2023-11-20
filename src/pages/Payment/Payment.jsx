@@ -11,18 +11,19 @@ const Payment = () => {
   const [paymentData, setPaymentData] = useState([]);
   const [addPoints, setAddPoints] = useState('');
 
-  const admin = process.env.REACT_APP_ADMIN_KEY;
+  const admin = process.env.REACT_APP_ADMIN_KEY || '';
   const pgToken = searchParams.get('pg_token');
   const tid = localStorage.getItem('tid');
 
   // 유저정보, 주문내역 데이터
-  const getUserPaymentData = () => {
-    // return axios.get(`/data/paymentData.json`, {
-    //   headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    // });
-    return axios.get(GET_ORDER_API, {
-      headers: { 'Content-Type': 'application/json;charset=utf-8' },
-    });
+  const getUserPaymentData = async () => {
+    try {
+      const response = await axios.get(GET_ORDER_API);
+      return response.data;
+    } catch (error) {
+      console.error('결제 데이터를 가져오는 중 에러가 발생했습니다', error);
+      throw error;
+    }
   };
 
   // 결제 승인 요청
@@ -49,64 +50,75 @@ const Payment = () => {
         setSearchParams(searchParams);
         changePoints(res.data.amount.total, remainingPoint);
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error('결제 승인 중 오류가 발생했습니다', error);
+        throw error;
+      });
   };
 
-  // 백엔드로 데이터 전달
+  // 백엔드 유저 포인트 데이터 전달
   const changePoints = (amount, remainingPoint) => {
     axios
-      .put(
-        `${GET_ORDER_API}/pointCharge`,
-        {
-          point: amount,
-          remainingPoint: remainingPoint,
-        },
-        {
-          headers: {
-            'Content-type': 'application/json;charset=utf-8',
-          },
-        },
-      )
+      .put(`${GET_ORDER_API}/pointCharge`, {
+        point: amount,
+        remainingPoint: remainingPoint,
+      })
       .then(() => {
-        alert('데이터 전달완료');
+        alert('포인트충전완료');
         getUserPaymentData().then(res => setPaymentData(res.data.data));
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error('포인트 충전 중 오류가 발생했습니다', error);
+        throw error;
+      });
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      getUserPaymentData().then(res => {
+      try {
+        const data = await getUserPaymentData();
         if (pgToken) {
-          paymentApprove(
-            res.data.data[0].userId,
-            res.data.data[0].remainingPoint,
-          );
+          await paymentApprove(data[0].userId, data[0].remainingPoint);
         } else {
-          setPaymentData(res.data.data);
+          setPaymentData(data);
         }
-      });
+      } catch (error) {
+        console.error('오류가 발생했습니다.', error);
+      }
     };
     fetchData();
   }, []);
 
-  const totalAmount = paymentData.reduce((acc, cur) => {
-    return acc + parseInt(cur.amount, 10);
-  }, 0);
+  // 좌석 정보 배열로 변환
+  const seatInfo = {
+    totalAmount: 0,
+    reservationIds: [],
+    seatIds: [],
+    seatNames: [],
+  };
+
+  if (paymentData && paymentData.length > 0) {
+    seatInfo.totalAmount = paymentData.reduce((acc, cur) => {
+      return acc + parseInt(cur.amount, 10);
+    }, 0);
+    seatInfo.reservationIds = paymentData.map(data => data.reservationId);
+    seatInfo.seatIds = paymentData.map(data => data.seatId);
+    seatInfo.seatNames = paymentData.map(data => data.seatName);
+  }
+
+  const { seatNames } = seatInfo;
 
   return (
     <div className="payment">
       <h2 className="paymentTitle">결제하기</h2>
       <div className="orderListArea">
-        {paymentData.map((data, value) => (
-          <OrdersInfo {...data} key={value} />
-        ))}
+        <OrdersInfo {...paymentData[0]} seatNames={seatNames} />
       </div>
 
       <div className="paymentArea">
         <PriceArea
           {...paymentData[0]}
-          amount={totalAmount}
+          {...seatInfo}
           addPoints={addPoints}
           setAddPoints={setAddPoints}
         />
