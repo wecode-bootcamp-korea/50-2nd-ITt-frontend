@@ -18,13 +18,15 @@ const Detail = () => {
   const [isAdvanceClicked, setIsAdvanceClicked] = useState(false);
   const [isTimeClicked, setIsTimeClicked] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
-  const [timeOnChange, setTimeOnChange] = useState([]);
+  const [timeOnChange, setTimeOnChange] = useState({});
 
   const year = startDate.getFullYear();
   const month = startDate.getMonth() + 1;
   const day =
     startDate.getDate() > 10 ? startDate.getDate() : `0${startDate.getDate()}`;
   const selectDate = `${year}-${month}-${day}`;
+
+  console.log(itemInfo);
 
   useEffect(() => {
     axios
