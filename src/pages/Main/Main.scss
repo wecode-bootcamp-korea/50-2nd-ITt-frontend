@@ -17,13 +17,15 @@
 
     .slideList {
       transition: 0.3s;
-    }
-    .slideItem {
-      display: inline-block;
-      vertical-align: middle;
-      width: 100%;
-      .slideImg {
-        height: 700px;
+
+      .slideItem {
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+        position: relative;
+        .slideImg {
+          height: 700px;
+        }
       }
     }
   }
@@ -50,12 +52,15 @@
   }
 
   .compTitle {
+    font-style: normal;
+    font-size: 35px;
+    color: #333;
     text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
-      sans-serif;
-    margin: 150px 0 100px 0;
+    font-weight: 700;
+    line-height: 35px;
+    vertical-align: baseline;
+    font-family: 'NanumBarunGothic', '���� ����', 'Malgun Gothic', sans-serif;
+    margin: 100px 0 70px 0;
   }
 
   .Recommendation {
@@ -63,7 +68,7 @@
     grid-template-columns: 2fr 1fr 1fr 1fr;
     grid-template-rows: repeat(2, 40%);
     gap: 25px;
-    width: 85%;
+    width: 70%;
     margin: 0 auto;
 
     .RecommendationLeft {
@@ -177,8 +182,8 @@
   gap: 150px;
   font-size: 23px;
   font-weight: bold;
-  margin-bottom: 130px;
-  margin-top: -30px;
+  margin-bottom: 80px;
+  margin-top: -40px;
 
   .categoryText {
     &:hover {
@@ -223,10 +228,10 @@
 
     li {
       img {
-        width: 65%;
-        height: 350px;
+        width: 80%;
+        height: 300px;
         margin-bottom: 50px;
-        margin-left: 70px;
+        margin-left: 50px;
       }
 
       &:hover {
