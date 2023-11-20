@@ -17,7 +17,7 @@ const Main = () => {
 
   const slideToLeft = () => {
     if (bannerSlideIdx === 0) {
-      setBannerSlideIdx(mainSlide.length - 1);
+      setBannerSlideIdx(mainSlide?.length - 1);
     } else {
       setBannerSlideIdx(prev => prev - 1);
     }
@@ -73,12 +73,28 @@ const Main = () => {
 
   const mainSlide = productsData.mainSlide;
   const categoryItemList = productsData.categoryItemList;
+  const newItems = productsData.newItems;
+  const bestitems = productsData.bestItems;
+  const mdItemsLists = productsData.mdItemsList;
   console.log(mainSlide);
+  console.log(categoryItemList);
+  console.log(newItems);
+  console.log(bestitems);
   console.log(categoryItemList);
 
   const handleCategoryClick = id => {
     setcategoryId(id);
   };
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredItems = categoryItemList?.filter(categ => {
+    return categ.title.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
     <div className="main">
@@ -91,7 +107,9 @@ const Main = () => {
         >
           {mainSlide?.map(slide => (
             <li className="slideItem" key={slide.id}>
-              <img className="slideImg" src={slide.image} />
+              <Link to={`/detail/${slide.id}`}>
+                <img className="slideImg" src={slide.image} />
+              </Link>
             </li>
           ))}
         </ul>
@@ -114,7 +132,7 @@ const Main = () => {
       <div className="compTitle"> Recommandation</div>
 
       <div className="Recommendation">
-        {RECOMMANDATION.map((Recomm, idx) =>
+        {mdItemsLists?.map((Recomm, idx) =>
           idx === 0 ? (
             <div className="RecommendationLeft" key={idx}>
               <img
@@ -133,7 +151,7 @@ const Main = () => {
                 />
                 <div className="info">
                   <p className="infoTitle">{Recomm.title}</p>
-                  <p className="infoDate">{Recomm.date}</p>
+                  <p className="infoDate">{Recomm.price} 원</p>
                 </div>
               </div>
             </div>
@@ -144,7 +162,12 @@ const Main = () => {
       <div className="compTitle"> CATEGORY</div>
 
       <div className="searchContainer">
-        <input type="text" className="searchBox" placeholder="검색..." />
+        <input
+          type="text"
+          className="searchBox"
+          placeholder="검색..."
+          onChange={handleSearchChange}
+        />
       </div>
 
       <div className="categoryLinks">
@@ -168,6 +191,9 @@ const Main = () => {
             transform: `translateX(calc(-100% * ${
               carouselIdx / categoryItemList?.length
             }))`,
+            transform: `translateX(calc(-100% * ${
+              carouselIdx / filteredItems?.length
+            }))`,
           }}
         >
           {categoryItemList?.map(
@@ -178,17 +204,33 @@ const Main = () => {
                 key={categ.id}
                 style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
               >
-                <div className="categoryItem">
-                  <img src={categ.image} />
+                <Link to={`/detail/${categ.id}`}>
+                  <div className="categoryItem">
+                    <img src={categ.image} />
 
-                  <div className="detail">
-                    <div className="categprice">{categ.price}</div>
-                    <div className="categTitle">{categ.title}</div>
+                    <div className="detail">
+                      <div className="categTitle">{categ.title}</div>
+                      <div className="categprice">{categ.price}</div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </li>
             ),
           )}
+          {filteredItems?.map(categ => (
+            <li
+              key={categ.id}
+              style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
+            >
+              <div className="categoryItem">
+                <img src={categ.image} />
+                <div className="detail">
+                  <div className="categTitle">{categ.title}</div>
+                  <div className="categprice">{categ.price} 원</div>
+                </div>
+              </div>
+            </li>
+          ))}
         </ul>
         <div className="arrowContainer">
           <img
@@ -210,19 +252,15 @@ const Main = () => {
 
       <div className="onSale">
         <div className="sectionContainer">
-          {ONSALE.map((discount, idx) => (
+          {bestitems?.map((discount, idx) => (
             <div className="onSaleFrame" key={idx}>
               <div className="onSaleWrapper">
-                <img
-                  className="onSaleImg"
-                  alt="img"
-                  src={discount.image_source}
-                />
+                <img className="onSaleImg" alt="img" src={discount.image} />
 
                 <div className="onSaleInfo">
                   <p className="onSaleInfoDiscount">{discount.discount}</p>
-                  <p className="onSaleInfoDate">{discount.date}</p>
                   <p className="onSaleInfoTitle">{discount.title}</p>
+                  <p className="onSaleInfoDate">{discount.price} 원</p>
                 </div>
               </div>
             </div>
@@ -233,15 +271,12 @@ const Main = () => {
       <div className="compTitle"> UPCOMING EVENT </div>
 
       <div className="upComingEvent">
-        {UPCOMING_EVENT.map((event, idx) => (
+        {newItems?.map((event, idx) => (
           <div className="upComingEventContent" key={idx}>
-            <img
-              className="upComingEventImg"
-              alt="img"
-              src={event.image_source}
-            />
-            <div>
+            <img className="upComingEventImg" alt="img" src={event.image} />
+            <div className="upComingEventInfo">
               <p className="upComingEventTitle">{event.title}</p>
+              <p className="upComingEventPrice">{event.price} 원</p>
             </div>
           </div>
         ))}
