@@ -17,7 +17,6 @@ import PayCancel from './pages/Payment/PayCancel';
 const Router = () => {
   return (
     <BrowserRouter>
-      <Header />
       <Layout>
         <Routes>
           <Route path="/" element={<Main />} />
