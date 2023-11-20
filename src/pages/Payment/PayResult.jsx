@@ -8,7 +8,7 @@ const PayResult = () => {
   useEffect(() => {
     window.opener.location.href = `http://localhost:3000/payment${queryString}`;
     window.close();
-  }, []);
+  }, [queryString]);
 
   return (
     <div>

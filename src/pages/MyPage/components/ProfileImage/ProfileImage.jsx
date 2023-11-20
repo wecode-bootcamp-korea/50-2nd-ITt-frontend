@@ -1,10 +1,14 @@
 import React from 'react';
 import './ProfileImage.scss';
 
-const ProfileImage = ({ src, alt }) => {
+const ProfileImage = ({ src, name }) => {
   return (
     <div className="profileImage">
-      <img src={src} alt={alt} className="userImage" />
+      {src ? (
+        <img src={src} alt={name} className="userImage" />
+      ) : (
+        <div className="basicImage" />
+      )}
     </div>
   );
 };
