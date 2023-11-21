@@ -110,52 +110,60 @@ const Post = () => {
     }
 
     if (itemId) {
-      axios.put(
-        `${GET_ADMIN_UPDATITEMLIST_API}`,
-        {
-          itemId: itemId,
-          title: updateData.title,
-          image: updateData.image,
-          runningTime: updateData.runningTime,
-          viewerAge: updateData.viewerAge,
-          price: updateData.price,
-          itemNotice: updateData.itemNotice,
-          categoryName: updateData.categoryName,
-          locationName: updateData.locationName,
-          actorName: actor.map(a => a.actorName),
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+      axios
+        .put(
+          `${GET_ADMIN_UPDATITEMLIST_API}`,
+          {
+            itemId: itemId,
+            title: updateData.title,
+            image: updateData.image,
+            runningTime: updateData.runningTime,
+            viewerAge: updateData.viewerAge,
+            price: updateData.price,
+            itemNotice: updateData.itemNotice,
+            categoryName: updateData.categoryName,
+            locationName: updateData.locationName,
+            actorName: actor.map(a => a.actorName),
           },
-        },
-      );
+          {
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+              authorization:
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+            },
+          },
+        )
+        .then(() => {
+          navigate('/admin');
+        });
     } else {
-      axios.post(
-        `${GET_ADMIN_INSERTITENLIST_API}`,
-        {
-          title: updateData.title,
-          image: updateData.image,
-          runningTime: updateData.runningTime,
-          viewerAge: updateData.viewerAge,
-          price: updateData.price,
-          itemNotice: updateData.itemNotice,
-          categoryName: updateData.categoryName,
-          locationName: updateData.locationName,
-          actorName: actor.map(a => a.actorName),
-          eventDate: dateArray.map(date => date.toISOString().split('T')[0]),
-          eventTime: selectedTimes,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+      axios
+        .post(
+          `${GET_ADMIN_INSERTITENLIST_API}`,
+          {
+            title: updateData.title,
+            image: updateData.image,
+            runningTime: updateData.runningTime,
+            viewerAge: updateData.viewerAge,
+            price: updateData.price,
+            itemNotice: updateData.itemNotice,
+            categoryName: updateData.categoryName,
+            locationName: updateData.locationName,
+            actorName: actor.map(a => a.actorName),
+            eventDate: dateArray.map(date => date.toISOString().split('T')[0]),
+            eventTime: selectedTimes,
           },
-        },
-      );
+          {
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+              authorization:
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+            },
+          },
+        )
+        .then(() => {
+          navigate('/admin');
+        });
     }
   };
 

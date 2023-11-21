@@ -9,6 +9,7 @@ import MyPage from './pages/MyPage/MyPage';
 import Payment from './pages/Payment/Payment';
 import PayResult from './pages/Payment/PayResult';
 import PayCancel from './pages/Payment/PayCancel';
+import Post from './pages/Admin/components/Post/Post';
 import Signup from './pages/Signup/Signup';
 import KaKaoLogin from './pages/kakao/KaKaoLogin';
 
@@ -19,6 +20,8 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/post" element={<Post />} />
+          <Route path="/admin/post/:itemId" element={<Post />} />
           <Route path="/detail/:detailId" element={<Detail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
