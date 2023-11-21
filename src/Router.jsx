@@ -7,8 +7,8 @@ import Detail from './pages/Detail/Detail';
 import Login from './pages/Login/Login';
 import MyPage from './pages/MyPage/MyPage';
 import Payment from './pages/Payment/Payment';
-import PayCancel from './pages/Payment/PayCancel';
 import PayResult from './pages/Payment/PayResult';
+import PayCancel from './pages/Payment/PayCancel';
 import Signup from './pages/Signup/Signup';
 import KaKaoLogin from './pages/kakao/KaKaoLogin';
 
