@@ -26,8 +26,6 @@ const Detail = () => {
     startDate.getDate() > 10 ? startDate.getDate() : `0${startDate.getDate()}`;
   const selectDate = `${year}-${month}-${day}`;
 
-  console.log(itemInfo);
-
   useEffect(() => {
     axios
       .get(`${GET_DETAIL_API}/${detailId}`, {

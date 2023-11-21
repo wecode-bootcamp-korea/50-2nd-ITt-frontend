@@ -31,7 +31,7 @@ const List = () => {
     navigate('/admin/post');
   };
 
-  const setIsPostClicked = itemId => {
+  const handlePostClick = itemId => {
     axios
       .get(`${GET_ADMIN_SELECTITEMLIST_API}/${itemId}`, {
         headers: {
@@ -45,7 +45,7 @@ const List = () => {
       });
   };
 
-  const setIsDelectClicked = itemId => {
+  const handleDelecttClick = itemId => {
     axios.delete(`${GET_ADMIN_DELECTITEMLIST_API}/${itemId}`, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -74,7 +74,7 @@ const List = () => {
                   <Button
                     width="70px"
                     height="40px"
-                    onClick={() => setIsPostClicked(itemId)}
+                    onClick={() => handlePostClick(itemId)}
                   >
                     수정
                   </Button>
@@ -82,7 +82,7 @@ const List = () => {
                     outline
                     width="70px"
                     height="40px"
-                    onClick={() => setIsDelectClicked(itemId)}
+                    onClick={() => handleDelecttClick(itemId)}
                   >
                     삭제
                   </Button>
