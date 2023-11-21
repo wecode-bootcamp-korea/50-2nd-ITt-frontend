@@ -1,14 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { PUT_PAYMENT_API } from '../../../../config';
 import DetailsInfo from '../../../../components/DetailsInfo/DetailsInfo';
 import AddPoints from '../AddPoints/AddPoints';
 import Button from '../../../../components/Button/Button';
 import './PriceArea.scss';
-import { PUT_PAYMENT_API } from '../../../../config';
 
 const PriceArea = ({
   totalAmount,
+  timeData,
   reservationIds,
   seatIds,
   seatNames,
@@ -16,11 +17,11 @@ const PriceArea = ({
   remainingPoint,
   title,
   date,
-  time,
   userId,
   addPoints,
   setAddPoints,
   locationName,
+  time,
 }) => {
   const navigate = useNavigate();
 
@@ -41,7 +42,7 @@ const PriceArea = ({
   const ORDERLABEL = [
     { id: 1, type: '공연명', content: title },
     { id: 2, type: '관람일자', content: date },
-    { id: 3, type: '관람시간', content: time },
+    { id: 3, type: '관람시간', content: timeData },
     { id: 3, type: '위치', content: locationName },
   ];
 

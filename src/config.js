@@ -4,7 +4,7 @@ import axios from 'axios';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 const BASE_URL_ITEM = 'http://10.58.52.162:8000';
-const BASE_URL = 'http://10.58.52.121:8000';
+// const BASE_URL = 'http://10.58.52.121:8000';
 const BASE_URL_ADMIN = 'http://10.58.52.115:8000';
 const BASE_URL_DETAIL = 'http://10.58.52.119:8000';
 const BASE_URL_ADVANCE = 'http://10.58.52.176:8000';
