@@ -64,7 +64,7 @@
     margin: 100px 0 70px 0;
   }
 
-  .Recommendation {
+  .recommendation {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
     grid-template-rows: repeat(2, 40%);
@@ -72,7 +72,7 @@
     width: 70%;
     margin: 0 auto;
 
-    .RecommendationLeft {
+    .recommendationLeft {
       transition: transform 0.3s ease-in-out;
       grid-column: 1;
       grid-row: 1 / span 2;
@@ -81,13 +81,13 @@
         transform: scale(1.03);
       }
 
-      .RecommendationLeftimg {
+      .recommendationLeftimg {
         width: 100%;
         height: 100%;
       }
     }
 
-    .RecommendationRight {
+    .recommendationRight {
       display: grid;
       grid-template-columns: repeat(3, 100%);
       grid-template-rows: repeat(2, 100%);

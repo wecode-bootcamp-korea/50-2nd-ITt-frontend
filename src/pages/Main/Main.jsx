@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { GET_ITEM_API } from '../../config';
-import { DData } from './MainData/data';
 import './Main.scss';
 
 const Main = () => {
@@ -59,7 +58,8 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`${GET_ITEM_API}`, {
+      // .get('/data/itemList.json', {
+      .get(GET_ITEM_API, {
         params: {
           category: categoryId,
           search: searchTerm,
@@ -74,10 +74,7 @@ const Main = () => {
   }, [searchTerm, categoryId]);
 
   const { mainSlide, categoryItemList, newItems, bestItems, mdItemsList } =
-    DData;
-  // productsData;
-
-  const [hoveredSlide, setHoveredSlide] = useState(null);
+    productsData;
 
   const handleCategoryClick = id => {
     setcategoryId(id);
@@ -118,30 +115,30 @@ const Main = () => {
 
       <div className="compTitle">- Recommandation -</div>
 
-      <div className="Recommendation">
-        {mdItemsList?.map((Recomm, idx) =>
+      <div className="recommendation">
+        {mdItemsList?.map((recomm, idx) =>
           idx === 0 ? (
-            <div className="RecommendationLeft" key={idx}>
-              <Link to={`/detail/${Recomm.id}`}>
+            <div className="recommendationLeft" key={idx}>
+              <Link to={`/detail/${recomm.id}`}>
                 <img
-                  className="RecommendationLeftimg"
+                  className="recommendationLeftimg"
                   alt="img"
-                  src={Recomm.image}
+                  src={recomm.image}
                 />
               </Link>
             </div>
           ) : (
-            <div className="RecommendationRight" key={idx}>
+            <div className="recommendationRight" key={idx}>
               <div className="imgWrapper">
                 <img
-                  className="RecommendationRightimg"
+                  className="recommendationRightimg"
                   alt="recommendationImg"
-                  src={Recomm.image}
+                  src={recomm.image}
                 />
                 <div className="info">
-                  <Link to={`/detail/${Recomm.id}`}>
-                    <p className="infoTitle">{Recomm.title}</p>
-                    <p className="infoDate">{Recomm.price} 원</p>
+                  <Link to={`/detail/${recomm.id}`}>
+                    <p className="infoTitle">{recomm.title}</p>
+                    <p className="infoDate">{recomm.price} 원</p>
                   </Link>
                 </div>
               </div>
@@ -184,31 +181,26 @@ const Main = () => {
             }))`,
           }}
         >
-          {categoryItemList?.map(
-            (
-              categ,
-              idx, //
-            ) => (
-              <li
-                key={categ.id}
-                style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
-              >
-                <Link to={`/detail/${categ.id}`}>
-                  <div className="categoryItem">
-                    <div className="imgWrapper">
-                      <div className="imgNumber">{idx - 2}</div>
-                      <img src={categ.image} alt="categoryimg" />
-                    </div>
-
-                    <div className="detail">
-                      <div className="categTitle">{categ.title}</div>
-                      <div className="categprice">{categ.price} 원</div>
-                    </div>
+          {categoryItemList?.map((categ, idx) => (
+            <li
+              key={categ.id}
+              style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
+            >
+              <Link to={`/detail/${categ.id}`}>
+                <div className="categoryItem">
+                  <div className="imgWrapper">
+                    <div className="imgNumber">{idx - 2}</div>
+                    <img src={categ.image} alt="categoryimg" />
                   </div>
-                </Link>
-              </li>
-            ),
-          )}
+
+                  <div className="detail">
+                    <div className="categTitle">{categ.title}</div>
+                    <div className="categprice">{categ.price} 원</div>
+                  </div>
+                </div>
+              </Link>
+            </li>
+          ))}
         </ul>
         <div className="arrowContainer">
           <img
