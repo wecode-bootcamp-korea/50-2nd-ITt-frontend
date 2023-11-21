@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useNavigate, useHistory, Navigate } from 'react-router-dom';
-import { useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { GET_ITEM_API } from '../../config';
-import {
-  MAIN_SLIDE,
-  BANNER_SLIDE,
-  RECOMMANDATION,
-  ONSALE,
-  UPCOMING_EVENT,
-} from './MainData/data';
+import { DData } from './MainData/data';
 import './Main.scss';
 
 const Main = () => {
@@ -80,23 +73,18 @@ const Main = () => {
       });
   }, [searchTerm, categoryId]);
 
-  const mainSlide = productsData.mainSlide;
-  const categoryItemList = productsData.categoryItemList;
-  const newItems = productsData.newItems;
-  const bestitems = productsData.bestItems;
-  const mdItemsLists = productsData.mdItemsList;
-  console.log(mainSlide);
-  console.log(categoryItemList);
-  console.log(newItems);
-  console.log(bestitems);
-  console.log(categoryItemList);
+  const { mainSlide, categoryItemList, newItems, bestItems, mdItemsList } =
+    DData;
+  // productsData;
+
+  const [hoveredSlide, setHoveredSlide] = useState(null);
 
   const handleCategoryClick = id => {
     setcategoryId(id);
   };
 
   return (
-    <div className="main">
+    <div className="mainPage">
       <div className="slideBox">
         <ul
           className="slideList"
@@ -128,10 +116,10 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="compTitle"> Recommandation</div>
+      <div className="compTitle">- Recommandation -</div>
 
       <div className="Recommendation">
-        {mdItemsLists?.map((Recomm, idx) =>
+        {mdItemsList?.map((Recomm, idx) =>
           idx === 0 ? (
             <div className="RecommendationLeft" key={idx}>
               <Link to={`/detail/${Recomm.id}`}>
@@ -147,7 +135,7 @@ const Main = () => {
               <div className="imgWrapper">
                 <img
                   className="RecommendationRightimg"
-                  alt="img"
+                  alt="recommendationImg"
                   src={Recomm.image}
                 />
                 <div className="info">
@@ -162,7 +150,7 @@ const Main = () => {
         )}
       </div>
 
-      <div className="compTitle"> CATEGORY</div>
+      <div className="compTitle">- CATEGORY -</div>
 
       <div className="searchContainer">
         <input
@@ -198,7 +186,8 @@ const Main = () => {
         >
           {categoryItemList?.map(
             (
-              categ, //
+              categ,
+              idx, //
             ) => (
               <li
                 key={categ.id}
@@ -206,11 +195,14 @@ const Main = () => {
               >
                 <Link to={`/detail/${categ.id}`}>
                   <div className="categoryItem">
-                    <img src={categ.image} />
+                    <div className="imgWrapper">
+                      <div className="imgNumber">{idx - 2}</div>
+                      <img src={categ.image} alt="categoryimg" />
+                    </div>
 
                     <div className="detail">
                       <div className="categTitle">{categ.title}</div>
-                      <div className="categprice">{categ.price}</div>
+                      <div className="categprice">{categ.price} 원</div>
                     </div>
                   </div>
                 </Link>
@@ -234,11 +226,11 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="compTitle"> ON SALE </div>
+      <div className="compTitle"> - BEST ITEMS -</div>
 
       <div className="onSale">
         <div className="sectionContainer">
-          {bestitems?.map((discount, idx) => (
+          {bestItems?.map((discount, idx) => (
             <div className="onSaleFrame" key={idx}>
               <Link to={`/detail/${discount.id}`}>
                 <div className="onSaleWrapper">
@@ -256,7 +248,7 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="compTitle"> UPCOMING EVENT </div>
+      <div className="compTitle">- UPCOMING EVENT -</div>
 
       <div className="upComingEvent">
         {newItems?.map((event, idx) => (
