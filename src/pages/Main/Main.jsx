@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import {
-  MAIN_SLIDE,
-  BANNER_SLIDE,
-  RECOMMANDATION,
-  ONSALE,
-  UPCOMING_EVENT,
-} from './MainData/data';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { GET_ITEM_API } from '../../config';
 import './Main.scss';
 
 const Main = () => {
-  const [carouselIdx, setCarouselIdx] = useState(0);
   const [bannerSlideIdx, setBannerSlideIdx] = useState(0);
+  const [carouselIdx, setCarouselIdx] = useState(0);
+
   const slideToLeft = () => {
     if (bannerSlideIdx === 0) {
-      setBannerSlideIdx(MAIN_SLIDE.length - 1);
+      setBannerSlideIdx(mainSlide?.length - 1);
     } else {
       setBannerSlideIdx(prev => prev - 1);
     }
   };
 
   const slideToRight = () => {
-    if (bannerSlideIdx === MAIN_SLIDE.length - 1) {
+    if (bannerSlideIdx === mainSlide?.length - 1) {
       setBannerSlideIdx(0);
     } else {
       setBannerSlideIdx(prev => prev + 1);
@@ -31,29 +27,61 @@ const Main = () => {
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setBannerSlideIdx(prevIdx =>
-        prevIdx === MAIN_SLIDE.length - 1 ? 0 : prevIdx + 1,
+        prevIdx === mainSlide?.length - 1 ? 0 : prevIdx + 1,
       );
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(slideInterval);
   }, []);
 
   const carouselToLeft = () => {
-    if (carouselIdx === 0) return;
-
-    setCarouselIdx(prev => prev - 1);
+    setCarouselIdx(prev =>
+      prev === 0 ? categoryItemList.length - SLIDE_TO_SHOW : prev - 1,
+    );
   };
 
   const carouselToRight = () => {
-    if (carouselIdx === BANNER_SLIDE.length - SLIDE_TO_SHOW) return;
-
-    setCarouselIdx(prev => prev + 1);
+    setCarouselIdx(prev =>
+      prev === categoryItemList.length - SLIDE_TO_SHOW ? 0 : prev + 1,
+    );
   };
 
   const SLIDE_TO_SHOW = 4;
 
+  const [categoryId, setcategoryId] = useState(1);
+  const [productsData, setProductsData] = useState({});
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  useEffect(() => {
+    axios
+      // .get('/data/itemList.json', {
+      .get(GET_ITEM_API, {
+        params: {
+          category: categoryId,
+          search: searchTerm,
+        },
+      })
+      .then(response => {
+        setProductsData(response.data.data);
+      })
+      .catch(error => {
+        console.error('에러 발생!', error);
+      });
+  }, [searchTerm, categoryId]);
+
+  const { mainSlide, categoryItemList, newItems, bestItems, mdItemsList } =
+    productsData;
+
+  const handleCategoryClick = id => {
+    setcategoryId(id);
+  };
+
   return (
-    <div className="main">
+    <div className="mainPage">
       <div className="slideBox">
         <ul
           className="slideList"
@@ -61,9 +89,11 @@ const Main = () => {
             transform: `translateX(calc(-100% * ${bannerSlideIdx}))`,
           }}
         >
-          {MAIN_SLIDE.map((slide, id) => (
-            <li className="slideItem" key={id}>
-              <img className="slideImg" src={slide.image_source} />
+          {mainSlide?.map(slide => (
+            <li className="slideItem" key={slide.id}>
+              <Link to={`/detail/${slide.id}`}>
+                <img className="slideImg" src={slide.image} />
+              </Link>
             </li>
           ))}
         </ul>
@@ -83,80 +113,94 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="compTitle"> Recommandation</div>
+      <div className="compTitle">- Recommandation -</div>
 
-      <div className="Recommendation">
-        <div className="RecommendationLeft">
-          <img
-            className="RecommendationLeftimg"
-            alt="img"
-            src="https://cdn.pixabay.com/photo/2020/07/05/18/57/woman-5374127_1280.jpg"
-          ></img>
-        </div>
-
-        <div className="imgContainer">
-          {RECOMMANDATION.map((Recomm, idx) => (
-            <div className="RecommendationRight" key={idx}>
+      <div className="recommendation">
+        {mdItemsList?.map((recomm, idx) =>
+          idx === 0 ? (
+            <div className="recommendationLeft" key={idx}>
+              <Link to={`/detail/${recomm.id}`}>
+                <img
+                  className="recommendationLeftimg"
+                  alt="img"
+                  src={recomm.image}
+                />
+              </Link>
+            </div>
+          ) : (
+            <div className="recommendationRight" key={idx}>
               <div className="imgWrapper">
                 <img
-                  className="RecommendationRightimg"
-                  alt="img"
-                  src={Recomm.image_source}
+                  className="recommendationRightimg"
+                  alt="recommendationImg"
+                  src={recomm.image}
                 />
                 <div className="info">
-                  <p className="infoTitle">{Recomm.title}</p>
-                  <p className="infoDate">{Recomm.date}</p>
+                  <Link to={`/detail/${recomm.id}`}>
+                    <p className="infoTitle">{recomm.title}</p>
+                    <p className="infoDate">{recomm.price} 원</p>
+                  </Link>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          ),
+        )}
       </div>
 
-      <div className="compTitle"> CATEGORY</div>
+      <div className="compTitle">- CATEGORY -</div>
+
+      <div className="searchContainer">
+        <input
+          type="text"
+          className="searchBox"
+          placeholder="검색..."
+          onChange={handleSearchChange}
+        />
+      </div>
 
       <div className="categoryLinks">
-        <Link className="categoryText" to="/concerts">
+        <p className="categoryText" onClick={() => handleCategoryClick(1)}>
           #콘서트
-        </Link>
-        <Link className="categoryText" to="/musicals">
+        </p>
+        <p className="categoryText" onClick={() => handleCategoryClick(2)}>
           #뮤지컬
-        </Link>
-        <Link className="categoryText" to="/theatre">
+        </p>
+        <p className="categoryText" onClick={() => handleCategoryClick(3)}>
           #연극
-        </Link>
-        <Link className="categoryText" to="/exhibitions">
+        </p>
+        <p className="categoryText" onClick={() => handleCategoryClick(4)}>
           #전시
-        </Link>
+        </p>
       </div>
 
       <div className="categoryList">
         <ul
           style={{
             transform: `translateX(calc(-100% * ${
-              carouselIdx / BANNER_SLIDE.length
+              carouselIdx / categoryItemList?.length
             }))`,
           }}
         >
-          {BANNER_SLIDE.map(
-            (
-              categ, //
-            ) => (
-              <li
-                key={categ.id}
-                style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
-              >
+          {categoryItemList?.map((categ, idx) => (
+            <li
+              key={categ.id}
+              style={{ width: `calc(100vw / ${SLIDE_TO_SHOW})` }}
+            >
+              <Link to={`/detail/${categ.id}`}>
                 <div className="categoryItem">
-                  <img src={categ.image_source} />
+                  <div className="imgWrapper">
+                    <div className="imgNumber">{idx - 2}</div>
+                    <img src={categ.image} alt="categoryimg" />
+                  </div>
 
                   <div className="detail">
-                    <div className="categDate">{categ.date}</div>
                     <div className="categTitle">{categ.title}</div>
+                    <div className="categprice">{categ.price} 원</div>
                   </div>
                 </div>
-              </li>
-            ),
-          )}
+              </Link>
+            </li>
+          ))}
         </ul>
         <div className="arrowContainer">
           <img
@@ -174,49 +218,42 @@ const Main = () => {
         </div>
       </div>
 
-      <div className="compTitle"> ON SALE </div>
+      <div className="compTitle"> - BEST ITEMS -</div>
 
       <div className="onSale">
         <div className="sectionContainer">
-          {ONSALE.map((discount, idx) => (
+          {bestItems?.map((discount, idx) => (
             <div className="onSaleFrame" key={idx}>
-              <div className="onSaleWrapper">
-                <img
-                  className="onSaleImg"
-                  alt="img"
-                  src={discount.image_source}
-                />
+              <Link to={`/detail/${discount.id}`}>
+                <div className="onSaleWrapper">
+                  <img className="onSaleImg" alt="img" src={discount.image} />
 
-                <div className="onSaleInfo">
-                  <p className="onSaleInfoDiscount">{discount.discount}</p>
-                  <p className="onSaleInfoDate">{discount.date}</p>
-                  <p className="onSaleInfoTitle">{discount.title}</p>
+                  <div className="onSaleInfo">
+                    <p className="onSaleInfoDiscount">{discount.discount}</p>
+                    <p className="onSaleInfoTitle">{discount.title}</p>
+                    <p className="onSaleInfoDate">{discount.price} 원</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="compTitle"> UPCOMING EVENT </div>
+      <div className="compTitle">- UPCOMING EVENT -</div>
 
       <div className="upComingEvent">
-        <div className="upComingEventContainer">
-          {UPCOMING_EVENT.map((event, idx) => (
-            <div key={idx}>
-              <div className="upComingEventContent">
-                <img
-                  className="upComingEventImg"
-                  alt="img"
-                  src={event.image_source}
-                />
-                <div>
-                  <p className="upComingEventTitle">{event.title}</p>
-                </div>
+        {newItems?.map((event, idx) => (
+          <div className="upComingEventContent" key={idx}>
+            <Link to={`/detail/${event.id}`}>
+              <img className="upComingEventImg" alt="img" src={event.image} />
+              <div className="upComingEventInfo">
+                <p className="upComingEventTitle">{event.title}</p>
+                <p className="upComingEventPrice">{event.price} 원</p>
               </div>
-            </div>
-          ))}
-        </div>
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );
