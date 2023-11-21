@@ -46,7 +46,7 @@ const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
             {seats
               .filter(seat => seat.seatRow === row)
               .map(seat => {
-                const { id } = seat;
+                const { id, isBooked } = seat;
                 return (
                   <div className="formInput" key={id}>
                     <input
@@ -55,6 +55,7 @@ const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
                       className="formCheck"
                       onChange={() => seatOnChange(seat)}
                       checked={checkedItems.some(item => item.id === id)}
+                      disabled={isBooked === 1}
                     />
                     <label htmlFor={`seat${id}`} className="formLabel">
                       <span>{id}</span>
