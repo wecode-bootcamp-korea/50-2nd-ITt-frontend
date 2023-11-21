@@ -107,19 +107,19 @@ const Payment = () => {
     const timeOfDay = seatInfo.hour < 12 ? '오전' : '오후';
     const minute = paymentData[0].time.slice(3, 5);
 
-    seatInfo.timeData = `${timeOfDay} ${hour}시 ${minute}분`;
+    seatInfo.timeData = `${timeOfDay} ${
+      hour > 12 ? hour - 12 : hour
+    }시 ${minute}분`;
     seatInfo.reservationIds = paymentData.map(data => data.reservationId);
     seatInfo.seatIds = paymentData.map(data => data.seatId);
     seatInfo.seatNames = paymentData.map(data => data.seatName);
   }
 
-  const { seatNames } = seatInfo;
-
   return (
     <div className="payment">
       <h2 className="paymentTitle">결제하기</h2>
       <div className="orderListArea">
-        <OrdersInfo {...paymentData[0]} seatNames={seatNames} />
+        <OrdersInfo {...paymentData[0]} {...seatInfo} />
       </div>
 
       <div className="paymentArea">

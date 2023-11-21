@@ -12,6 +12,7 @@ const OrderArea = ({
   seatNames,
   amount,
   reservationId,
+  getOrderData,
 }) => {
   const hour = time.slice(0, 2);
   const timeOfDay = hour < 12 ? '오전' : '오후';
@@ -31,6 +32,7 @@ const OrderArea = ({
         seatNames={seatNames}
         amount={amount}
         reservationId={reservationId}
+        getOrderData={getOrderData}
       />
     </div>
   );

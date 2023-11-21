@@ -5,10 +5,11 @@ import ProfileImage from '../ProfileImage/ProfileImage';
 import Button from '../../../../components/Button/Button';
 import './ProfileEdit.scss';
 
-const ProfileEdit = ({ name, profileImage }) => {
+const ProfileEdit = ({ name, profileImage, getUserData }) => {
   const [files, setFiles] = useState({});
   const [imageUrl, setImageUrl] = useState(profileImage);
 
+  // 프로필 파일 첨부 버튼 클릭 함수
   const handleFileUpload = e => {
     e.preventDefault();
     const file = e.target.files[0];
@@ -20,15 +21,30 @@ const ProfileEdit = ({ name, profileImage }) => {
     };
   };
 
+  // 프로필 파일 변경 함수
   const handleSubmit = async e => {
-    const formData = new FormData();
-    formData.append('profileImage', files);
-    await axios
-      .post(PUT_PROFILE_API, formData, {
+    try {
+      if (!files) {
+        alert('파일을 선택해주세요');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('profileImage', files);
+      const response = await axios.post(PUT_PROFILE_API, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-      })
-      .then(res => setImageUrl(res.data.profileImage))
-      .catch(error => console.error(error));
+      });
+      const { data } = response;
+
+      if (data.message === 'update_success') {
+        setImageUrl(data.data.profileImage);
+        getUserData();
+      } else {
+        console.error('upload error!');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -16,6 +16,7 @@ const UserOrders = ({
   seatNames,
   amount,
   reservationId,
+  getOrderData,
 }) => {
   const seatData = seatNames ? seatNames.join(', ') : '';
   const totalAmount = amount * seatNames.length;
@@ -41,6 +42,7 @@ const UserOrders = ({
         .then(res => {
           if (res.data.message === 'cancel_success') {
             alert('결제취소완료');
+            getOrderData();
           } else {
             alert('결제취소실패');
           }

@@ -30,15 +30,18 @@ const MyPage = () => {
       axios
         .get(`${GET_USER_ORDER_API}?${queryString}`)
         .then(res => {
-          setIsOrder(true);
-          setUserOrderData(res.data.data);
+          if (res.data.data.length === 0) {
+            setIsOrder(false);
+          } else {
+            setIsOrder(true);
+            setUserOrderData(res.data.data);
+          }
         })
         .catch(error => console.error(error));
     } else {
       setIsOrder(false);
     }
   };
-
   // 유저정보 api
   useEffect(() => {
     getUserData();
@@ -76,18 +79,23 @@ const MyPage = () => {
   }
 
   const { profileImage, name } = userData;
+
   return (
     <div className="myPage">
       <div className="menuArea">
         <div className="myPageArea">
-          <ProfileImage src={profileImage} name={name} />
+          <ProfileImage src={profileImage} alt={name} />
           <p>{name}</p>
         </div>
       </div>
       <div className="userPage">
         <h2 className="title">프로필변경</h2>
         <div className="userArea">
-          <ProfileEdit name={name} profileImage={profileImage} />
+          <ProfileEdit
+            name={name}
+            profileImage={profileImage}
+            getUserData={getUserData}
+          />
         </div>
         <h2 className="title">결제내역</h2>
         <div className="orderList">
@@ -98,6 +106,7 @@ const MyPage = () => {
                   {...order}
                   seatNames={seat[index]}
                   reservationId={reservationIds[index]}
+                  getOrderData={getOrderData}
                 />
               </div>
             ))
