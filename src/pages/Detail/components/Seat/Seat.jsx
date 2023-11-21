@@ -3,8 +3,7 @@ import axios from 'axios';
 import { GET_SEAT_API } from '../../../../config';
 import './Seat.scss';
 
-const Seat = ({ itemInfo }) => {
-  const [checkedItems, setCheckedItems] = useState([]);
+const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
   const [seats, setSeats] = useState([]);
   const rows = [...new Set(seats.map(seat => seat.seatRow))];
 

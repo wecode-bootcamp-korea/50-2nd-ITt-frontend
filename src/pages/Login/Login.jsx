@@ -10,16 +10,6 @@ const Login = () => {
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
 
-  // const handleLogin = () => {
-  //   if (userEmail === validUserEmail && userPassword === validUserPassword) {
-  //     navigate('/admin');
-  //   } else {
-  //     alert('잘못된 이메일 또는 비밀번호입니다.');
-  //     setUserEmail('');
-  //     setUserPassword('');
-  //   }
-  // };
-
   const adminLogin = () => {
     fetch(`http://10.58.52.65:8000/users/adminlogin`, {
       method: 'POST',
