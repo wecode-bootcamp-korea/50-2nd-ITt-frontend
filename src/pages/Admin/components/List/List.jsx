@@ -27,11 +27,11 @@ const List = () => {
       });
   }, []);
 
-  const setAddClicked = () => {
+  const handlePostClick = () => {
     navigate('/admin/post');
   };
 
-  const handlePostClick = itemId => {
+  const handleModifyClick = itemId => {
     axios
       .get(`${GET_ADMIN_SELECTITEMLIST_API}/${itemId}`, {
         headers: {
@@ -45,7 +45,7 @@ const List = () => {
       });
   };
 
-  const handleDelecttClick = itemId => {
+  const handleDelectClick = itemId => {
     axios.delete(`${GET_ADMIN_DELECTITEMLIST_API}/${itemId}`, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -60,7 +60,7 @@ const List = () => {
       <h3 className="listTitle">이벤트 리스트</h3>
       <div className="listArea">
         <div className="listAdd">
-          <Button width="100px" onClick={setAddClicked}>
+          <Button width="100px" onClick={handlePostClick}>
             추가
           </Button>
         </div>
@@ -74,7 +74,7 @@ const List = () => {
                   <Button
                     width="70px"
                     height="40px"
-                    onClick={() => handlePostClick(itemId)}
+                    onClick={() => handleModifyClick(itemId)}
                   >
                     수정
                   </Button>
@@ -82,7 +82,7 @@ const List = () => {
                     outline
                     width="70px"
                     height="40px"
-                    onClick={() => handleDelecttClick(itemId)}
+                    onClick={() => handleDelectClick(itemId)}
                   >
                     삭제
                   </Button>

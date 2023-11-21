@@ -159,7 +159,7 @@ const Post = () => {
     }
   };
 
-  const onClose = () => {
+  const handleCloseClick = () => {
     navigate(`/admin`);
   };
 
@@ -384,7 +384,7 @@ const Post = () => {
           <Button width="100px" onClick={() => handlePostClick(itemId)}>
             확인
           </Button>
-          <Button outline width="100px" onClick={onClose}>
+          <Button outline width="100px" onClick={handleCloseClick}>
             취소
           </Button>
         </div>
