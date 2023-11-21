@@ -24,7 +24,7 @@ const Dashboard = () => {
       });
   }, []);
 
-  const setIsDelectClicked = reservationId => {
+  const handleDelectClick = reservationId => {
     axios.delete(`${GET_ADMIN_DELETEORDERLIST_API}/${reservationId}`, {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -61,7 +61,7 @@ const Dashboard = () => {
                     outline
                     width="100px"
                     height="40px"
-                    onClick={() => setIsDelectClicked(reservationId)}
+                    onClick={() => handleDelectClick(reservationId)}
                   >
                     예매 취소
                   </Button>
