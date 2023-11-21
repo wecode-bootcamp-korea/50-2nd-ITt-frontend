@@ -22,6 +22,7 @@ updateItemList`;
 export const GET_ADMIN_DELECTITEMLIST_API = `${BASE_URL_ADMIN}/admin/deleteItemList`;
 export const GET_ADMIN_SELECTORDERLIST_API = `${BASE_URL_ADMIN}/admin/selectOrderList`;
 export const GET_ADMIN_DELETEORDERLIST_API = `${BASE_URL_ADMIN}/admin/deleteOrderList`;
+export const GET_ADMIN_SELECTCATEGORYLIST_API = `${BASE_URL_ADMIN}/admin/selectCategoryList`;
 
 //상세페이지
 export const GET_DETAIL_API = `${BASE_URL_DETAIL}/detail`;

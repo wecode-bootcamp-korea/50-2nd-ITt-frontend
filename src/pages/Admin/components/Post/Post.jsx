@@ -8,18 +8,24 @@ import {
   GET_ADMIN_SELECTITEMLIST_API,
   GET_ADMIN_INSERTITENLIST_API,
   GET_ADMIN_UPDATITEMLIST_API,
+  GET_ADMIN_SELECTCATEGORYLIST_API,
 } from '../../../../config';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Post.scss';
 
 const Post = () => {
   const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const [selectedDates, setSelectedDates] = useState({
+    startDate: new Date(),
+    endDate: null,
+  });
+  const { startDate, endDate } = selectedDates;
   const onChange = dates => {
     const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+    setSelectedDates({
+      startDate: start || new Date(),
+      endDate: end || null,
+    });
   };
   const { itemId } = useParams();
   const [update, setUpdate] = useState({});
@@ -33,10 +39,15 @@ const Post = () => {
     categoryName: '',
     locationName: '',
     actorName: '',
+    eventDate: '',
+    eventTime: '',
   });
   const [category, setCategory] = useState([]);
   const [actor, setActor] = useState([]);
   const [date, setDate] = useState([{}]);
+  const [selectedTimes, setSelectedTimes] = useState([]);
+  const [hour, setHour] = useState('1');
+  const [minute, setMinute] = useState('00');
 
   useEffect(() => {
     if (itemId) {
@@ -55,6 +66,18 @@ const Post = () => {
           setActor(res.data.data.actorInfo);
           setDate(res.data.data.itemOption);
         });
+    } else {
+      axios
+        .get(`${GET_ADMIN_SELECTCATEGORYLIST_API}`, {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+          },
+        })
+        .then(res => {
+          setCategory(res.data.data);
+        });
     }
   }, [itemId]);
 
@@ -67,60 +90,72 @@ const Post = () => {
     setUpdateData({ ...updateData, actorName: '' });
   };
 
+  const handleTimeClick = () => {
+    const timeToAdd = `${hour}:${minute}`;
+
+    const updatedTimes = [...selectedTimes, timeToAdd];
+    setSelectedTimes(updatedTimes);
+
+    setHour('1');
+    setMinute('00');
+  };
+
   const handlePostClick = () => {
+    const dateArray = [];
+    const currentDate = new Date(startDate);
+
+    while (currentDate <= endDate) {
+      dateArray.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
     if (itemId) {
-      axios
-        .put(
-          `${GET_ADMIN_UPDATITEMLIST_API}`,
-          {
-            itemId: itemId,
-            title: updateData.title,
-            image: updateData.image,
-            runningTime: updateData.runningTime,
-            viewerAge: updateData.viewerAge,
-            price: updateData.price,
-            itemNotice: updateData.itemNotice,
-            categoryName: updateData.categoryName,
-            locationName: updateData.locationName,
-            actorName: actor.map(a => a.actorName),
+      axios.put(
+        `${GET_ADMIN_UPDATITEMLIST_API}`,
+        {
+          itemId: itemId,
+          title: updateData.title,
+          image: updateData.image,
+          runningTime: updateData.runningTime,
+          viewerAge: updateData.viewerAge,
+          price: updateData.price,
+          itemNotice: updateData.itemNotice,
+          categoryName: updateData.categoryName,
+          locationName: updateData.locationName,
+          actorName: actor.map(a => a.actorName),
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-              authorization:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
-            },
-          },
-        )
-        .then(() => {
-          console.log('aa');
-        });
+        },
+      );
     } else {
-      axios
-        .post(
-          `${GET_ADMIN_INSERTITENLIST_API}`,
-          {
-            title: updateData.title,
-            image: updateData.image,
-            runningTime: updateData.runningTime,
-            viewerAge: updateData.viewerAge,
-            price: updateData.price,
-            itemNotice: updateData.itemNotice,
-            categoryName: updateData.categoryName,
-            locationName: updateData.locationName,
-            actorName: actor.map(a => a.actorName),
+      axios.post(
+        `${GET_ADMIN_INSERTITENLIST_API}`,
+        {
+          title: updateData.title,
+          image: updateData.image,
+          runningTime: updateData.runningTime,
+          viewerAge: updateData.viewerAge,
+          price: updateData.price,
+          itemNotice: updateData.itemNotice,
+          categoryName: updateData.categoryName,
+          locationName: updateData.locationName,
+          actorName: actor.map(a => a.actorName),
+          eventDate: dateArray.map(date => date.toISOString().split('T')[0]),
+          eventTime: selectedTimes,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-              authorization:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
-            },
-          },
-        )
-        .then(() => {
-          console.log('dd');
-        });
+        },
+      );
     }
   };
 
@@ -276,6 +311,11 @@ const Post = () => {
           </div>
         </form>
         <div className="dateArea">
+          <span>
+            현재 지정 날짜 : {date[0].eventDate} ~{' '}
+            {date[date.length - 1].eventDate}
+          </span>
+          <span>수정 날짜</span>
           <DatePicker
             selected={startDate}
             startDate={startDate}
@@ -286,6 +326,59 @@ const Post = () => {
             inline
             selectsRange
           />
+        </div>
+        <div>
+          <span>시간 선택</span>
+          <span>현재 선택 시간 : {selectedTimes.join(', ')}</span>
+          <div>
+            <select
+              name="time"
+              id="formSelect"
+              className="formControl"
+              value={hour}
+              onChange={event => setHour(event.target.value)}
+            >
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+              <option>21</option>
+              <option>22</option>
+              <option>23</option>
+              <option>24</option>
+            </select>
+            <select
+              name="time"
+              id="formSelect"
+              className="formControl"
+              value={minute}
+              onChange={event => setMinute(event.target.value)}
+            >
+              <option>00</option>
+              <option>10</option>
+              <option>20</option>
+              <option>30</option>
+              <option>40</option>
+              <option>50</option>
+            </select>
+            <Button onClick={handleTimeClick}>추가</Button>
+          </div>
         </div>
         <div className="btnArea">
           <Button width="100px" onClick={() => handlePostClick(itemId)}>
