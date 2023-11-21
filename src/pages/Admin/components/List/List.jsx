@@ -27,7 +27,7 @@ const List = () => {
       });
   }, []);
 
-  const setPostClicked = () => {
+  const setAddClicked = () => {
     navigate('/admin/post');
   };
 
@@ -46,17 +46,13 @@ const List = () => {
   };
 
   const setIsDelectClicked = itemId => {
-    axios
-      .delete(`${GET_ADMIN_DELECTITEMLIST_API}/${itemId}`, {
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-          authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
-        },
-      })
-      .then(() => {
-        console.log('aa');
-      });
+    axios.delete(`${GET_ADMIN_DELECTITEMLIST_API}/${itemId}`, {
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        authorization:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+      },
+    });
   };
 
   return (
@@ -64,7 +60,7 @@ const List = () => {
       <h3 className="listTitle">이벤트 리스트</h3>
       <div className="listArea">
         <div className="listAdd">
-          <Button width="100px" onClick={setPostClicked}>
+          <Button width="100px" onClick={setAddClicked}>
             추가
           </Button>
         </div>
