@@ -8,19 +8,31 @@ const OrderArea = ({
   time,
   date,
   locationName,
-  qrcode_url,
+  qrcodeUrl,
   seatNames,
+  amount,
+  reservationId,
+  getOrderData,
 }) => {
+  const hour = time.slice(0, 2);
+  const timeOfDay = hour < 12 ? '오전' : '오후';
+  const minute = time.slice(3, 5);
+
+  const timeData = `${timeOfDay} ${hour}시 ${minute}분`;
+
   return (
     <div className="orderArea">
       <UserOrders
         title={title}
         image={image}
-        time={time}
+        timeData={timeData}
         date={date}
         locationName={locationName}
-        qrcode_url={qrcode_url}
+        qrcode_url={qrcodeUrl}
         seatNames={seatNames}
+        amount={amount}
+        reservationId={reservationId}
+        getOrderData={getOrderData}
       />
     </div>
   );

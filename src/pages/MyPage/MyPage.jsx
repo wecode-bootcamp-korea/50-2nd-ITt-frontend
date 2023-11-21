@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
-import {
-  GET_USER_API,
-  GET_USER_ORDER_API,
-  POST_CANCEL_API,
-} from '../../config';
+import { GET_USER_API, GET_USER_ORDER_API } from '../../config';
 import ProfileImage from './components/ProfileImage/ProfileImage';
 import ProfileEdit from './components/ProfileEdit/ProfileEdit';
 import OrderArea from './components/OrderArea/OrderArea';
-import Button from '../../components/Button/Button';
 import './MyPage.scss';
 
 const MyPage = () => {
@@ -17,7 +12,7 @@ const MyPage = () => {
   const queryString = searchParams.toString();
   const [userData, setUserData] = useState({});
   const [userOrderData, setUserOrderData] = useState([]);
-  const [isOrder, setIsOrder] = useState(true);
+  const [isOrder, setIsOrder] = useState(false);
 
   // 유저정보 api
   const getUserData = () => {
@@ -35,15 +30,18 @@ const MyPage = () => {
       axios
         .get(`${GET_USER_ORDER_API}?${queryString}`)
         .then(res => {
-          setIsOrder(true);
-          setUserOrderData(res.data.data);
+          if (res.data.data.length === 0) {
+            setIsOrder(false);
+          } else {
+            setIsOrder(true);
+            setUserOrderData(res.data.data);
+          }
         })
         .catch(error => console.error(error));
     } else {
       setIsOrder(false);
     }
   };
-
   // 유저정보 api
   useEffect(() => {
     getUserData();
@@ -54,74 +52,67 @@ const MyPage = () => {
     getOrderData();
   }, []);
 
-  const seatInfo = {
-    totalAmount: 0,
-    reservationIds: [],
-    seatNames: [],
+  const orderGroup = (arr, key) => {
+    return Object.values(
+      arr.reduce((acc, obj) => {
+        const groupKey = obj[key];
+        acc[groupKey] = acc[groupKey] || [];
+        acc[groupKey].push(obj);
+        return acc;
+      }, []),
+    );
   };
 
-  if (userOrderData && userOrderData.length > 0) {
-    seatInfo.totalAmount = userOrderData.reduce((acc, cur) => {
-      return acc + parseInt(cur.amount, 10);
-    }, 0);
-    seatInfo.reservationIds = userOrderData.map(data => data.reservationId);
-    seatInfo.seatNames = userOrderData.map(data => data.seatName);
+  const groupedOrder = orderGroup(userOrderData, 'itemOptionId');
+  const ordersInfo = Object.values(groupedOrder).map(group => group[0]);
+  const seatGroups = Object.values(groupedOrder);
+
+  const seat = [];
+  for (let i = 0; i < seatGroups.length; i++) {
+    const result = seatGroups[i].map(obj => obj.seatName);
+    seat.push(result);
+  }
+  const reservationIds = [];
+  for (let i = 0; i < seatGroups.length; i++) {
+    const result = seatGroups[i].map(obj => obj.reservationId);
+    reservationIds.push(result);
   }
 
-  const { reservationIds, totalAmount, seatNames } = seatInfo;
-
   const { profileImage, name } = userData;
-
-  const body = reservationIds.map(data => ({
-    reservationId: data,
-    totalAmount: totalAmount,
-  }));
-
-  // 결제취소 api
-  const handleCancelOrder = () => {
-    if (window.confirm('예매 취소하시겠습니까?')) {
-      axios
-        .post(POST_CANCEL_API, {
-          data: body,
-        })
-        .then(res => {
-          if (res.data.message === 'cancel_success') {
-            alert('결제취소완료');
-          } else {
-            alert('결제취소실패');
-          }
-        })
-        .error(error => console.error(error));
-    }
-  };
 
   return (
     <div className="myPage">
       <div className="menuArea">
         <div className="myPageArea">
-          <ProfileImage src={profileImage} name={name} />
+          <ProfileImage src={profileImage} alt={name} />
           <p>{name}</p>
         </div>
       </div>
       <div className="userPage">
         <h2 className="title">프로필변경</h2>
         <div className="userArea">
-          <ProfileEdit name={name} profileImage={profileImage} />
+          <ProfileEdit
+            name={name}
+            profileImage={profileImage}
+            getUserData={getUserData}
+          />
         </div>
         <h2 className="title">결제내역</h2>
         <div className="orderList">
           {isOrder ? (
-            <OrderArea {...userOrderData[0]} seatNames={seatNames} />
+            ordersInfo.map((order, index) => (
+              <div key={order.itemOptionId}>
+                <OrderArea
+                  {...order}
+                  seatNames={seat[index]}
+                  reservationId={reservationIds[index]}
+                  getOrderData={getOrderData}
+                />
+              </div>
+            ))
           ) : (
             <div className="notOrder">결제 내역이 없습니다.</div>
           )}
-          <div className="cancelBtn">
-            {isOrder && (
-              <Button width="200px" onClick={handleCancelOrder}>
-                결제취소
-              </Button>
-            )}
-          </div>
         </div>
       </div>
     </div>

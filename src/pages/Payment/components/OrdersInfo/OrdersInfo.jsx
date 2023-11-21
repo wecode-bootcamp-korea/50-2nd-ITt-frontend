@@ -2,10 +2,17 @@ import React from 'react';
 import DetailsInfo from '../../../../components/DetailsInfo/DetailsInfo';
 import './OrdersInfo.scss';
 
-const OrdersInfo = ({ title, image, time, date, locationName, seatNames }) => {
+const OrdersInfo = ({
+  title,
+  image,
+  date,
+  locationName,
+  seatNames,
+  timeData,
+}) => {
   const ORDERLABEL = [
     { id: 1, type: '관람일자', content: date },
-    { id: 2, type: '관람시간', content: time },
+    { id: 2, type: '관람시간', content: timeData },
     { id: 3, type: '위치', content: locationName },
     { id: 4, type: '좌석', content: seatNames.join(', ') },
   ];
