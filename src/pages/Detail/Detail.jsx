@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Datepicker from './components/Datepicker/Datepicker';
 import Button from '../../components/Button/Button';
+import Datepicker from './components/Datepicker/Datepicker';
+import Location from './components/Location/Location';
 import Seat from './components/Seat/Seat';
-import { GET_DETAIL_API } from '../../config';
+import { GET_DETAIL_API, GET_ADVANCE_API } from '../../config';
 import './Detail.scss';
 
 const Detail = () => {
   const { detailId } = useParams();
 
   const [startDate, setStartDate] = useState(new Date());
-  const [itemInfo, setItemInfo] = useState([]);
+  const [itemInfo, setItemInfo] = useState({});
   const [actorInfo, setActorInfo] = useState([]);
   const [date, setDate] = useState([{}]);
   const [isAdvanceClicked, setIsAdvanceClicked] = useState(false);
   const [isTimeClicked, setIsTimeClicked] = useState(false);
+  const [checkedItems, setCheckedItems] = useState([]);
+  const [timeOnChange, setTimeOnChange] = useState({});
 
   const year = startDate.getFullYear();
   const month = startDate.getMonth() + 1;
@@ -23,13 +26,15 @@ const Detail = () => {
     startDate.getDate() > 10 ? startDate.getDate() : `0${startDate.getDate()}`;
   const selectDate = `${year}-${month}-${day}`;
 
+  console.log(itemInfo);
+
   useEffect(() => {
     axios
       .get(`${GET_DETAIL_API}/${detailId}`, {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
           authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJwYzBidW1AZ21haWwuY29tIiwibmFtZSI6Iuq5gOyYgeuylCIsImlhdCI6MTcwMDExNDU4Nn0.GbMPNLlMF27ThioX5DnQUqLMcQNVl58Ux4Ww_IuGmTc',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJqb21pbnN1Nzc4QG5hdGUuY29tIiwibmFtZSI6IuyhsOuvvOyImCIsImlzX2FkbWluIjowLCJpYXQiOjE3MDAxOTQ0MTF9.XEFtIKSKQH2kqScgntH_krpdCdKZvrUFCj_zlx1eZU8',
         },
       })
       .then(res => {
@@ -47,6 +52,8 @@ const Detail = () => {
     price,
     runningTime,
     viewerAge,
+    lat,
+    lng,
   } = itemInfo;
 
   const advanceClick = () => {
@@ -58,7 +65,27 @@ const Detail = () => {
   };
 
   const payClick = () => {
-    console.log('추가 예정');
+    axios
+      .post(
+        `${GET_ADVANCE_API}/${detailId}`,
+        {
+          itemOptionsId: timeOnChange.id,
+          seatIds: checkedItems.map(item => {
+            return item.id;
+          }),
+          price: itemInfo.price,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJqb21pbnN1Nzc4QG5hdGUuY29tIiwibmFtZSI6IuyhsOuvvOyImCIsImlzX2FkbWluIjowLCJpYXQiOjE3MDAxOTQ0MTF9.XEFtIKSKQH2kqScgntH_krpdCdKZvrUFCj_zlx1eZU8',
+          },
+        },
+      )
+      .then(res => {
+        console.log('추가 예정');
+      });
   };
 
   return (
@@ -70,7 +97,7 @@ const Detail = () => {
             <span className="date">
               {date[0].eventDate} ~ {date[date.length - 1].eventDate}
             </span>
-            <button type="button" className="location">
+            <button type="button" className="locationName">
               {locationName}
             </button>
           </div>
@@ -130,6 +157,7 @@ const Detail = () => {
                                 id={`timePicker${dateTime.id}`}
                                 className="formRadio"
                                 name="timePicker"
+                                onChange={() => setTimeOnChange(dateTime)}
                               />
                               <label
                                 htmlFor={`timePicker${dateTime.id}`}
@@ -150,28 +178,26 @@ const Detail = () => {
           </div>
         </div>
       </div>
-
       {isAdvanceClicked && (
         <div className="seatsArea">
           <div className="seatsGroup">
             <h3 className="seatTitle">좌석 선택</h3>
-            <Seat itemInfo={itemInfo} />
+            <Seat
+              itemInfo={itemInfo}
+              setCheckedItems={setCheckedItems}
+              checkedItems={checkedItems}
+            />
           </div>
           <Button width="230px" onClick={payClick}>
             결제하기
           </Button>
         </div>
       )}
+      <div className="productArea">
+        <Location lat={lat} lng={lng} />
+      </div>
     </div>
   );
 };
 
 export default Detail;
-
-export const TIMEDATA = [
-  { id: 1, time: '14:00' },
-  { id: 2, time: '16:00' },
-  { id: 3, time: '18:00' },
-  { id: 4, time: '20:00' },
-  { id: 5, time: '22:00' },
-];
