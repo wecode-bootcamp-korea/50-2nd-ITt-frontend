@@ -61,11 +61,10 @@ const Post = () => {
   const updateObject = Object.keys(update).length > 0;
   if (updateObject.length) setUpdateData(update.itemInfo[0]);
 
-  const [newActorName, setNewActorName] = useState('');
   const actorAddClick = () => {
-    const newActor = { actorName: newActorName };
-    setActor([...actor, newActor]);
-    setNewActorName('');
+    const updatedActorList = [...actor, { actorName: updateData.actorName }];
+    setActor(updatedActorList);
+    setUpdateData({ ...updateData, actorName: '' });
   };
 
   const handlePostClick = () => {
@@ -262,10 +261,15 @@ const Post = () => {
               type="text"
               id="formActor"
               className="formControl"
-              value={newActorName}
-              onChange={event => setNewActorName(event.target.value)}
+              value={updateData.actorName}
+              onChange={event =>
+                setUpdateData({
+                  ...updateData,
+                  actorName: event.target.value,
+                })
+              }
             />
-            <Button onClick={() => actorAddClick}>추가</Button>
+            <Button onClick={actorAddClick}>추가</Button>
             {actor.map((actor, index) => (
               <span key={index}>{actor.actorName}</span>
             ))}
