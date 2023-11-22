@@ -16,7 +16,7 @@
       overflow-y: auto;
       height: calc(100% - 88px);
 
-      li {
+      .dashboardInfo {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -26,6 +26,18 @@
 
         &:not(:first-child) {
           margin-top: 16px;
+        }
+
+        .infoGroup {
+          display: flex;
+
+          .info {
+            display: block;
+
+            &:not(:first-child) {
+              margin-left: 8px;
+            }
+          }
         }
       }
     }

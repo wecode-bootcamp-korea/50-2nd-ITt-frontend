@@ -14,6 +14,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './Post.scss';
 
 const Post = () => {
+  const adminToken = localStorage.getItem('adminToken');
   const navigate = useNavigate();
   const [selectedDates, setSelectedDates] = useState({
     startDate: new Date(),
@@ -57,6 +58,7 @@ const Post = () => {
         .get(`${GET_ADMIN_SELECTITEMLIST_API}/${itemId}`, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
+            Authorization: adminToken,
           },
         })
         .then(res => {
@@ -71,6 +73,7 @@ const Post = () => {
         .get(`${GET_ADMIN_SELECTCATEGORYLIST_API}`, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
+            Authorization: adminToken,
           },
         })
         .then(res => {
@@ -153,6 +156,7 @@ const Post = () => {
         .put(`${GET_ADMIN_UPDATITEMLIST_API}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: adminToken,
           },
         })
         .then(() => {
@@ -163,6 +167,7 @@ const Post = () => {
         .post(`${GET_ADMIN_INSERTITENLIST_API}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: adminToken,
           },
         })
         .then(() => {
