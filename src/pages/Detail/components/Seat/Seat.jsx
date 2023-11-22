@@ -55,7 +55,7 @@ const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
                       className="formCheck"
                       onChange={() => seatOnChange(seat)}
                       checked={checkedItems.some(item => item.id === id)}
-                      disabled={isBooked === 1}
+                      disabled={Boolean(isBooked)}
                     />
                     <label htmlFor={`seat${id}`} className="formLabel">
                       <span>{id}</span>
