@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 
@@ -27,7 +27,7 @@ const Header = () => {
       <div className="wrapper">
         <div>
           <img
-            className="logo"
+            className="logo link"
             alt="logoimg"
             src="/images/logo2.png"
             onClick={() => navigate('/')}
@@ -37,24 +37,26 @@ const Header = () => {
         <ul className="headerText">
           {isLoggedIn ? (
             <>
-              <img className="propic" alt="propic" src={profile_image} />
+              {/* <img className="propic" alt="propic" src={profile_image} /> */}
 
               <li>
                 <p>{name} 님</p>
               </li>
               <li>
-                <p onClick={handleLogout}>로그아웃</p>
+                <p className="link" onClick={handleLogout}>
+                  로그아웃
+                </p>
               </li>
               <li>
-                <p onClick={() => navigate('/mypage')}>마이페이지</p>
+                <p className="link" onClick={() => navigate('/mypage')}>
+                  마이페이지
+                </p>
               </li>
             </>
           ) : (
-            <>
-              <li>
-                <Link to="/login">로그인</Link>
-              </li>
-            </>
+            <li>
+              <Link to="/login">로그인</Link>
+            </li>
           )}
         </ul>
       </div>

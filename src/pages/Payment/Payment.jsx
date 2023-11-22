@@ -65,7 +65,7 @@ const Payment = () => {
       })
       .then(() => {
         alert('포인트충전완료');
-        getUserPaymentData().then(res => setPaymentData(res.data.data));
+        getUserPaymentData().then(res => setPaymentData(res));
       })
       .catch(error => {
         console.error('포인트 충전 중 오류가 발생했습니다', error);
@@ -99,10 +99,6 @@ const Payment = () => {
   };
 
   if (paymentData && paymentData.length > 0) {
-    seatInfo.totalAmount = paymentData.reduce((acc, cur) => {
-      return acc + parseInt(cur.amount, 10);
-    }, 0);
-
     const hour = paymentData[0].time.slice(0, 2);
     const timeOfDay = seatInfo.hour < 12 ? '오전' : '오후';
     const minute = paymentData[0].time.slice(3, 5);
@@ -113,8 +109,8 @@ const Payment = () => {
     seatInfo.reservationIds = paymentData.map(data => data.reservationId);
     seatInfo.seatIds = paymentData.map(data => data.seatId);
     seatInfo.seatNames = paymentData.map(data => data.seatName);
+    seatInfo.totalAmount = Number(paymentData[0].amount) * paymentData.length;
   }
-
   return (
     <div className="payment">
       <h2 className="paymentTitle">결제하기</h2>

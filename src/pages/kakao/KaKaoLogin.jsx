@@ -1,6 +1,7 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { GET_KAKAO_LOGIN_API } from '../../config';
 
 export default function KaKaoLogin() {
   const [searchParams] = useSearchParams();
@@ -8,7 +9,7 @@ export default function KaKaoLogin() {
   const navigate = useNavigate();
 
   const getKakaoToken = () => {
-    fetch(`http://10.58.52.71:8000/users/kakaologin`, {
+    fetch(GET_KAKAO_LOGIN_API, {
       method: 'POST',
       headers: {
         'content-type': 'application/json;charset=utf-8',

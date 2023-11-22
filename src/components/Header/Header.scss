@@ -6,6 +6,10 @@
   background-color: white;
   border-bottom: 1px solid black;
 
+  .link {
+    cursor: pointer;
+  }
+
   .wrapper {
     display: flex;
     justify-content: space-between;

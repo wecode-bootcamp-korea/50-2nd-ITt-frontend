@@ -95,6 +95,7 @@ const MyPage = () => {
             name={name}
             profileImage={profileImage}
             getUserData={getUserData}
+            userData={userData}
           />
         </div>
         <h2 className="title">결제내역</h2>

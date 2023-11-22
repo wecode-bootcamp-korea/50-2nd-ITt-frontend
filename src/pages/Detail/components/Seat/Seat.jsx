@@ -18,8 +18,6 @@ const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
         {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJwYzBidW1AZ21haWwuY29tIiwibmFtZSI6Iuq5gOyYgeuylCIsImlhdCI6MTcwMDExNDU4Nn0.GbMPNLlMF27ThioX5DnQUqLMcQNVl58Ux4Ww_IuGmTc',
           },
         },
       )
