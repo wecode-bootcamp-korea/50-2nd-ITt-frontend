@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import SocialLogin from '../../components/Auth/SocialLogin';
+import { GET_LOGIN_API } from '../../config';
 import './Login.scss';
 
 const Login = () => {
@@ -11,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const adminLogin = () => {
-    fetch(`http://10.58.52.71:8000/users/adminlogin`, {
+    fetch(GET_LOGIN_API, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
