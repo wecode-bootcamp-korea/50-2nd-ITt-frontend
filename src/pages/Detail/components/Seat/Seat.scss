@@ -58,6 +58,12 @@
           background-color: $purple;
         }
       }
+
+      &:disabled {
+        + .formLabel {
+          background-color: $gray-strong;
+        }
+      }
     }
   }
 }
