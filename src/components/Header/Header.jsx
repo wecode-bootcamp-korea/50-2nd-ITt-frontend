@@ -27,7 +27,7 @@ const Header = () => {
       <div className="wrapper">
         <div>
           <img
-            className="logo"
+            className="logo link"
             alt="logoimg"
             src="/images/logo2.png"
             onClick={() => navigate('/')}
@@ -43,10 +43,14 @@ const Header = () => {
                 <p>{name} 님</p>
               </li>
               <li>
-                <p onClick={handleLogout}>로그아웃</p>
+                <p className="link" onClick={handleLogout}>
+                  로그아웃
+                </p>
               </li>
               <li>
-                <p onClick={() => navigate('/mypage')}>마이페이지</p>
+                <p className="link" onClick={() => navigate('/mypage')}>
+                  마이페이지
+                </p>
               </li>
             </>
           ) : (
