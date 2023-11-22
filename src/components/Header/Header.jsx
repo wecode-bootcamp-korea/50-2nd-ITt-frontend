@@ -18,7 +18,7 @@ const Header = () => {
       localStorage.removeItem('userName');
       localStorage.removeItem('profile_image');
 
-      navigate('/main');
+      navigate('/');
     }
   };
 

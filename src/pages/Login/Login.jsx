@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const adminLogin = () => {
-    fetch(`http://10.58.52.65:8000/users/adminlogin`, {
+    fetch(`http://10.58.52.71:8000/users/adminlogin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

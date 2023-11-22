@@ -8,7 +8,7 @@ export default function KaKaoLogin() {
   const navigate = useNavigate();
 
   const getKakaoToken = () => {
-    fetch(`http://10.58.52.65:8000/users/kakaologin`, {
+    fetch(`http://10.58.52.71:8000/users/kakaologin`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json;charset=utf-8',

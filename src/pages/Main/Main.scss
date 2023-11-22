@@ -7,10 +7,12 @@
 
   .slideBox {
     position: relative;
-    width: 100%;
+    width: 93%;
     white-space: nowrap;
     font-size: 0;
     overflow: hidden;
+    height: 480px;
+    margin: auto;
 
     img {
       width: 100%;
@@ -25,7 +27,7 @@
         width: 100%;
         position: relative;
         .slideImg {
-          height: 700px;
+          height: 480px;
         }
       }
     }
@@ -64,6 +66,95 @@
     margin: 100px 0 70px 0;
   }
 
+  // .recommendation {
+  //   display: grid;
+  //   grid-template-columns: 2fr 1fr 1fr 1fr;
+  //   grid-template-rows: repeat(2, 40%);
+  //   gap: 25px;
+  //   width: 70%;
+  //   margin: 0 auto;
+
+  //   .recommendationLeft {
+  //     transition: transform 0.3s ease-in-out;
+  //     grid-column: 1;
+  //     grid-row: 1 / span 2;
+
+  //     &:hover {
+  //       transform: scale(1.03);
+  //     }
+
+  //     .recommendationLeftimg {
+  //       width: 100%;
+  //       height: 100%;
+  //     }
+  //   }
+
+  //   .recommendationRight {
+  //     display: grid;
+  //     grid-template-columns: repeat(3, 100%);
+  //     grid-template-rows: repeat(2, 100%);
+  //     gap: 10px;
+
+  //     .imgWrapper {
+  //       width: 100%; /* 각 그리드 셀의 전체 너비 */
+  //       height: 100%;
+  //       position: relative;
+  //       transition: transform 0.3s ease-in-out;
+
+  //       &:hover .info {
+  //         visibility: visible;
+  //         opacity: 1;
+  //       }
+  //       &:hover {
+  //         transform: scale(1.03);
+  //       }
+
+  //       img {
+  //         width: 100%;
+  //         height: 100%;
+  //         object-fit: cover;
+  //       }
+
+  //       .info {
+  //         position: absolute;
+  //         bottom: 0;
+  //         left: 0;
+  //         right: 0;
+  //         background-color: rgba(0, 0, 0, 0.5);
+  //         color: white;
+  //         visibility: hidden;
+  //         opacity: 0;
+  //         transition:
+  //           visibility 0s,
+  //           opacity 0.5s linear;
+  //         height: 100%;
+  //         align-items: center;
+  //         justify-content: center;
+  //         display: flex;
+  //         flex-direction: column;
+  //         gap: 50px;
+
+  //         .infoTitle {
+  //           color: white;
+  //           font-size: 15px;
+  //           font-family: 'NanumBarunGothic', 'Malgun Gothic', sans-serif;
+  //           margin-right: 15px;
+  //           margin-left: 15px;
+  //           margin-bottom: 20px;
+  //         }
+
+  //         .infoDate {
+  //           color: rgb(175, 174, 211);
+  //           font-size: 13px;
+  //           font-family: 'NanumBarunGothic', 'Malgun Gothic', sans-serif;
+  //           margin-right: 15px;
+  //           margin-left: 15px;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
   .recommendation {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -76,14 +167,16 @@
       transition: transform 0.3s ease-in-out;
       grid-column: 1;
       grid-row: 1 / span 2;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); // 추가된 부분
 
       &:hover {
-        transform: scale(1.03);
+        transform: scale(1.05); // 수정된 부분
       }
 
       .recommendationLeftimg {
         width: 100%;
         height: 100%;
+        object-fit: cover; // 추가된 부분
       }
     }
 
@@ -98,13 +191,14 @@
         height: 100%;
         position: relative;
         transition: transform 0.3s ease-in-out;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); // 추가된 부분
 
         &:hover .info {
           visibility: visible;
           opacity: 1;
         }
         &:hover {
-          transform: scale(1.03);
+          transform: scale(1.05); // 수정된 부분
         }
 
         img {
@@ -130,20 +224,20 @@
           justify-content: center;
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 50px;
 
           .infoTitle {
             color: white;
-            font-size: 15px;
+            font-size: 18px; // 수정된 부분
             font-family: 'NanumBarunGothic', 'Malgun Gothic', sans-serif;
             margin-right: 15px;
             margin-left: 15px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
           }
 
           .infoDate {
             color: rgb(175, 174, 211);
-            font-size: 13px;
+            font-size: 15px; // 수정된 부분
             font-family: 'NanumBarunGothic', 'Malgun Gothic', sans-serif;
             margin-right: 15px;
             margin-left: 15px;
@@ -177,6 +271,12 @@
     margin-top: -40px;
 
     .categoryText {
+      border: 1px solid rgb(160, 147, 147);
+      border-radius: 20px;
+      padding: 10px;
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: white;
       &:hover {
         color: purple;
         text-decoration: underline;
@@ -312,81 +412,152 @@
     }
   }
 
-  .onSale .sectionContainer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
-    gap: 40px;
-    width: 80%;
-    margin: 10px auto;
-    margin-bottom: 200px;
+  // .onSale .sectionContainer {
+  //   display: grid;
+  //   grid-template-columns: repeat(3, 1fr);
+  //   grid-template-rows: repeat(2, auto);
+  //   gap: 40px;
+  //   width: 80%;
+  //   margin: 10px auto;
+  //   margin-bottom: 200px;
 
-    .onSaleFrame {
-      width: 100%;
-      height: 300px;
-      border: 1px groove #efe8e8;
-      border-radius: 20px;
+  //   .onSaleFrame {
+  //     width: 100%;
+  //     height: 280px;
+  //     border: 1px groove #efe8e8;
+  //     border-radius: 20px;
 
-      .onSaleWrapper {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
+  //     .onSaleWrapper {
+  //       display: flex;
+  //       flex-direction: row;
+  //       width: 100%;
+  //       &:hover {
+  //         filter: opacity(70%);
+  //         transition: 0.3s;
+  //       }
+
+  //       .onSaleImg {
+  //         border-radius: 20px;
+  //         width: 50%;
+  //         height: 280px;
+  //       }
+
+  //       .onSaleInfo {
+  //         display: flex;
+  //         flex-direction: column;
+  //         margin-left: 30px;
+  //         justify-content: center;
+  //         gap: 30px;
+  //         width: 50%;
+
+  //         .onSaleInfoDiscount {
+  //           font-size: 25px;
+  //           color: purple;
+  //           display: flex;
+  //           justify-content: center;
+  //           align-items: center;
+  //           background: #fff;
+  //           border: 1px solid;
+  //           border-radius: 20px;
+  //           font-weight: 700;
+  //           line-height: 130%;
+  //           border-color: #f0d9fd;
+  //           width: 100px;
+  //         }
+
+  //         .onSaleInfoTitle {
+  //           margin-right: 20px;
+  //           font-size: 20px;
+  //           color: purple;
+  //           font-weight: bolder;
+  //           font-family:
+  //             system-ui,
+  //             Roboto,
+  //             Helvetica Neue,
+  //             Apple Color Emoji,
+  //             Segoe UI Symbol,
+  //             sans-serif;
+  //         }
+  //         .onSaleInfodate {
+  //           font-size: 35px;
+  //           color: blue;
+  //           font-weight: bolder;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  .onSale {
+    padding: 20px;
+    background-color: #f5f5f5;
+
+    .sectionContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .onSaleFrame {
+        flex: 0 0 calc(33.333% - 20px);
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        transition:
+          transform 0.3s ease-out,
+          box-shadow 0.3s ease-out;
+
         &:hover {
-          filter: opacity(70%);
-          transition: 0.3s;
+          transform: scale(1.05);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .onSaleImg {
-          border-radius: 20px;
-          width: 50%;
-          height: 300px;
-        }
+        .onSaleWrapper {
+          position: relative;
 
-        .onSaleInfo {
-          display: flex;
-          flex-direction: column;
-          margin-left: 30px;
-          justify-content: center;
-          gap: 30px;
-          width: 50%;
-
-          .onSaleInfoDiscount {
-            font-size: 25px;
-            color: red;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #fff;
-            border: 1px solid;
-            border-radius: 20px;
-            font-weight: 700;
-            line-height: 130%;
-            border-color: #f0d9fd;
-            width: 100px;
+          .onSaleImg {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
           }
 
-          .onSaleInfoTitle {
-            margin-right: 20px;
-            font-size: 20px;
-            color: black;
-            font-weight: bolder;
-            font-family:
-              system-ui,
-              Roboto,
-              Helvetica Neue,
-              Apple Color Emoji,
-              Segoe UI Symbol,
-              sans-serif;
+          .onSaleInfo {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 15px;
+            background-color: rgba(229, 214, 214, 0.5);
+            color: #fff;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+            opacity: 0;
+
+            .onSaleInfoDiscount {
+              font-size: 18px;
+              font-weight: bold;
+            }
+
+            .onSaleInfoTitle {
+              margin-top: 10px;
+              font-size: 16px;
+            }
+
+            .onSaleInfoDate {
+              margin-top: 5px;
+              font-size: 14px;
+            }
           }
-          .onSaleInfodate {
-            font-size: 35px;
-            color: blue;
-            font-weight: bolder;
+
+          &:hover .onSaleInfo {
+            transform: translateY(0);
+            opacity: 1;
           }
         }
       }
     }
   }
+
   .upComingEvent {
     width: 93%;
     margin: 5px auto;
@@ -397,21 +568,33 @@
 
     .upComingEventContent {
       margin: 10px;
+      background-color: #fff; // 추가된 부분
+      border-radius: 10px; // 추가된 부분
+      overflow: hidden; // 추가된 부분
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); // 추가된 부분
+      transition: transform 0.3s ease-out; // 추가된 부분
+
+      &:hover {
+        transform: scale(1.05); // 추가된 부분
+      }
 
       .upComingEventImg {
         width: 100%;
         height: 300px;
+        object-fit: cover; // 추가된 부분
         transition: transform 0.3s ease-in-out;
 
         &:hover {
-          transform: scale(1.1);
+          transform: scale(1.05);
         }
       }
 
       .upComingEventTitle {
         margin-top: 30px;
         margin-bottom: 20px;
+        margin-left: 10px;
         font-size: 18px;
+        font-weight: bold; // 추가된 부분
         font-family:
           system-ui,
           Roboto,
@@ -419,6 +602,10 @@
           Apple Color Emoji,
           Segoe UI Symbol,
           sans-serif;
+      }
+      .upComingEventPrice {
+        margin-left: 10px;
+        margin-bottom: 10px;
       }
     }
   }
