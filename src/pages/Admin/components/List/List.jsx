@@ -13,7 +13,7 @@ const List = () => {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
 
-  useEffect(() => {
+  const getList = () => {
     axios
       .get(GET_ADMIN_SELECTLIST_API, {
         headers: {
@@ -25,6 +25,10 @@ const List = () => {
       .then(res => {
         setList(res.data.data);
       });
+  };
+
+  useEffect(() => {
+    getList();
   }, []);
 
   const handlePostClick = () => {
@@ -46,13 +50,21 @@ const List = () => {
   };
 
   const handleDelectClick = itemId => {
-    axios.delete(`${GET_ADMIN_DELECTITEMLIST_API}/${itemId}`, {
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-        authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
-      },
-    });
+    axios
+      .delete(`${GET_ADMIN_DELECTITEMLIST_API}/${itemId}`, {
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          authorization:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
+        },
+      })
+      .then(res => {
+        if (res.data.message === 'delete_success') {
+          getList();
+        } else {
+          alert('에러가 발생했습니다.');
+        }
+      });
   };
 
   return (
