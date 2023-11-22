@@ -55,7 +55,7 @@ const Detail = () => {
   } = itemInfo;
 
   const advanceClick = () => {
-    if (token) {
+    if (token && startDate && timeOnChange.id) {
       setIsAdvanceClicked(true);
     } else return alert('로그인을 해주세요.');
   };
