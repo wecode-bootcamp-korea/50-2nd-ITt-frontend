@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
 
@@ -50,11 +50,9 @@ const Header = () => {
               </li>
             </>
           ) : (
-            <>
-              <li>
-                <Link to="/login">로그인</Link>
-              </li>
-            </>
+            <li>
+              <Link to="/login">로그인</Link>
+            </li>
           )}
         </ul>
       </div>
