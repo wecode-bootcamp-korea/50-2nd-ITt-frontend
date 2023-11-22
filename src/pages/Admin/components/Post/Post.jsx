@@ -187,7 +187,7 @@ const Post = () => {
     <div className="post">
       <h3 className="postTitle">이벤트 등록</h3>
       <div className="postArea">
-        <form className="formArea" encType="multipart/form-data">
+        <form className="formArea">
           <div className="formInput">
             <label htmlFor="formTitle" className="formLabel">
               공연제목
