@@ -155,16 +155,16 @@ const Main = () => {
 
       <div className="categoryLinks">
         <p className="categoryText" onClick={() => handleCategoryClick(1)}>
-          #콘서트
+          #로맨스
         </p>
         <p className="categoryText" onClick={() => handleCategoryClick(2)}>
-          #뮤지컬
+          #코미디
         </p>
         <p className="categoryText" onClick={() => handleCategoryClick(3)}>
-          #연극
+          #뮤지컬
         </p>
         <p className="categoryText" onClick={() => handleCategoryClick(4)}>
-          #전시
+          #공포
         </p>
       </div>
 
