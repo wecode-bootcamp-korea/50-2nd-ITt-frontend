@@ -35,6 +35,7 @@ const Dashboard = () => {
       })
       .then(res => {
         if (res.data.message === 'cancel_success') {
+          alert('예매 취소 성공');
           getDashList();
         } else {
           alert('에러가 발생했습니다.');

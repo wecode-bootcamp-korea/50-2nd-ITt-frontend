@@ -37,7 +37,7 @@ const Header = () => {
         <ul className="headerText">
           {isLoggedIn ? (
             <>
-              <img className="propic" alt="propic" src={profile_image} />
+              {/* <img className="propic" alt="propic" src={profile_image} /> */}
 
               <li>
                 <p>{name} 님</p>

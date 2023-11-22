@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../../../components/Button/Button';
 import axios from 'axios';
 import {
   GET_ADMIN_SELECTLIST_API,
   GET_ADMIN_SELECTITEMLIST_API,
   GET_ADMIN_DELECTITEMLIST_API,
 } from '../../../../config';
+import Button from '../../../../components/Button/Button';
 import './List.scss';
 
 const List = () => {
@@ -22,6 +22,10 @@ const List = () => {
       })
       .then(res => {
         setList(res.data.data);
+      })
+      .catch(error => {
+        console.error(error);
+        navigate('/');
       });
   };
 
