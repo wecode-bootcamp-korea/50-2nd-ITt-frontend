@@ -25,14 +25,9 @@ const Main = () => {
   };
 
   useEffect(() => {
-    const slideInterval = setInterval(() => {
-      setBannerSlideIdx(prevIdx =>
-        prevIdx === mainSlide?.length - 1 ? 0 : prevIdx + 1,
-      );
-    }, 4000);
-
+    const slideInterval = setInterval(() => slideToRight(), 3000);
     return () => clearInterval(slideInterval);
-  }, []);
+  }, [bannerSlideIdx]);
 
   const carouselToLeft = () => {
     setCarouselIdx(prev =>
@@ -42,7 +37,7 @@ const Main = () => {
 
   const carouselToRight = () => {
     setCarouselIdx(prev =>
-      prev === categoryItemList.length - SLIDE_TO_SHOW ? 0 : prev + 1,
+      prev === categoryItemList.length - 7 ? 0 : prev + 1,
     );
   };
 
