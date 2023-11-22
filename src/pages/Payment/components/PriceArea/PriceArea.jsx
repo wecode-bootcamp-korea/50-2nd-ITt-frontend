@@ -13,7 +13,6 @@ const PriceArea = ({
   reservationIds,
   seatIds,
   seatNames,
-  amount,
   remainingPoint,
   title,
   date,
@@ -29,7 +28,7 @@ const PriceArea = ({
     {
       id: 1,
       type: '주문금액',
-      content: `${Number(amount).toLocaleString()}원`,
+      content: `${Number(totalAmount).toLocaleString()}원`,
     },
     { id: 2, type: '결제방법', content: '포인트사용' },
     {
@@ -69,7 +68,7 @@ const PriceArea = ({
       });
   };
 
-  const isBuyAble = remainingPoint >= amount;
+  const isBuyAble = remainingPoint >= totalAmount;
 
   return (
     <div className="priceArea">
@@ -98,7 +97,9 @@ const PriceArea = ({
       <div className="totalPriceArea">
         <p className="label">총 결제금액</p>
         <span className="priceContent">
-          <span className="totalPrice">{Number(amount).toLocaleString()}</span>
+          <span className="totalPrice">
+            {Number(totalAmount).toLocaleString()}
+          </span>
           원
         </span>
         <Button onClick={handlePayment} disabled={!isBuyAble}>
