@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const BASE_URL = 'http://10.58.52.201:8000';
+const BASE_URL = 'http://10.58.52.115:8000';
 const loginToken = localStorage.getItem('token');
 
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';

@@ -21,12 +21,14 @@ const List = () => {
         },
       })
       .then(res => {
+        if (res.data.message === 'admin_login_fail') {
+          alert(res.data.message);
+          navigate('/');
+          return;
+        }
         setList(res.data.data);
       })
-      .catch(error => {
-        console.error(error);
-        navigate('/');
-      });
+      .catch(err => console.error(err));
   };
 
   useEffect(() => {
