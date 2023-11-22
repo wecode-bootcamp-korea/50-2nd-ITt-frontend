@@ -2,7 +2,7 @@
 
 .seat {
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   padding-top: 20px;
 
   .seatArea {
@@ -62,6 +62,54 @@
       &:disabled {
         + .formLabel {
           background-color: $gray-strong;
+        }
+      }
+    }
+  }
+
+  .seatsInfo {
+    margin-left: 20px;
+
+    .remainSeats {
+      font-weight: 500;
+    }
+
+    .seats {
+      padding-top: 20px;
+
+      li {
+        display: flex;
+        align-items: center;
+
+        &:not(:first-child) {
+          padding-top: 10px;
+        }
+
+        &::before {
+          content: '';
+          display: block;
+          width: 24px;
+          height: 24px;
+          margin-right: 8px;
+          border-radius: 3px;
+        }
+
+        &:first-child {
+          &::before {
+            background-color: $pink;
+          }
+        }
+
+        &:nth-child(2) {
+          &::before {
+            background-color: $purple;
+          }
+        }
+
+        &:last-child {
+          &::before {
+            background-color: $gray-strong;
+          }
         }
       }
     }

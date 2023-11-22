@@ -5,6 +5,7 @@ import './Seat.scss';
 
 const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
   const [seats, setSeats] = useState([]);
+  const [remainSeats, setRemainSeats] = useState({});
   const rows = [...new Set(seats.map(seat => seat.seatRow))];
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
       )
       .then(res => {
         setSeats(res.data.data.seatInfo);
+        setRemainSeats(res.data.data.remainSeats);
       });
   }, []);
 
@@ -63,6 +65,16 @@ const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
               })}
           </div>
         ))}
+      </div>
+      <div className="seatsInfo">
+        <span className="remainSeats">
+          잔여 좌석 : {remainSeats.remainSeats}
+        </span>
+        <ul className="seats">
+          <li>잔여 좌석</li>
+          <li>선택 좌석</li>
+          <li>예약 완료</li>
+        </ul>
       </div>
     </div>
   );
