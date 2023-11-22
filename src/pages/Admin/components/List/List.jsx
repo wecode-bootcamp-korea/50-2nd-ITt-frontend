@@ -52,6 +52,7 @@ const List = () => {
       .get(`${GET_ADMIN_SELECTITEMLIST_API}/${itemId}`, {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
+          Authorization: adminToken,
         },
       })
       .then(() => {
@@ -64,6 +65,7 @@ const List = () => {
       .delete(`${GET_ADMIN_DELECTITEMLIST_API}/${itemId}`, {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
+          Authorization: adminToken,
         },
       })
       .then(res => {

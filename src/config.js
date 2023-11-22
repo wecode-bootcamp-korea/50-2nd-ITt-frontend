@@ -7,7 +7,6 @@ const loginToken = localStorage.getItem('token');
 
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers.common.Authorization = loginToken;
-axios.defaults.timeout = 2500;
 
 //로그인
 export const GET_LOGIN_API = `${BASE_URL}/users/adminlogin`;

@@ -9,12 +9,14 @@ import './Dashboard.scss';
 
 const Dashboard = () => {
   const [dashList, setDashList] = useState([]);
+  const adminToken = localStorage.getItem('adminToken');
 
   const getDashList = () => {
     axios
       .get(GET_ADMIN_SELECTORDERLIST_API, {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
+          Authorization: adminToken,
         },
       })
       .then(res => {
@@ -31,6 +33,7 @@ const Dashboard = () => {
       .delete(`${GET_ADMIN_DELETEORDERLIST_API}/${reservationId}`, {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
+          Authorization: adminToken,
         },
       })
       .then(res => {
@@ -60,11 +63,13 @@ const Dashboard = () => {
             } = dashList;
             return (
               <li className="dashboardInfo" key={userId}>
-                <span className="infoTitle">{amount}</span>
-                <span className="infoTitle">{eventDate}</span>
-                <span className="infoTitle">{eventTime}</span>
-                <span className="infoTitle">{title}</span>
-                <span className="infoTitle">{userName}</span>
+                <div className="infoGroup">
+                  <span className="info">{amount}</span>
+                  <span className="info">{eventDate}</span>
+                  <span className="info">{eventTime}</span>
+                  <span className="info">{title}</span>
+                  <span className="info">{userName}</span>
+                </div>
                 <div className="btnArea">
                   <Button
                     outline
