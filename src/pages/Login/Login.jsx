@@ -25,7 +25,7 @@ const Login = () => {
       .then(response => response.json())
       .then(data => {
         if (data.message === 'ADMIN_SIGN_IN_SUCCESS') {
-          localStorage.setItem('token', data.token);
+          localStorage.setItem('adminToken', data.adminToken);
           localStorage.setItem('id', data.id);
           localStorage.setItem('is_admin', data.is_admin);
           localStorage.setItem('name', data.name);

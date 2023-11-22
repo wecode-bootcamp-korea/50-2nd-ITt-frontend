@@ -12,23 +12,31 @@ import './List.scss';
 const List = () => {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
+  const adminToken = localStorage.getItem('adminToken');
 
   const getList = () => {
     axios
       .get(GET_ADMIN_SELECTLIST_API, {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
+          Authorization: adminToken,
         },
       })
       .then(res => {
-        if (res.data.message === 'admin_login_fail') {
+        if (
+          res.data.message === 'admin_login_fail' ||
+          res.data.message === '토큰이 존재하지 않습니다.'
+        ) {
           alert(res.data.message);
           navigate('/');
           return;
         }
         setList(res.data.data);
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.error(err);
+        navigate('/');
+      });
   };
 
   useEffect(() => {
