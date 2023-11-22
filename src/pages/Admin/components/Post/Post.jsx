@@ -42,6 +42,8 @@ const Post = () => {
     eventDate: '',
     eventTime: '',
   });
+  const [files, setFiles] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
   const [category, setCategory] = useState([]);
   const [actor, setActor] = useState([]);
   const [date, setDate] = useState([{}]);
@@ -84,11 +86,29 @@ const Post = () => {
   const updateObject = Object.keys(update).length > 0;
   if (updateObject.length) setUpdateData(update.itemInfo[0]);
 
+  const handleFileUpload = e => {
+    e.preventDefault();
+
+    const file = e.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+
+    fileReader.onload = data => {
+      const imageUrlFromFile = data.target.result;
+      setImageUrl(imageUrlFromFile);
+      setFiles(file);
+    };
+  };
+
   const actorAddClick = () => {
     const updatedActorList = [...actor, { actorName: updateData.actorName }];
     setActor(updatedActorList);
     setUpdateData({ ...updateData, actorName: '' });
   };
+
+  const eventTimes = date.map(option => option.eventTime);
+  const flattenedEventTimes = eventTimes.flat();
+  const uniqueEventTimes = [...new Set(flattenedEventTimes)];
 
   const handleTimeClick = () => {
     const timeToAdd = `${hour}:${minute}`;
@@ -109,58 +129,50 @@ const Post = () => {
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
+    const formData = new FormData();
+    formData.append('title', updateData.title);
+    formData.append('itemImage', files || updateData.image);
+    formData.append('runningTime', updateData.runningTime);
+    formData.append('viewerAge', updateData.viewerAge);
+    formData.append('price', updateData.price);
+    formData.append('itemNotice', updateData.itemNotice);
+    formData.append('categoryName', updateData.categoryName);
+    formData.append('locationName', updateData.locationName);
+    actor.forEach(actorItem => {
+      formData.append('actorName[]', actorItem.actorName);
+    });
+    if (itemId) {
+      formData.append('itemId', itemId);
+    } else {
+      dateArray.forEach(date => {
+        formData.append('eventDate[]', date.toISOString().split('T')[0]);
+      });
+      selectedTimes.forEach(time => {
+        formData.append('eventTime[]', time);
+      });
+    }
+
     if (itemId) {
       axios
-        .put(
-          `${GET_ADMIN_UPDATITEMLIST_API}`,
-          {
-            itemId: itemId,
-            title: updateData.title,
-            image: updateData.image,
-            runningTime: updateData.runningTime,
-            viewerAge: updateData.viewerAge,
-            price: updateData.price,
-            itemNotice: updateData.itemNotice,
-            categoryName: updateData.categoryName,
-            locationName: updateData.locationName,
-            actorName: actor.map(a => a.actorName),
+        .put(`${GET_ADMIN_UPDATITEMLIST_API}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-              authorization:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
-            },
-          },
-        )
+        })
         .then(() => {
           navigate('/admin');
         });
     } else {
       axios
-        .post(
-          `${GET_ADMIN_INSERTITENLIST_API}`,
-          {
-            title: updateData.title,
-            image: updateData.image,
-            runningTime: updateData.runningTime,
-            viewerAge: updateData.viewerAge,
-            price: updateData.price,
-            itemNotice: updateData.itemNotice,
-            categoryName: updateData.categoryName,
-            locationName: updateData.locationName,
-            actorName: actor.map(a => a.actorName),
-            eventDate: dateArray.map(date => date.toISOString().split('T')[0]),
-            eventTime: selectedTimes,
+        .post(`${GET_ADMIN_INSERTITENLIST_API}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-              authorization:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
-            },
-          },
-        )
+        })
         .then(() => {
           navigate('/admin');
         });
@@ -175,7 +187,7 @@ const Post = () => {
     <div className="post">
       <h3 className="postTitle">이벤트 등록</h3>
       <div className="postArea">
-        <form className="formArea">
+        <form className="formArea" encType="multipart/form-data">
           <div className="formInput">
             <label htmlFor="formTitle" className="formLabel">
               공연제목
@@ -194,8 +206,14 @@ const Post = () => {
             <label htmlFor="formImg" className="formLabel">
               이미지 업로드
             </label>
-            <input type="file" id="formImg" className="formControl img" />
-            <img src={updateData.image} alt={updateData.title} />
+            <input
+              type="file"
+              id="formImg"
+              accept="image/*"
+              className="formControl img"
+              onChange={handleFileUpload}
+            />
+            <img src={imageUrl || updateData.image} alt={updateData.title} />
           </div>
           <div className="formInput">
             <label htmlFor="formTime" className="formLabel">
@@ -337,7 +355,8 @@ const Post = () => {
         </div>
         <div>
           <span>시간 선택</span>
-          <span>현재 선택 시간 : {selectedTimes.join(', ')}</span>
+          <span>현재 선택 시간 :{uniqueEventTimes.join(', ')}</span>
+          <span>선택 시간 : {selectedTimes.join(', ')}</span>
           <div>
             <select
               name="time"
