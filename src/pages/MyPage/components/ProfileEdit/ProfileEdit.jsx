@@ -5,7 +5,7 @@ import ProfileImage from '../ProfileImage/ProfileImage';
 import Button from '../../../../components/Button/Button';
 import './ProfileEdit.scss';
 
-const ProfileEdit = ({ name, profileImage, getUserData }) => {
+const ProfileEdit = ({ name, profileImage, getUserData, userData }) => {
   const [files, setFiles] = useState({});
   const [imageUrl, setImageUrl] = useState(profileImage);
 
@@ -39,6 +39,7 @@ const ProfileEdit = ({ name, profileImage, getUserData }) => {
       if (data.message === 'update_success') {
         setImageUrl(data.data.profileImage);
         getUserData();
+        localStorage.setItem('profile_image', data.data.profileImage);
       } else {
         console.error('upload error!');
       }
