@@ -57,8 +57,6 @@ const Post = () => {
         .get(`${GET_ADMIN_SELECTITEMLIST_API}/${itemId}`, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
         })
         .then(res => {
@@ -73,8 +71,6 @@ const Post = () => {
         .get(`${GET_ADMIN_SELECTCATEGORYLIST_API}`, {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
         })
         .then(res => {
@@ -157,8 +153,6 @@ const Post = () => {
         .put(`${GET_ADMIN_UPDATITEMLIST_API}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
         })
         .then(() => {
@@ -169,8 +163,6 @@ const Post = () => {
         .post(`${GET_ADMIN_INSERTITENLIST_API}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJuYW1lIjoiYWRtaW4iLCJpc0FkbWluIjoxLCJpYXQiOjE3MDAxOTk3MjN9.I0EdTx0oWXcykAh9yMoW-lcOrT0hNhmskRxHIne7BZM',
           },
         })
         .then(() => {

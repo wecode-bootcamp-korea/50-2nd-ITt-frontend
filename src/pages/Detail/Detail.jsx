@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Button from '../../components/Button/Button';
 import Datepicker from './components/Datepicker/Datepicker';
@@ -10,6 +10,8 @@ import './Detail.scss';
 
 const Detail = () => {
   const { detailId } = useParams();
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   const [startDate, setStartDate] = useState(new Date());
   const [itemInfo, setItemInfo] = useState({});
@@ -31,8 +33,6 @@ const Detail = () => {
       .get(`${GET_DETAIL_API}/${detailId}`, {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
-          authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJqb21pbnN1Nzc4QG5hdGUuY29tIiwibmFtZSI6IuyhsOuvvOyImCIsImlzX2FkbWluIjowLCJpYXQiOjE3MDAxOTQ0MTF9.XEFtIKSKQH2kqScgntH_krpdCdKZvrUFCj_zlx1eZU8',
         },
       })
       .then(res => {
@@ -55,11 +55,9 @@ const Detail = () => {
   } = itemInfo;
 
   const advanceClick = () => {
-    // 추가 예정
-    // if(token) {
-    //   setIsAdvanceClicked(true);
-    // } else return alert('로그인을 해주세요.')
-    setIsAdvanceClicked(true);
+    if (token) {
+      setIsAdvanceClicked(true);
+    } else return alert('로그인을 해주세요.');
   };
 
   const payClick = () => {
@@ -76,13 +74,13 @@ const Detail = () => {
         {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
-            authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJqb21pbnN1Nzc4QG5hdGUuY29tIiwibmFtZSI6IuyhsOuvvOyImCIsImlzX2FkbWluIjowLCJpYXQiOjE3MDAxOTQ0MTF9.XEFtIKSKQH2kqScgntH_krpdCdKZvrUFCj_zlx1eZU8',
           },
         },
       )
       .then(res => {
-        console.log('추가 예정');
+        if (res.data.message === 'success') {
+          navigate('/payment');
+        }
       });
   };
 
