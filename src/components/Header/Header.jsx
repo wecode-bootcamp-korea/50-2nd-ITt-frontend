@@ -50,7 +50,10 @@ const Header = () => {
                 </p>
               </li>
               <li>
-                <p className="link" onClick={() => navigate('/mypage')}>
+                <p
+                  className="link"
+                  onClick={() => navigate('/mypage?status=complete')}
+                >
                   마이페이지
                 </p>
               </li>

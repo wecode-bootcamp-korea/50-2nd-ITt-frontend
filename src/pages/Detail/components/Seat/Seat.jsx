@@ -10,18 +10,10 @@ const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
 
   useEffect(() => {
     axios
-      .post(
-        GET_SEAT_API,
-        {
-          locationId: itemInfo.locationId,
-          itemId: itemInfo.itemId,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-        },
-      )
+      .post(GET_SEAT_API, {
+        locationId: itemInfo.locationId,
+        itemId: itemInfo.itemId,
+      })
       .then(res => {
         setSeats(res.data.data.seatInfo);
         setRemainSeats(res.data.data.remainSeats);
