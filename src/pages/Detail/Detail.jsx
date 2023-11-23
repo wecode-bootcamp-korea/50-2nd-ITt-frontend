@@ -57,7 +57,11 @@ const Detail = () => {
   const advanceClick = () => {
     if (token && startDate && timeOnChange.id) {
       setIsAdvanceClicked(true);
-    } else return alert('로그인을 해주세요.');
+    } else if (token) {
+      return alert('로그인을 해주세요.');
+    } else if (startDate) {
+      return alert('날짜를 선택해주세요.');
+    } else return alert('시간을 선택해주세요.');
   };
 
   const payClick = () => {

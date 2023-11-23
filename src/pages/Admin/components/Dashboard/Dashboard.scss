@@ -56,5 +56,15 @@
         }
       }
     }
+
+    .notDashboard {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100% - 16px);
+      padding: 10px 24px;
+      border: 1px solid $gray-normal;
+      border-radius: 8px;
+    }
   }
 }

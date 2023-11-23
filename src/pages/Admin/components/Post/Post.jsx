@@ -46,6 +46,7 @@ const Post = () => {
   const [files, setFiles] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
   const [category, setCategory] = useState([]);
+  const [location, setLocation] = useState([]);
   const [actor, setActor] = useState([]);
   const [date, setDate] = useState([{}]);
   const [selectedTimes, setSelectedTimes] = useState([]);
@@ -65,6 +66,7 @@ const Post = () => {
           setUpdate(res.data.data);
           setUpdateData(res.data.data.itemInfo[0]);
           setCategory(res.data.data.categoryInfo);
+          setLocation(res.data.data.locationInfo);
           setActor(res.data.data.actorInfo);
           setDate(res.data.data.itemOption);
         });
@@ -77,7 +79,8 @@ const Post = () => {
           },
         })
         .then(res => {
-          setCategory(res.data.data);
+          setCategory(res.data.data.categoryInfo);
+          setLocation(res.data.data.locationInfo);
         });
     }
   }, [itemId]);
@@ -272,12 +275,12 @@ const Post = () => {
             />
           </div>
           <div className="formInput">
-            <label htmlFor="formSelect" className="formLabel">
+            <label htmlFor="formCategory" className="formLabel">
               카테고리
             </label>
             <select
               name="category"
-              id="formSelect"
+              id="formCategory"
               className="formControl"
               value={updateData.categoryName}
               onChange={event =>
@@ -298,8 +301,8 @@ const Post = () => {
             <label htmlFor="formLocation" className="formLabel">
               장소
             </label>
-            <input
-              type="text"
+            <select
+              name="category"
               id="formLocation"
               className="formControl"
               value={updateData.locationName}
@@ -309,101 +312,132 @@ const Post = () => {
                   locationName: event.target.value,
                 })
               }
-            />
+            >
+              {location.map(location => (
+                <option key={location.locationId}>
+                  {location.locationName}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="formInput">
-            <label htmlFor="formActor" className="formLabel">
-              출연진
-            </label>
-            <input
-              type="text"
-              id="formActor"
-              className="formControl"
-              value={updateData.actorName}
-              onChange={event =>
-                setUpdateData({
-                  ...updateData,
-                  actorName: event.target.value,
-                })
-              }
-            />
-            <Button onClick={actorAddClick}>추가</Button>
-            {actor.map((actor, index) => (
-              <span key={index}>{actor.actorName}</span>
-            ))}
+          <div className="formInput actor">
+            <div className="formInput">
+              <label htmlFor="formActor" className="formLabel">
+                출연진
+              </label>
+              <input
+                type="text"
+                id="formActor"
+                className="formControl"
+                value={updateData.actorName}
+                onChange={event =>
+                  setUpdateData({
+                    ...updateData,
+                    actorName: event.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="actorInfo">
+              <Button width="120px" height="40px" onClick={actorAddClick}>
+                출연진 추가
+              </Button>
+              <div className="actorText">
+                출연진 :
+                {actor.map((actor, index) => (
+                  <span key={index}>{actor.actorName} </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="formInput date">
+            <div className="formInput">
+              <label htmlFor="formDatePicker" className="formLabel">
+                날짜
+              </label>
+              <DatePicker
+                selected={startDate}
+                startDate={startDate}
+                endDate={endDate}
+                onChange={onChange}
+                dateFormat="yyyy년 MM월 dd일"
+                locale={ko}
+                inline
+                selectsRange
+              />
+            </div>
+            <span className="dateText">
+              현재 지정 날짜 : {date[0].eventDate} ~{' '}
+              {date[date.length - 1].eventDate}
+            </span>
+          </div>
+          <div className="formInput time">
+            <div className="formInput">
+              <label htmlFor="formTime" className="formLabel">
+                시간 선택
+              </label>
+              <div className="timeArea">
+                <select
+                  name="time"
+                  id="formTime"
+                  className="formControl"
+                  value={hour}
+                  onChange={event => setHour(event.target.value)}
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                  <option>11</option>
+                  <option>12</option>
+                  <option>13</option>
+                  <option>14</option>
+                  <option>15</option>
+                  <option>16</option>
+                  <option>17</option>
+                  <option>18</option>
+                  <option>19</option>
+                  <option>20</option>
+                  <option>21</option>
+                  <option>22</option>
+                  <option>23</option>
+                  <option>24</option>
+                </select>
+                <select
+                  name="time"
+                  id="formTime"
+                  className="formControl"
+                  value={minute}
+                  onChange={event => setMinute(event.target.value)}
+                >
+                  <option>00</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>30</option>
+                  <option>40</option>
+                  <option>50</option>
+                </select>
+              </div>
+            </div>
+            <div className="timeInfo">
+              <Button width="100px" height="40px" onClick={handleTimeClick}>
+                시간 추가
+              </Button>
+              <span className="timeText">
+                현재 선택 시간 :{uniqueEventTimes.join(', ')}
+              </span>
+              <span className="timeText">
+                선택 시간 : {selectedTimes.join(', ')}
+              </span>
+            </div>
           </div>
         </form>
-        <div className="dateArea">
-          <span>
-            현재 지정 날짜 : {date[0].eventDate} ~{' '}
-            {date[date.length - 1].eventDate}
-          </span>
-          <span>수정 날짜</span>
-          <DatePicker
-            selected={startDate}
-            startDate={startDate}
-            endDate={endDate}
-            onChange={onChange}
-            dateFormat="yyyy년 MM월 dd일"
-            locale={ko}
-            inline
-            selectsRange
-          />
-        </div>
-        <div>
-          <span>시간 선택</span>
-          <span>현재 선택 시간 :{uniqueEventTimes.join(', ')}</span>
-          <span>선택 시간 : {selectedTimes.join(', ')}</span>
-          <div>
-            <select
-              name="time"
-              id="formSelect"
-              className="formControl"
-              value={hour}
-              onChange={event => setHour(event.target.value)}
-            >
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-              <option>21</option>
-              <option>22</option>
-              <option>23</option>
-              <option>24</option>
-            </select>
-            <select
-              name="time"
-              id="formSelect"
-              className="formControl"
-              value={minute}
-              onChange={event => setMinute(event.target.value)}
-            >
-              <option>00</option>
-              <option>10</option>
-              <option>20</option>
-              <option>30</option>
-              <option>40</option>
-              <option>50</option>
-            </select>
-            <Button onClick={handleTimeClick}>추가</Button>
-          </div>
-        </div>
         <div className="btnArea">
           <Button width="100px" onClick={() => handlePostClick(itemId)}>
             확인

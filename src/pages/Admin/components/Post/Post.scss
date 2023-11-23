@@ -27,6 +27,69 @@
         &:not(:first-child) {
           padding-top: 16px;
         }
+
+        &.actor {
+          flex-direction: row;
+          align-items: flex-end;
+
+          .formControl {
+            min-width: 300px;
+          }
+
+          .actorInfo {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+
+            .actorText {
+              margin-left: 10px;
+            }
+          }
+        }
+
+        &.date {
+          flex-direction: row;
+          padding-top: 16px;
+
+          .react-datepicker {
+            margin-top: 10px;
+          }
+
+          .dateText {
+            display: block;
+            padding-top: 30px;
+            margin-left: 20px;
+          }
+        }
+
+        &.time {
+          flex-direction: row;
+          align-items: flex-end;
+          padding-top: 16px;
+
+          .formControl {
+            min-width: 200px;
+          }
+
+          .timeArea {
+            display: flex;
+            .formControl {
+              + .formControl {
+                margin-left: 10px;
+              }
+            }
+          }
+
+          .timeInfo {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+
+            .timeText {
+              margin-left: 10px;
+            }
+          }
+        }
       }
 
       .formLabel {
@@ -35,9 +98,9 @@
       }
 
       .formControl {
-        margin-top: 10px;
         width: 100%;
         height: 40px;
+        margin-top: 10px;
         padding: 10px;
         border: 1px solid $gray-strong;
         border-radius: 8px;
@@ -59,10 +122,6 @@
           resize: none;
         }
       }
-    }
-
-    .dateArea {
-      padding-top: 16px;
     }
 
     .btnArea {
