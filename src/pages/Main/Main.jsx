@@ -164,7 +164,7 @@ const Main = () => {
           #뮤지컬
         </button>
         <button className="categoryText" onClick={() => handleCategoryClick(1)}>
-          #공포#로맨스
+          #로맨스
         </button>
       </div>
 
