@@ -6,6 +6,7 @@ const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn =
     !!localStorage.getItem('token') || !!localStorage.getItem('adminToken');
+  const isAdmin = localStorage.getItem('is_admin') === '1';
   const name = localStorage.getItem('name');
   // const profile_image = localStorage.getItem('profile_image');
   const handleLogout = () => {
@@ -39,24 +40,30 @@ const Header = () => {
         <ul className="headerText">
           {isLoggedIn ? (
             <>
-              {/* <img className="propic" alt="propic" src={profile_image} /> */}
-
               <li>
                 <p>{name} 님</p>
               </li>
               <li>
-                <p className="link" onClick={handleLogout}>
+                <button className="link" onClick={handleLogout}>
                   로그아웃
-                </p>
+                </button>
               </li>
-              <li>
-                <p
-                  className="link"
-                  onClick={() => navigate('/mypage?status=complete')}
-                >
-                  마이페이지
-                </p>
-              </li>
+              {isAdmin ? (
+                <li>
+                  <button className="link" onClick={() => navigate('/admin')}>
+                    관리자 페이지
+                  </button>
+                </li>
+              ) : (
+                <li>
+                  <button
+                    className="link"
+                    onClick={() => navigate('/mypage?status=complete')}
+                  >
+                    마이페이지
+                  </button>
+                </li>
+              )}
             </>
           ) : (
             <li>

@@ -154,18 +154,18 @@ const Main = () => {
       </div>
 
       <div className="categoryLinks">
-        <p className="categoryText" onClick={() => handleCategoryClick(1)}>
+        <button className="categoryText" onClick={() => handleCategoryClick(1)}>
           #로맨스
-        </p>
-        <p className="categoryText" onClick={() => handleCategoryClick(2)}>
+        </button>
+        <button className="categoryText" onClick={() => handleCategoryClick(2)}>
           #코미디
-        </p>
-        <p className="categoryText" onClick={() => handleCategoryClick(3)}>
+        </button>
+        <button className="categoryText" onClick={() => handleCategoryClick(3)}>
           #뮤지컬
-        </p>
-        <p className="categoryText" onClick={() => handleCategoryClick(4)}>
+        </button>
+        <button className="categoryText" onClick={() => handleCategoryClick(4)}>
           #공포
-        </p>
+        </button>
       </div>
 
       <div className="categoryList">
