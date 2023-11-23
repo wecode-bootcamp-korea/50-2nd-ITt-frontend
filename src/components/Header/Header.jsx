@@ -4,14 +4,16 @@ import './Header.scss';
 
 const Header = () => {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem('token');
+  const isLoggedIn =
+    !!localStorage.getItem('token') || !!localStorage.getItem('adminToken');
   const name = localStorage.getItem('name');
-  const profile_image = localStorage.getItem('profile_image');
+  // const profile_image = localStorage.getItem('profile_image');
   const handleLogout = () => {
     const isLogoutConfirmed = window.confirm('로그아웃 하시겠습니까?');
 
     if (isLogoutConfirmed) {
       localStorage.removeItem('token');
+      localStorage.removeItem('adminToken');
       localStorage.removeItem('id');
       localStorage.removeItem('is_admin');
       localStorage.removeItem('name');
