@@ -9,6 +9,7 @@ import './Dashboard.scss';
 
 const Dashboard = () => {
   const [dashList, setDashList] = useState([]);
+  const [isDasList, setIsDasList] = useState(false);
   const adminToken = localStorage.getItem('adminToken');
 
   const getDashList = () => {
@@ -20,7 +21,12 @@ const Dashboard = () => {
         },
       })
       .then(res => {
-        setDashList(res.data.data);
+        if (res.data.message === 'select_order_information_fail') {
+          setIsDasList(true);
+        } else {
+          setDashList(res.data.data);
+          setIsDasList(false);
+        }
       });
   };
 
@@ -50,42 +56,46 @@ const Dashboard = () => {
     <div className="dashboard">
       <h3 className="dashboardTitle">대시보드</h3>
       <div className="dashboardArea">
-        <ul className="dashboardGroup">
-          {dashList.map(dashList => {
-            const {
-              userId,
-              amount,
-              eventDate,
-              eventTime,
-              title,
-              userName,
-              reservationId,
-            } = dashList;
-            return (
-              <li className="dashboardInfo" key={userId}>
-                <div className="infoGroup">
-                  <span className="info">
-                    가격 : ₩ {amount.toLocaleString('ko-KR')}원
-                  </span>
-                  <span className="info">날짜 : {eventDate}</span>
-                  <span className="info">시간 : {eventTime}</span>
-                  <span className="info">제목 : {title}</span>
-                  <span className="info">이름 : {userName}</span>
-                </div>
-                <div className="btnArea">
-                  <Button
-                    outline
-                    width="100px"
-                    height="40px"
-                    onClick={() => handleDelectClick(reservationId)}
-                  >
-                    예매 취소
-                  </Button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        {isDasList ? (
+          <span className="notDashboard">예매 내역이 없습니다.</span>
+        ) : (
+          <ul className="dashboardGroup">
+            {dashList.map(dashList => {
+              const {
+                userId,
+                amount,
+                eventDate,
+                eventTime,
+                title,
+                userName,
+                reservationId,
+              } = dashList;
+              return (
+                <li className="dashboardInfo" key={userId}>
+                  <div className="infoGroup">
+                    <span className="info">
+                      가격 : ₩ {amount.toLocaleString('ko-KR')}원
+                    </span>
+                    <span className="info">날짜 : {eventDate}</span>
+                    <span className="info">시간 : {eventTime}</span>
+                    <span className="info">제목 : {title}</span>
+                    <span className="info">이름 : {userName}</span>
+                  </div>
+                  <div className="btnArea">
+                    <Button
+                      outline
+                      width="100px"
+                      height="40px"
+                      onClick={() => handleDelectClick(reservationId)}
+                    >
+                      예매 취소
+                    </Button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );
