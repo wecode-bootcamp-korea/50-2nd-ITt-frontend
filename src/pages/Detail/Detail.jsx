@@ -118,14 +118,16 @@ const Detail = () => {
               </dl>
               <dl className="infoList">
                 <dt>출연</dt>
-                {actorInfo.map((actor, i) => (
-                  <dd key={i}>{actor.name}</dd>
-                ))}
+                <dd>
+                  {actorInfo.map((actor, i) => (
+                    <span key={i}>{actor.name} </span>
+                  ))}
+                </dd>
               </dl>
               <dl className="infoList">
                 <dt>가격</dt>
                 <dd>
-                  <span>{price}</span>원
+                  <span className="price">{price}</span>원
                 </dd>
               </dl>
               <dl className="infoList block">
