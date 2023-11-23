@@ -64,11 +64,13 @@ const Dashboard = () => {
             return (
               <li className="dashboardInfo" key={userId}>
                 <div className="infoGroup">
-                  <span className="info">{amount}</span>
-                  <span className="info">{eventDate}</span>
-                  <span className="info">{eventTime}</span>
-                  <span className="info">{title}</span>
-                  <span className="info">{userName}</span>
+                  <span className="info">
+                    가격 : ₩ {amount.toLocaleString('ko-KR')}원
+                  </span>
+                  <span className="info">날짜 : {eventDate}</span>
+                  <span className="info">시간 : {eventTime}</span>
+                  <span className="info">제목 : {title}</span>
+                  <span className="info">이름 : {userName}</span>
                 </div>
                 <div className="btnArea">
                   <Button

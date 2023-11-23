@@ -32,10 +32,25 @@
           display: flex;
 
           .info {
+            position: relative;
             display: block;
 
+            &:first-child {
+              padding-right: 10px;
+            }
+
             &:not(:first-child) {
-              margin-left: 8px;
+              padding: 0 10px;
+
+              &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 1px;
+                height: 100%;
+                background-color: $gray-strong;
+              }
             }
           }
         }
