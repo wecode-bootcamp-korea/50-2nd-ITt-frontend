@@ -4,7 +4,6 @@ import Header from '../Header/Header';
 import './Layout.scss';
 
 const HEADER_EXCEPTIONAL_PATHS = [
-  '/admin',
   '/login',
   '/payment',
   '/pay-cancel',

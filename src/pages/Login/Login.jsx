@@ -47,7 +47,7 @@ const Login = () => {
     <div className="login">
       <div className="top">
         <div className="topBack">
-          <Link to="/main">
+          <Link to="/">
             <img alt="backimg" className="backImg" src="/images/backimg.png" />
             뒤로가기
           </Link>
@@ -61,8 +61,8 @@ const Login = () => {
       </div>
       <div>
         <div className="main">
-          <img alt="logoimg" className="logo" src="/images/gitcat.png" />
-          <div className="maincont">"환영합니다!"</div>
+          <img alt="logoimg" className="logo" src="/images/logo2.png" />
+          <div className="mainCont">"ItCat 에 오신걸 환영합니다!"</div>
 
           <div>
             <SocialLogin />
