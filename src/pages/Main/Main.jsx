@@ -43,7 +43,7 @@ const Main = () => {
 
   const SLIDE_TO_SHOW = 4;
 
-  const [categoryId, setcategoryId] = useState(1);
+  const [categoryId, setcategoryId] = useState(4);
   const [productsData, setProductsData] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -154,8 +154,8 @@ const Main = () => {
       </div>
 
       <div className="categoryLinks">
-        <button className="categoryText" onClick={() => handleCategoryClick(1)}>
-          #로맨스
+        <button className="categoryText" onClick={() => handleCategoryClick(4)}>
+          #공포
         </button>
         <button className="categoryText" onClick={() => handleCategoryClick(2)}>
           #코미디
@@ -163,8 +163,8 @@ const Main = () => {
         <button className="categoryText" onClick={() => handleCategoryClick(3)}>
           #뮤지컬
         </button>
-        <button className="categoryText" onClick={() => handleCategoryClick(4)}>
-          #공포
+        <button className="categoryText" onClick={() => handleCategoryClick(1)}>
+          #공포#로맨스
         </button>
       </div>
 
