@@ -3,17 +3,26 @@ import axios from 'axios';
 import { GET_SEAT_API } from '../../../../config';
 import './Seat.scss';
 
-const Seat = ({ itemInfo, setCheckedItems, checkedItems }) => {
+const Seat = ({ itemInfo, setCheckedItems, checkedItems, token }) => {
   const [seats, setSeats] = useState([]);
   const [remainSeats, setRemainSeats] = useState({});
   const rows = [...new Set(seats.map(seat => seat.seatRow))];
 
   useEffect(() => {
     axios
-      .post(GET_SEAT_API, {
-        locationId: itemInfo.locationId,
-        itemId: itemInfo.itemId,
-      })
+      .post(
+        GET_SEAT_API,
+        {
+          locationId: itemInfo.locationId,
+          itemId: itemInfo.itemId,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            Authorization: token,
+          },
+        },
+      )
       .then(res => {
         setSeats(res.data.data.seatInfo);
         setRemainSeats(res.data.data.remainSeats);

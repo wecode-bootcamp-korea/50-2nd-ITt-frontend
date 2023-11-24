@@ -66,21 +66,13 @@ const Detail = () => {
 
   const payClick = () => {
     axios
-      .post(
-        `${GET_ADVANCE_API}/${detailId}`,
-        {
-          itemOptionsId: timeOnChange.id,
-          seatIds: checkedItems.map(item => {
-            return item.id;
-          }),
-          price: itemInfo.price,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-        },
-      )
+      .post(`${GET_ADVANCE_API}/${detailId}`, {
+        itemOptionsId: timeOnChange.id,
+        seatIds: checkedItems.map(item => {
+          return item.id;
+        }),
+        price: itemInfo.price,
+      })
       .then(res => {
         if (res.data.message === 'success') {
           navigate('/payment');
@@ -188,6 +180,7 @@ const Detail = () => {
               itemInfo={itemInfo}
               setCheckedItems={setCheckedItems}
               checkedItems={checkedItems}
+              token={token}
             />
           </div>
           <Button width="230px" onClick={payClick}>
